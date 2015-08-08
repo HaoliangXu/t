@@ -1,4 +1,8 @@
-var component = require('./component.js');
+import React from 'react';
+import App from './component.jsx';
 
+main();
 
-document.body.appendChild(component());
+function main() {
+  React.render(<App originalData="asdfasdfasdf"/>, document.getElementById('app'));
+}
