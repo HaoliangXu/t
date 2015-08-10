@@ -5,7 +5,12 @@ import Title from './title.jsx';
 var ThemeManager = new Mui.Styles.ThemeManager();
 
 export default class App extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      showData : ""
+    };
+  }
 
   getChildContext() {
     return {
@@ -18,12 +23,12 @@ export default class App extends React.Component {
       <div className="appBox">
         <Title />
         <section>
-          {this.props.originalData}
+          <h1>asdf</h1>
+          <p>{this.state.showData}</p>
         </section>
       </div>
     );
   }
-
 }
 
 App.childContextTypes = {

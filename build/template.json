@@ -55,14 +55,14 @@
       "pid": "",
       "tid": "8",
       "type": "normal"
-    },
+    }
   ],
   "progress": {
     "stage1": {
-      "type": "g2"        //group of 2
+      "type": "g2"
     },
     "stage2": {
-      "type": "4e",  //elimination
+      "type": "4e",
       "matchesTree": {
         "name": "final",
         "players": [
@@ -82,7 +82,7 @@
             "type": "bo3",
             "game1": {
               "info": null,
-              "links": {},
+              "links": {}
 
             }
           },
@@ -93,19 +93,17 @@
               "8"
             ],
             "winner": "5",
-            "predecessor": null,
+            "predecessor": null
           }
         ],
         "type": "bo3",
         "game1": {
-          "info":,
-          "links":
+          "info": null,
+          "links": null
         },
         "game2": {
-
         },
         "game3": {
-
         }
       }
     }
