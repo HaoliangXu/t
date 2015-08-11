@@ -1,109 +1,113 @@
 {
   "id": "2983ye19283ye8q72y3r87q",
   "name": "demoTemplate",
-  "info": {
-    "intro": "this is a demo template",
-    "type": "starcraft",
-    "series": "xhl",
-    "sponsors": {}
-  },
-  "paticipants": [
-    {
-      "name": "jim",
-      "pid": "0q983yr347yr8937y48w87qy34",
-      "tid": "1",
-      "type": "invited"
+  "show": {
+    "info": {
+      "brief": "",
+      "overview": "this is a demo template",
+      "game": "starcraft",
+      "series": "xhl",
+      "sponsors": {},
+      "prize": {}
     },
-    {
-      "name": "xhl",
-      "pid": "",
-      "tid": "2",
-      "type": "normal"
-    },
-    {
-      "name": "jim2",
-      "pid": "0q983yr347asdfy48w87qy34",
-      "tid": "3",
-      "type": "invited"
-    },
-    {
-      "name": "xhl2",
-      "pid": "",
-      "tid": "4",
-      "type": "normal"
-    },
-    {
-      "name": "jim3",
-      "pid": "0q983yr347yr8937sdfg48w87qy34",
-      "tid": "5",
-      "type": "invited"
-    },
-    {
-      "name": "xhl3",
-      "pid": "",
-      "tid": "6",
-      "type": "normal"
-    },
-    {
-      "name": "jim4",
-      "pid": "0q983yr347yr89qwxvy48w87qy34",
-      "tid": "7",
-      "type": "invited"
-    },
-    {
-      "name": "xhl4",
-      "pid": "",
-      "tid": "8",
-      "type": "normal"
-    }
-  ],
-  "progress": {
-    "stage1": {
-      "type": "g2"
-    },
-    "stage2": {
-      "type": "4e",
-      "matchesTree": {
-        "name": "final",
-        "players": [
-          "1",
-          "2"
-        ],
-        "winner": "1",
-        "predecessor": [
-          {
-            "name": "semifinal1",
-            "players": [
-              "1",
-              "4"
-            ],
-            "winner": "1",
-            "predecessor": null,
-            "type": "bo3",
-            "game1": {
-              "info": null,
-              "links": {}
+    "paticipants": [
+      {
+        "name": "jim",
+        "pid": "0q983yr347yr8937y48w87qy34",
+        "tid": "1",
+        "type": "invited"
+      },
+      {
+        "name": "xhl",
+        "pid": "",
+        "tid": "2",
+        "type": "normal"
+      },
+      {
+        "name": "jim2",
+        "pid": "0q983yr347asdfy48w87qy34",
+        "tid": "3",
+        "type": "invited"
+      },
+      {
+        "name": "xhl2",
+        "pid": "",
+        "tid": "4",
+        "type": "normal"
+      },
+      {
+        "name": "jim3",
+        "pid": "0q983yr347yr8937sdfg48w87qy34",
+        "tid": "5",
+        "type": "invited"
+      },
+      {
+        "name": "xhl3",
+        "pid": "",
+        "tid": "6",
+        "type": "normal"
+      },
+      {
+        "name": "jim4",
+        "pid": "0q983yr347yr89qwxvy48w87qy34",
+        "tid": "7",
+        "type": "invited"
+      },
+      {
+        "name": "xhl4",
+        "pid": "",
+        "tid": "8",
+        "type": "normal"
+      }
+    ],
+    "results": {
+      "stage1": {
+        "type": "g2"
+      },
+      "stage2": {
+        "type": "4e",
+        "matchesTree": {
+          "name": "final",
+          "players": [
+            "1",
+            "2"
+          ],
+          "winner": "1",
+          "predecessor": [
+            {
+              "name": "semifinal1",
+              "players": [
+                "1",
+                "4"
+              ],
+              "winner": "1",
+              "predecessor": null,
+              "type": "bo3",
+              "game1": {
+                "info": null,
+                "links": {}
 
+              }
+            },
+            {
+              "name": "semifinal2",
+              "players": [
+                "5",
+                "8"
+              ],
+              "winner": "5",
+              "predecessor": null
             }
+          ],
+          "type": "bo3",
+          "game1": {
+            "info": null,
+            "links": null
           },
-          {
-            "name": "semifinal2",
-            "players": [
-              "5",
-              "8"
-            ],
-            "winner": "5",
-            "predecessor": null
+          "game2": {
+          },
+          "game3": {
           }
-        ],
-        "type": "bo3",
-        "game1": {
-          "info": null,
-          "links": null
-        },
-        "game2": {
-        },
-        "game3": {
         }
       }
     }

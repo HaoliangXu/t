@@ -4,8 +4,10 @@ var AppBar = Mui.AppBar;
 
 export default class Title extends React.Component {
   render() {
-    return <AppBar
-  title="T"
-  iconClassNameRight="muidocs-icon-navigation-expand-more" />;
+    return <div className="appTitle">
+      <AppBar
+          title="Tournament"
+          iconClassNameRight="muidocs-icon-navigation-expand-more" />
+    </div>;
   }
 }

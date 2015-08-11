@@ -1,7 +1,14 @@
 body{
   margin:0;
 }
-div#app {
+div#app{
   width: 100%;
   margin: 0;
+}
+div.appTitle{
+}
+section.t{
+}
+div.cards{
+  margin: 50px;
 }

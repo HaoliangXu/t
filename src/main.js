@@ -2,14 +2,12 @@ import React from 'react';
 import App from './component.jsx';
 
 var appReact;
-var originalData;
 reqwest({
   url: './template.json',
   //type: 'html',
   success: function(resp) {
-    originalData = JSON.stringify(resp);
     appReact.setState({
-      showData: originalData
+      tData: resp
     });
     appReact.render();
   },
@@ -21,5 +19,5 @@ reqwest({
 main();
 
 function main() {
-  appReact = React.render(<App showData={originalData}/>, document.getElementById('app'));
+  appReact = React.render(<App />, document.getElementById('app'));
 }
