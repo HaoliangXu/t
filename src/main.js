@@ -1,5 +1,5 @@
 import React from 'react';
-import App from './component.jsx';
+import View from './view.jsx';
 
 var appReact;
 reqwest({
@@ -9,7 +9,6 @@ reqwest({
     appReact.setState({
       tData: resp
     });
-    appReact.render();
   },
   error: function(err, msg) {
     console.log(msg);
@@ -19,5 +18,5 @@ reqwest({
 main();
 
 function main() {
-  appReact = React.render(<App />, document.getElementById('app'));
+  appReact = React.render(<View />, document.getElementById('app'));
 }

@@ -1,14 +1,21 @@
 import React from 'react';
 import Mui from 'material-ui';
 import Title from './title.jsx';//import title component
+import CardInfo from './cardInfo.jsx';
+import CardPaticipants from './cardPaticipants.jsx';
 import CardResults from './cardResults.jsx';
 var ThemeManager = new Mui.Styles.ThemeManager();
 
-export default class App extends React.Component {
+export default class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       tData : {}
+    };
+    this.cardArray = {
+      "info": CardInfo,
+      "paticipants": CardPaticipants,
+      "results": CardResults
     };
   }
 
@@ -23,19 +30,19 @@ export default class App extends React.Component {
       <div className="appBox">
         <Title />
         <section className="t">
-          {function(input){
+          {function(input, cards){
             var output = [];
             for (var key in input) {
-              output.push(React.createElement(CardResults,{"className": "cards", "cData":JSON.stringify(input.key), "key":key}));
+              output.push(React.createElement(cards[key], {cData:input[key],"key":key}));
             }
-            return output
-          }(this.state.tData.show)}
+            return output;
+          }(this.state.tData.toShow, this.cardArray)}
         </section>
       </div>
     );
   }
 }
 
-App.childContextTypes = {
+View.childContextTypes = {
   muiTheme: React.PropTypes.object
 };

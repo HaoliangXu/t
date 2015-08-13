@@ -3,7 +3,7 @@ import Mui from 'material-ui';
 var Card = Mui.Card;
 var CardText = Mui.CardText;
 
-export default class CardResults extends React.Component{
+export default class CardInfo extends React.Component{
   constructor(props){
     super(props);
     this.state = {
