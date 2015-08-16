@@ -7,5 +7,6 @@ div#app{
 }
 div.appTitle{
 }
-section.t{
+section .card{
+  margin: 0 0 5px 0;
 }

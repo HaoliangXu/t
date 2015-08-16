@@ -1,14 +1,19 @@
 {
   "id": "2983ye19283ye8q72y3r87q",
-  "name": "demoTemplate",
+  "name": "demo tournament",
   "toShow": {
     "info": {
       "brief": "",
-      "overview": "this is a demo template",
       "game": "starcraft",
       "series": "xhl",
+      "organizer": "coco fund",
       "sponsors": {},
-      "prize": {}
+      "format": "",
+      "prize": {},
+      "start time": "",
+      "duration": "1 day",
+      "others": "",
+      "tier": ""
     },
     "paticipants": [
       {
@@ -62,7 +67,261 @@
     ],
     "results": {
       "stage1": {
-        "type": "g2"
+        "type": "group 2",
+        "groups": [
+          {
+            "type": "group dual",
+            "players": [
+              "1",
+              "2",
+              "3",
+              "4"
+            ],
+            "links": {
+              "preview": "",
+              "liveVideo": "",
+            },
+            "matches": [
+              {
+                "players": [
+                  "1",
+                  "2"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "1",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "2",
+                    "map": "qwer",
+                  },
+                  {
+                    "winner": "1",
+                    "map": "zxcv"
+                  }
+                ],
+                "winner": "1"
+              },
+              {
+                "players": [
+                  "3",
+                  "4"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "3",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "4",
+                    "map": "qwer",
+                  },
+                  {
+                    "winner": "3",
+                    "map": "zxcv"
+                  }
+                ],
+                "winner": "3"
+              },
+              {
+                "players": [
+                  "1",
+                  "3"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "3",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "1",
+                    "map": "qwer",
+                  },
+                  {
+                    "winner": "3",
+                    "map": "zxcv"
+                  }
+                ],
+                "winner": "6"
+              },
+              {
+                "players": [
+                  "2",
+                  "4"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "4",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "4",
+                    "map": "qwer",
+                  }
+                ],
+                "winner": "4"
+              },
+              {
+                "players": [
+                  "1",
+                  "4"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "1",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "1",
+                    "map": "qwer",
+                  },
+                ],
+                "winner": "1"
+              }
+            ],
+            "qualified": [
+              "1",
+              "3"
+            ]
+          },
+          {
+            "type": "group dual",
+            "players": [
+              "5",
+              "6",
+              "7",
+              "8"
+            ],
+            "links": {
+              "preview": "",
+              "liveVideo": "",
+            },
+            "matches": [
+              {
+                "players": [
+                  "5",
+                  "6"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "5",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "6",
+                    "map": "qwer",
+                  },
+                  {
+                    "winner": "5",
+                    "map": "zxcv"
+                  }
+                ],
+                "winner": "5"
+              },
+              {
+                "players": [
+                  "7",
+                  "8"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "7",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "8",
+                    "map": "qwer",
+                  },
+                  {
+                    "winner": "7",
+                    "map": "zxcv"
+                  }
+                ],
+                "winner": "7"
+              },
+              {
+                "players": [
+                  "5",
+                  "7"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "7",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "5",
+                    "map": "qwer",
+                  },
+                  {
+                    "winner": "7",
+                    "map": "zxcv"
+                  }
+                ],
+                "winner": "6"
+              },
+              {
+                "players": [
+                  "6",
+                  "8"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "8",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "8",
+                    "map": "qwer",
+                  }
+                ],
+                "winner": "8"
+              },
+              {
+                "players": [
+                  "5",
+                  "8"
+                ],
+                "type": "bo3",
+                "games": [
+                  {
+                    "winner": "5",
+                    "map": "asdf",
+                    "replay": ""
+                  },
+                  {
+                    "winner": "5",
+                    "map": "qwer",
+                  },
+                ],
+                "winner": "5"
+              }
+            ],
+            "qualified": [
+              "5",
+              "7"
+            ]
+          },
+        ]
       },
       "stage2": {
         "type": "4e",
@@ -78,7 +337,7 @@
               "name": "semifinal1",
               "players": [
                 "1",
-                "4"
+                "3"
               ],
               "winner": "1",
               "predecessor": null,
@@ -93,7 +352,7 @@
               "name": "semifinal2",
               "players": [
                 "5",
-                "8"
+                "7"
               ],
               "winner": "5",
               "predecessor": null

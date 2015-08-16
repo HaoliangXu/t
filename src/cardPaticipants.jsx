@@ -17,8 +17,8 @@ export default class CardPaticipants extends React.Component{
 
   render(){
     return (
-      <Card style={{margin:10}}>
-        <CardText>{JSON.stringify(this.state.cData)}</CardText>
+      <Card className="card">
+        <CardText expandable={true}>{JSON.stringify(this.state.cData)}</CardText>
       </Card>
     );
   }

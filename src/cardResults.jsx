@@ -2,6 +2,7 @@ import React from 'react';
 import Mui from 'material-ui';
 var Card = Mui.Card;
 var CardText = Mui.CardText;
+var CardTitle = Mui.CardTitle;
 
 export default class CardResults extends React.Component{
   constructor(props){
@@ -17,8 +18,11 @@ export default class CardResults extends React.Component{
 
   render(){
     return (
-      <Card style={{margin:10}}>
-        <CardText>{JSON.stringify(this.state.cData)}</CardText>
+      <Card className="card">
+        <CardTitle
+            title="Results"
+          />
+        <CardText>{JSON.stringify(this.state.cData.results)}</CardText>
       </Card>
     );
   }

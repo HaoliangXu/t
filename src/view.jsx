@@ -25,18 +25,20 @@ export default class View extends React.Component {
     };
   }
 
+  generateParts(input, cards){
+    var output = [];
+    for (var key in input) {
+      output.push(React.createElement(cards[key], {cData:input,"key":key}));
+    }
+    return output;
+  }
+
   render() {
     return (
       <div className="appBox">
         <Title />
         <section className="t">
-          {function(input, cards){
-            var output = [];
-            for (var key in input) {
-              output.push(React.createElement(cards[key], {cData:input[key],"key":key}));
-            }
-            return output;
-          }(this.state.tData.toShow, this.cardArray)}
+          {this.generateParts(this.state.tData.toShow, this.cardArray)}
         </section>
       </div>
     );
