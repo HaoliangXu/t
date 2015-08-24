@@ -1,22 +1,13 @@
-import React from 'react';
-import View from './view.jsx';
-
-var appReact;
-reqwest({
-  url: './template.json',
-  //type: 'html',
-  success: function(resp) {
-    appReact.setState({
-      tData: resp
-    });
-  },
-  error: function(err, msg) {
-    console.log(msg);
-  }
-});
+var initState = {
+  'page': 't',
+  'pageSource': 'template',
+  'userID': 0
+};
+import Model from './model.js';
 
 main();
 
 function main() {
-  appReact = React.render(<View />, document.getElementById('app'));
+  let model = new Model(initState);
+  model.start();
 }

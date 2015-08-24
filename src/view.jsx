@@ -1,3 +1,4 @@
+import L from './i18n.js';
 import React from 'react';
 import Mui from 'material-ui';
 import Title from './title.jsx';//import title component
