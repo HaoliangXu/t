@@ -6,7 +6,7 @@ export default class Title extends React.Component {
   render() {
     return <div className="appTitle">
       <AppBar
-          title="Tournament"
+          title={this.props.name}
           iconClassNameRight="muidocs-icon-navigation-expand-more" />
     </div>;
   }

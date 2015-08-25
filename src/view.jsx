@@ -5,14 +5,14 @@ import Title from './title.jsx';//import title component
 import CardInfo from './cardInfo.jsx';
 import CardPaticipants from './cardPaticipants.jsx';
 import CardResults from './cardResults.jsx';
+
+//set mui theme, see material-ui docs
 var ThemeManager = new Mui.Styles.ThemeManager();
 
 export default class View extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tData : {}
-    };
+    this.state = props;
     this.cardArray = {
       "info": CardInfo,
       "paticipants": CardPaticipants,
@@ -35,9 +35,10 @@ export default class View extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="appBox">
-        <Title />
+        <Title name={L(this.state.tData.name)}/>
         <section className="t">
           {this.generateParts(this.state.tData.toShow, this.cardArray)}
         </section>

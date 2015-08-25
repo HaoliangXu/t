@@ -16,7 +16,7 @@ export default class Model {
     if (this.appState.page === 't') {
       this.comm.reqT(this.appState.pageSource, this.tJsonHandler.bind(this), this.errHandler.bind(this));
     }
-    this.view = React.render(<View page={this.appState.page}/>, document.getElementById('app'));
+    this.view = React.render(<View page={this.appState.page} tData={{}}/>, document.getElementById('app'));
   }
 
   tJsonHandler(res){
@@ -25,7 +25,9 @@ export default class Model {
     });
   }
 
-  errHandler(err, msg){
+  errHandler(err, msg){//TODO need a powerful error handler
       console.log(msg);
   }
+
+
 }
