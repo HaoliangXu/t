@@ -1,10 +1,10 @@
 import L from './i18n.js';
 import React from 'react';
 import Mui from 'material-ui';
-import Title from './title.jsx';//import title component
-import CardInfo from './cardInfo.jsx';
-import CardPaticipants from './cardPaticipants.jsx';
-import CardResults from './cardResults.jsx';
+import MainBar from './mainBar.jsx';//import title component
+import PageT from './pageT.jsx';
+let List = Mui.List;
+let ListDivider = Mui.ListDivider;
 
 //set mui theme, see material-ui docs
 var ThemeManager = new Mui.Styles.ThemeManager();
@@ -13,11 +13,6 @@ export default class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = props;
-    this.cardArray = {
-      "info": CardInfo,
-      "paticipants": CardPaticipants,
-      "results": CardResults
-    };
   }
 
   getChildContext() {
@@ -26,22 +21,24 @@ export default class View extends React.Component {
     };
   }
 
-  generateParts(input, cards){
-    var output = [];
-    for (var key in input) {
-      output.push(React.createElement(cards[key], {cData:input,"key":key}));
-    }
-    return output;
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps);
+    console.log(nextState);
+    this.refs.pageT.setState({'cData':nextState.tData.toShow});
+    return false;
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="appBox">
-        <Title name={L(this.state.tData.name)}/>
-        <section className="t">
-          {this.generateParts(this.state.tData.toShow, this.cardArray)}
-        </section>
+        <MainBar name={L(this.state.tData.name)} />
+        <List>
+          <PageT ref="pageT"/>
+        </List>
+        <ListDivider />
+        <List>
+          qwer
+        </List>
       </div>
     );
   }
