@@ -3,8 +3,10 @@ import React from 'react';
 import Mui from 'material-ui';
 import MainBar from './mainBar.jsx';//import title component
 import PageT from './pageT.jsx';
+import PageList from "./pageList.jsx";
 let List = Mui.List;
 let ListDivider = Mui.ListDivider;
+let CurrentPage
 
 //set mui theme, see material-ui docs
 var ThemeManager = new Mui.Styles.ThemeManager();
@@ -13,6 +15,16 @@ export default class View extends React.Component {
   constructor(props) {
     super(props);
     this.state = props;
+    CurrentPage = this.selectPage(this.state.page);
+  }
+
+  selectPage(page) {
+    switch (page) {
+      case "viewT", "createT":
+        return PageT;
+      default:
+        return PageList;
+    }
   }
 
   getChildContext() {
@@ -22,9 +34,7 @@ export default class View extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log(nextProps);
-    console.log(nextState);
-    this.refs.pageT.setState({'cData':nextState.tData.toShow});
+    this.refs.currentPage.setState({'listData':nextState.listData});
     return false;
   }
 
@@ -33,7 +43,7 @@ export default class View extends React.Component {
       <div className="appBox">
         <MainBar name={L(this.state.tData.name)} />
         <List>
-          <PageT ref="pageT"/>
+          <CurrentPage ref="currentPage"/>
         </List>
         <ListDivider />
         <List>

@@ -4,19 +4,18 @@ var Card = Mui.Card;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
 
-export default class pageT extends React.Component{
+export default class PageList extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      cData: {}
+      listData: {}
     };
   }
 
   render(){
-    //console.log(this.state.cData);
     return (
       <div>
-        {JSON.stringify(this.state.cData)}
+        {JSON.stringify(this.state.listData)}
       </div>
     );
   }

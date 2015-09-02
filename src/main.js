@@ -1,9 +1,15 @@
 var initState = {
-  'page': 't',
-  'pageSource': 'template',
-  'userID': 0
+  "page": "discover",
+  "params": {
+    //'pageSource': 'template',
+    "userID": 0,
+    "keywords": "",
+    "kinds": "",
+    "location": "",
+    "tier": ""
+  },
 };
-import Model from './model.js';
+import Model from "./model.jsx";
 
 main();
 
