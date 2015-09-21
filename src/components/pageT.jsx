@@ -7,16 +7,14 @@ var CardTitle = Mui.CardTitle;
 export default class pageT extends React.Component{
   constructor(props){
     super(props);
-    this.state = {
-      cData: {}
-    };
+    this.state = props;
   }
 
   render(){
     //console.log(this.state.cData);
     return (
       <div>
-        {JSON.stringify(this.state.cData)}
+        {JSON.stringify(this.state.content.T)}
       </div>
     );
   }
