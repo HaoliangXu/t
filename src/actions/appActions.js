@@ -16,7 +16,7 @@ var AppActions = {
   /**
    * @param  {string} page The name of the page to show
    * @param  {object} req the Comm request for the page content
-   */
+   *
   switchPage: function(page, req) {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.SWITCH_PAGE,
@@ -24,6 +24,7 @@ var AppActions = {
       req: req
     });
   },
+  */
 
   /**
    * Toggle whether a single ToDo is complete
@@ -36,11 +37,11 @@ var AppActions = {
   },
 
   /**
-   * Mark all ToDos as complete
+   * create a new T, with showing a dialog first.
    */
-  toggleCompleteAll: function() {
-    AppDispatcher.dispatch({
-      actionType: AppConstants.TODO_TOGGLE_COMPLETE_ALL
+  createT: function() {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.CREATE_T
     });
   },
 

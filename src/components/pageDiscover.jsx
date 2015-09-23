@@ -1,6 +1,7 @@
 import React from 'react';
+import PageDiscoverStore from "../stores/pageDiscoverStore.js";
 import Mui from 'material-ui';
-import PageListStore from "../stores/pageListStore.js";
+import MainBar from './mainBar.jsx';
 import AppActions from "../actions/appActions.js";
 import Comm from "../services/communicate.js"
 var List = Mui.List;
@@ -10,7 +11,7 @@ var ListDivider = Mui.ListDivider;
 //TODO remove this theme manager when React 0.14 released, aka the parent-based context takes effect
 var ThemeManager = new Mui.Styles.ThemeManager();
 
-export default class PageList extends React.Component{
+export default class PageDiscover extends React.Component{
 
   constructor(props){
     super(props);
@@ -38,6 +39,7 @@ export default class PageList extends React.Component{
     return (
       <div>
         {this.props.content.lists.map(this._generateListComponents)}
+        <MainBar page="discover"/>
       </div>
     );
   }
@@ -50,6 +52,6 @@ export default class PageList extends React.Component{
 
 }
 
-PageList.childContextTypes = {
+PageDiscover.childContextTypes = {
   muiTheme: React.PropTypes.object
 };

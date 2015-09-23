@@ -1,21 +1,36 @@
 import React from 'react';
 import Mui from 'material-ui';
+import MainBar from './mainBar.jsx';
 var Card = Mui.Card;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
 
-export default class pageT extends React.Component{
+
+//TODO remove this theme manager when React 0.14 released, aka the parent-based context takes effect
+var ThemeManager = new Mui.Styles.ThemeManager();
+
+export default class PageT extends React.Component{
   constructor(props){
     super(props);
-    this.state = props;
   }
 
   render(){
-    //console.log(this.state.cData);
     return (
       <div>
-        {JSON.stringify(this.state.content.T)}
+        {JSON.stringify(this.props.content.T)}
+        <MainBar page={this.props.content.page} />
       </div>
     );
   }
+
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
+
 }
+
+PageT.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};

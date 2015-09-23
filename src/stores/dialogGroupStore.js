@@ -1,5 +1,5 @@
 /*
- * Title: pageList store
+ * Title: The model of the app manager, it holds app status
  * Description:
  * @start
  * @errHandler
@@ -13,10 +13,18 @@ import Router from "../services/router.js";
 import Comm from "../services/communicate.js";
 import assign from "object-assign";
 
-var CHANGE_EVENT = "change";
-var lists = {};
+//dialogs = ["createT", "listFilter", "TPaticipants", "TInfo"];
+var dialogState = {
+  show: "createT"
+};
 
-var PageListStore = assign({}, EventEmitter.prototype, {
+var CHANGE_EVENT = "change";
+
+var DialogGroupStore = assign({}, EventEmitter.prototype, {
+
+  getDialogState: function() {
+    return dialogState;
+  },
 
   emitChange: function(){
     this.emit(CHANGE_EVENT);
@@ -34,23 +42,22 @@ var PageListStore = assign({}, EventEmitter.prototype, {
    */
   unsubscribe: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
-  },
-
+  }
 });
-/*
+
 AppDispatcher.register(function(payload) {
-  console.log("dispatching action " + payload.action.actionType + " to pageListStore");
   switch(payload.action.actionType) {
-    case AppConstants.LOAD_PAGE:
-      lists = payload.action.content;
-      if (lists.page !=="discover") break;
-      lists = lists.lists;
-      PageListStore.emitChange();
+    case AppConstants.CREATE_T:
+      console.log("dispatching action " + payload.action.actionType + " to dialogStore");
+      dialogState = {
+        show: "createT",
+      };
+      DialogGroupStore.emitChange();
       break;
 
     default:
       // no op
   }
 });
-*/
-export default PageListStore;
+
+export default DialogGroupStore;

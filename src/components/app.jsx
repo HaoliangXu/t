@@ -7,7 +7,7 @@ import React from 'react';
 import Mui from 'material-ui';
 import MainBar from './mainBar.jsx';
 import PageT from './pageT.jsx';
-import PageList from "./pageList.jsx";
+import PageDiscover from "./pageDiscover.jsx";
 import AppStore from "../stores/appStore.js";
 
 //Set mui theme, see material-ui docs
@@ -21,7 +21,7 @@ export default class App extends React.Component {
     this.state = {
       pageState: AppStore.getPageState()
     };
-    this.selectPage(this.state.pageState);
+    this._selectPage(this.state.pageState);
     this._onPageLoad = this._onPageLoad.bind(this);
   }
 
@@ -29,7 +29,34 @@ export default class App extends React.Component {
     AppStore.subscribe(this._onPageLoad);
   }
 
-  selectPage(content){
+  shouldComponentUpdate(newProps, newState){
+    this._selectPage(newState.pageState);
+    return true;
+  }
+
+  render() {
+    return (
+      <div className="appBox">
+        {this.page}
+      </div>
+    );
+  }
+
+  //For Mui
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
+
+  //When app data loaded, set main view to appbox and its contents, hide splash screen, show main view
+  _onPageLoad(){
+    this.setState({
+      pageState: AppStore.getPageState()
+    });
+  }
+
+  _selectPage(content){
     switch (content.page){
       case 'vacancy':
         this.page = "";
@@ -48,38 +75,12 @@ export default class App extends React.Component {
         break;
       //Default page 'discover'
       default:
-        this.page = <PageList content={content} />;
+        this.page = <PageDiscover content={content} />;
     }
-  }
-
-  shouldComponentUpdate(newProps, newState){
-    this.selectPage(newState.pageState);
-    return true;
-  }
-
-  //When app data loaded, set main view to appbox and its contents, hide splash screen, show main view
-  _onPageLoad(){
-    this.setState({
-      pageState: AppStore.getPageState()
-    });
-  }
-
-  render() {
-    return (
-      <div className="appBox">
-        {this.page}
-        <MainBar page={this.state.pageState.page}/>
-      </div>
-    );
-  }
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
   }
 }
 
+//For Mui
 App.childContextTypes = {
   muiTheme: React.PropTypes.object
 };
