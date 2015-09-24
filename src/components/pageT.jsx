@@ -1,6 +1,7 @@
 import React from 'react';
 import Mui from 'material-ui';
 import MainBar from './mainBar.jsx';
+import Spinner from "./spinner.jsx";
 var Card = Mui.Card;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
@@ -19,6 +20,7 @@ export default class PageT extends React.Component{
       <div>
         {JSON.stringify(this.props.content.T)}
         <MainBar page={this.props.content.page} />
+        <Spinner />
       </div>
     );
   }

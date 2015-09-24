@@ -19,12 +19,12 @@ export default class Splash extends React.Component {
 
   componentDidMount(){
     //TODO make a bound version is not elegant.
-    SplashStore.subscribe(this._appReady);
+    SplashStore.addChangeListener(this._appReady);
   }
 
   //Trigger when app data is loaded, if splash is in non-intro mode then end splash
   _appReady(){
-    SplashStore.unsubscribe(this._appReady);
+    SplashStore.removeChangeListener(this._appReady);
     //If intro mode, do nothing
     if (this.state.mode !== "non-intro") return;
     this.endSplash();

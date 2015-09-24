@@ -26,7 +26,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount(){
-    AppStore.subscribe(this._onPageLoad);
+    AppStore.addChangeListener(this._onPageLoad);
   }
 
   shouldComponentUpdate(newProps, newState){
