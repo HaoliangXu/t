@@ -12,7 +12,7 @@ import AppConstants from "../constants/appConstants";
 import Comm from "../services/communicate.js";
 import assign from "object-assign";
 
-var CHANGE_EVENT = "change";
+var END_SPLASH = "end_splash";
 var splashState = Comm.reqSplash();
 //Flag indicates app is ready to show, splash screen may unmount.
 var appReady = false;
@@ -26,22 +26,22 @@ var SplashStore = assign({}, EventEmitter.prototype, {
     return splashState;
   },
 
-  emitChange: function(){
-    this.emit(CHANGE_EVENT);
+  emitEndSplash: function(){
+    this.emit(END_SPLASH);
   },
 
   /**
    * @param {function} callback
    */
-  addChangeListener: function(callback) {
-    this.on(CHANGE_EVENT, callback);
+  subscribe: function(callback) {
+    this.on(END_SPLASH, callback);
   },
 
   /**
    * @param {function} callback
    */
-  removeChangeListener: function(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
+  unsubscribe: function(callback) {
+    this.removeListener(END_SPLASH, callback);
   }
 });
 
@@ -51,7 +51,7 @@ SplashStore.dispatcherIndex = AppDispatcher.register(function(payload) {
     case AppConstants.LOAD_PAGE:
       appReady = true;
       if (splashState.mode !== "non-intro") break;
-      SplashStore.emitChange();
+      SplashStore.emitEndSplash();
       break;
 
     default:

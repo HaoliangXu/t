@@ -25,14 +25,14 @@ var PageDiscoverStore = assign({}, EventEmitter.prototype, {
   /**
    * @param {function} callback
    */
-  addChangeListener: function(callback) {
+  subscribe: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
   /**
    * @param {function} callback
    */
-  removeChangeListener: function(callback) {
+  unsubscribe: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
