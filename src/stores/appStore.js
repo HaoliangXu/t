@@ -14,7 +14,7 @@ import Comm from "../services/communicate.js";
 import assign from "object-assign";
 
 Comm.reqPage(Router.parseCurrentRoute());
-var PAGE_LOAD_EVENT = "pageLoad";
+var CHANGE_EVENT = "change";
 var pageState = {
   page: "vacancy"
 };
@@ -26,21 +26,21 @@ var AppStore = assign({}, EventEmitter.prototype, {
   },
 
   emitChange: function(){
-    this.emit(PAGE_LOAD_EVENT);
+    this.emit(CHANGE_EVENT);
   },
 
   /**
    * @param {function} callback
    */
-  subscribe: function(callback) {
-    this.on(PAGE_LOAD_EVENT, callback);
+  addChangeListener: function(callback) {
+    this.on(CHANGE_EVENT, callback);
   },
 
   /**
    * @param {function} callback
    */
-  unsubscribe: function(callback) {
-    this.removeListener(PAGE_LOAD_EVENT, callback);
+  removeChangeListener: function(callback) {
+    this.removeListener(CHANGE_EVENT, callback);
   }
 });
 
