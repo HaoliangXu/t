@@ -14,6 +14,14 @@ export default class PageDiscover extends React.Component{
     SpinnerStore.addChangeListener(this._onToggleSpinner);
   }
 
+  componentWillUnmount(){
+    SpinnerStore.removeChangeListener(this._onToggleSpinner);
+  }
+
+  shouldComponentUpdate(){
+
+  }
+
   render(){
     return (
       <div id="spinner">

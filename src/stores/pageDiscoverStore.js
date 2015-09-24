@@ -25,32 +25,29 @@ var PageDiscoverStore = assign({}, EventEmitter.prototype, {
   /**
    * @param {function} callback
    */
-  subscribe: function(callback) {
+  addChangeListener: function(callback) {
     this.on(CHANGE_EVENT, callback);
   },
 
   /**
    * @param {function} callback
    */
-  unsubscribe: function(callback) {
+  removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
 });
-/*
+
 AppDispatcher.register(function(payload) {
   console.log("dispatching action " + payload.action.actionType + " to pageDiscoverStore");
   switch(payload.action.actionType) {
-    case AppConstants.LOAD_PAGE:
-      lists = payload.action.content;
-      if (lists.page !=="discover") break;
-      lists = lists.lists;
-      PageDiscoverStore.emitChange();
+    case AppConstants.UPDATE_DISCOVER:
       break;
-
+    case AppConstants.SHOW_SPINNER:
+      break;
     default:
       // no op
   }
 });
-*/
+
 export default PageDiscoverStore;
