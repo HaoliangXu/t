@@ -2,7 +2,7 @@ import React from 'react';
 import PageDiscoverStore from "../stores/pageDiscoverStore.js";
 import Mui from 'material-ui';
 import MainBar from './mainBar.jsx';
-import AppActions from "../actions/appActions.js";
+import Spinner from "./spinner.jsx";
 import Comm from "../services/communicate.js"
 var List = Mui.List;
 var ListItem = Mui.ListItem;
@@ -19,7 +19,6 @@ export default class PageDiscover extends React.Component{
   }
 
   _onItemClick(itemIndex, listIndex){
-    AppActions.waitComm();
     Comm.reqT(this.props.content.lists[listIndex].listItems[itemIndex].id);
   }
   //
@@ -40,6 +39,7 @@ export default class PageDiscover extends React.Component{
       <div>
         {this.props.content.lists.map(this._generateListComponents)}
         <MainBar page="discover"/>
+        <Spinner />
       </div>
     );
   }

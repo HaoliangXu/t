@@ -6,7 +6,7 @@
  * @
  */
 
-import AppDispatcher from "../dispatcher/appDispatcher";
+import AppDispatcher from "../dispatchers/appDispatcher.js";
 import {EventEmitter} from "events";
 import AppConstants from "../constants/appConstants";
 import Comm from "../services/communicate.js";

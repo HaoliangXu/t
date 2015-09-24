@@ -6,9 +6,9 @@
  * @
  */
 
-import AppDispatcher from "../dispatcher/appDispatcher";
+import AppDispatcher from "../dispatchers/appDispatcher.js";
 import {EventEmitter} from "events";
-import AppConstants from "../constants/appConstants";
+import AppConstants from "../constants/appConstants.js";
 import Router from "../services/router.js";
 import Comm from "../services/communicate.js";
 import assign from "object-assign";

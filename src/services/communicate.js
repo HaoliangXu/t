@@ -9,6 +9,15 @@
 import AppActions from "../actions/appActions.js";
 var ajax = reqwest;
 
+//TODO Whenever to load a page, abort current request.
+//     Active waiting mode (but by AppStore).
+var tokenPrototype = {
+  reqObj : {},
+  abort: function(){
+  }.bind(this)
+};
+var token = {};
+
 var Comm = {
 
   //Decide which page to show, then request the data of that page.
@@ -42,7 +51,7 @@ var Comm = {
   //request tournament json
   reqT: function(tID) {
     console.log("request T");
-    ajax({
+    token = ajax({
       url: './demoT.json',//TODO diffs when not in dev mode
       //type: 'html',
       success: function(resp) {

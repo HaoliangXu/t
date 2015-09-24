@@ -8,11 +8,8 @@ var ToolbarSeparator = Mui.ToolbarSeparator;
 var RaisedButton = Mui.RaisedButton;
 var FloatingActionButton = Mui.FloatingActionButton;
 
-var styleRight = {
-  margin: "0 1rem 1rem 0",
-};
-var styleLeft = {
-  margin: "0 0 1rem 1rem",
+var style = {
+  margin: "1rem",
 };
 /*  An over all map of page properties can save some switches, maybe with better performance
  *  But it makes code harder to maintaince.
@@ -86,16 +83,14 @@ export default class MainBar extends React.Component {
   }
   render() {
     return <div className="mainBar">
-          <ToolbarGroup key={0} float="left">
-            <FloatingActionButton iconClassName="muidocs-icon-action-grade" style={styleLeft} secondary={true}
+          <ToolbarGroup float="right">
+            <FloatingActionButton iconClassName="muidocs-icon-action-grade" style={style} secondary={true}
               onClick={this._onClickButton1} />
-          </ToolbarGroup>
-          <ToolbarGroup key={1} float="right">
-            <FloatingActionButton iconClassName="muidocs-icon-action-thumb-up" style={styleRight} secondary={true}
+            <FloatingActionButton iconClassName="muidocs-icon-action-thumb-up" style={style} secondary={true}
               onClick={this._onClickButton2} />
-            <FloatingActionButton iconClassName="muidocs-icon-action-stars" style={styleRight} secondary={true}
+            <FloatingActionButton iconClassName="muidocs-icon-action-stars" style={style} secondary={true}
               onClick={this._onClickButton3} />
-            <FloatingActionButton iconClassName="muidocs-icon-action-home" style={styleRight} secondary={true}
+            <FloatingActionButton iconClassName="muidocs-icon-action-home" style={style} secondary={true}
               onClick={this._onClickButton4} />
           </ToolbarGroup>
           <DialogCreateT ref="dialogCreateT"/>
