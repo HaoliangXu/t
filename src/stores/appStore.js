@@ -9,20 +9,15 @@
 import AppDispatcher from "../dispatchers/appDispatcher.js";
 import {EventEmitter} from "events";
 import AppConstants from "../constants/appConstants.js";
-import Router from "../services/router.js";
-import Comm from "../services/communicate.js";
 import assign from "object-assign";
 
-Comm.reqPage(Router.parseCurrentRoute());
 var CHANGE_EVENT = "change";
-var pageState = {
-  page: "vacancy"
-};
+var page = "vacancy";
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
-  getPageState: function() {
-    return pageState;
+  getPage: function() {
+    return page;
   },
 
   emitChange: function(){
@@ -46,13 +41,14 @@ var AppStore = assign({}, EventEmitter.prototype, {
 
 AppDispatcher.register(function(payload) {
   switch(payload.action.actionType) {
-    case AppConstants.LOAD_PAGE:
+    case AppConstants.SWITCH_PAGE:
       console.log("dispatching action " + payload.action.actionType + " to appStore");
-      pageState = payload.action.content;
+      page = payload.action.page;
       AppStore.emitChange();
       break;
     case AppConstants.SHOW_SPINNER:
       break;
+
 
     default:
       // no op

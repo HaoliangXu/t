@@ -11,6 +11,7 @@ export default class PageDiscover extends React.Component{
     this.state = {
       show: SpinnerStore.showSpinner
     };
+    this._getState = this._getState.bind(this);
   }
 
   componentDidMount(){

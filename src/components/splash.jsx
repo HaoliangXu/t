@@ -18,7 +18,6 @@ export default class Splash extends React.Component {
   }
 
   componentDidMount(){
-    //TODO make a bound version is not elegant.
     SplashStore.addChangeListener(this._appReady);
   }
 

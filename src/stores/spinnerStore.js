@@ -1,5 +1,5 @@
 import BaseStore from './BaseStore';
-import AppConstants from "../actions/appActions.js"
+import AppConstants from "../constants/appConstants.js"
 
 var showSpinner = false;
 
@@ -12,21 +12,22 @@ class SpinnerStore extends BaseStore {
       switch ( payload.action.actionType ) {
         case AppConstants.SHOW_SPINNER:
           showSpinner = true;
-          SpinnerStore.emitChange();
+          this.emitChange();
           break;
         case AppConstants.HIDE_SPINNER:
           showSpinner = false;
-          SpinnerStore.emitChange();
+          this.emitChange();
           break;
         //When page load, the spinner reloads, hence set showSpinner to false as default
         case AppConstants.LOAD_PAGE:
           showSpinner = false;
+          this.emitChange();
           break;
         default:
           // no op
 
       }
-    });
+    }.bind(this));
   }
 
   get showSpinner(){

@@ -16,15 +16,13 @@ var AppActions = {
   /**
    * @param  {string} page The name of the page to show
    * @param  {object} req the Comm request for the page content
-   *
-  switchPage: function(page, req) {
+   */
+  switchPage: function(page) {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.SWITCH_PAGE,
-      page: page,
-      req: req
+      page: page
     });
   },
-  */
 
   /**
    * Toggle whether a single ToDo is complete

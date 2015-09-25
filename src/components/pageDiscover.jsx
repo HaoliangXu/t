@@ -1,4 +1,5 @@
 import React from 'react';
+import AppActions from "../actions/appActions.js";
 import PageDiscoverStore from "../stores/pageDiscoverStore.js";
 import Mui from 'material-ui';
 import MainBar from './mainBar.jsx';
@@ -13,31 +14,27 @@ var ThemeManager = new Mui.Styles.ThemeManager();
 
 export default class PageDiscover extends React.Component{
 
-  constructor(props){
-    super(props);
-    this._generateListComponents = this._generateListComponents.bind(this);
+  constructor( props ){
+    super( props );
+    this.state = {
+      lists: []
+    };
+    this._onLoadContent = this._onLoadContent.bind(this);
+    this._generateListComponents = this._generateListComponents.bind( this );
   }
 
-  _onItemClick(itemIndex, listIndex){
-    Comm.reqT(this.props.content.lists[listIndex].listItems[itemIndex].id);
+  componentDidMount(){
+    PageDiscoverStore.addChangeListener(this._onLoadContent);
   }
-  //
-  _generateListComponents(list, listIndex){
-    var items = [];
-    if (list.listItems.length) {
-      items = list.listItems.map(function(item, itemIndex){
-        return <ListItem primaryText={item.itemName} onClick={this._onItemClick.bind(this, itemIndex, listIndex)} key={"item" + itemIndex} />;
-      }.bind(this));
-    }
-    return <List subtitle={list.listName} key={"list" + listIndex}>
-      {items}
-    </List>;
+
+  componentWillUnmount(){
+    PageDiscoverStore.removeChangeListener(this._onLoadContent);
   }
 
   render(){
     return (
       <div>
-        {this.props.content.lists.map(this._generateListComponents)}
+        {this.state.lists.map(this._generateListComponents)}
         <MainBar page="discover"/>
         <Spinner />
       </div>
@@ -50,6 +47,33 @@ export default class PageDiscover extends React.Component{
     };
   }
 
+  _onItemClick( itemIndex, listIndex ){
+    AppActions.switchPage("viewT");
+    Comm.reqT( this.state.lists[ listIndex ].listItems[ itemIndex ].id );
+  }
+
+  _generateListComponents( list, listIndex ){
+    var items = [];
+    if ( list.listItems.length ) {
+      items = list.listItems.map(function( item, itemIndex ){
+        return <ListItem primaryText={item.itemName} onClick={this._onItemClick.bind( this, itemIndex, listIndex )} key={"item" + itemIndex} />;
+      }.bind( this ));
+    }
+    return <List subtitle={list.listName} key={"list" + listIndex}>
+      {items}
+    </List>;
+  }
+
+  _onLoadContent(){
+    this.setState({
+      lists: this._getLists()
+    });
+  }
+
+
+  _getLists(){
+    return PageDiscoverStore.getLists();
+  }
 }
 
 PageDiscover.childContextTypes = {

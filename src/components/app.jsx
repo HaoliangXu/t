@@ -6,9 +6,11 @@ import L from '../services/i18n.js';
 import React from 'react';
 import Mui from 'material-ui';
 import MainBar from './mainBar.jsx';
-import PageT from './pageT.jsx';
+import PageViewT from './pageViewT.jsx';
 import PageDiscover from "./pageDiscover.jsx";
 import AppStore from "../stores/appStore.js";
+import Comm from "../services/communicate.js";
+import Router from "../services/router.js";
 
 //Set mui theme, see material-ui docs
 var ThemeManager = new Mui.Styles.ThemeManager();
@@ -19,18 +21,19 @@ export default class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      pageState: AppStore.getPageState()
+      page: AppStore.getPage()
     };
-    this._selectPage(this.state.pageState);
+    this._selectPage(this.state.page);
     this._onPageLoad = this._onPageLoad.bind(this);
   }
 
   componentDidMount(){
     AppStore.addChangeListener(this._onPageLoad);
+    Comm.reqPage(Router.parseCurrentRoute());
   }
 
   shouldComponentUpdate(newProps, newState){
-    this._selectPage(newState.pageState);
+    this._selectPage(newState.page);
     return true;
   }
 
@@ -52,20 +55,20 @@ export default class App extends React.Component {
   //When app data loaded, set main view to appbox and its contents, hide splash screen, show main view
   _onPageLoad(){
     this.setState({
-      pageState: AppStore.getPageState()
+      page: AppStore.getPage()
     });
   }
 
-  _selectPage(content){
-    switch (content.page){
+  _selectPage(page){
+    switch (page){
       case 'vacancy':
         this.page = "";
         break;
       case 'createT':
-        this.page = <PageT mode="edit" content={content} />;
+        this.page = <PageViewT mode="edit" />;
         break;
       case 'viewT':
-        this.page = <PageT mode="view" content={content} />;
+        this.page = <PageViewT mode="view" />;
         break;
       case 'match':
         break;
@@ -75,7 +78,7 @@ export default class App extends React.Component {
         break;
       //Default page 'discover'
       default:
-        this.page = <PageDiscover content={content} />;
+        this.page = <PageDiscover />;
     }
   }
 }

@@ -14,7 +14,7 @@ import Comm from "../services/communicate.js";
 import assign from "object-assign";
 
 var CHANGE_EVENT = "change";
-var lists = {};
+var lists = [];
 
 var PageDiscoverStore = assign({}, EventEmitter.prototype, {
 
@@ -36,12 +36,17 @@ var PageDiscoverStore = assign({}, EventEmitter.prototype, {
     this.removeListener(CHANGE_EVENT, callback);
   },
 
+  getLists: function(){
+    return lists;
+  }
 });
 
 AppDispatcher.register(function(payload) {
-  console.log("dispatching action " + payload.action.actionType + " to pageDiscoverStore");
   switch(payload.action.actionType) {
-    case AppConstants.UPDATE_DISCOVER:
+    case AppConstants.LOAD_PAGE:
+      console.log("dispatching action " + payload.action.actionType + " to pageDiscoverStore");
+      lists = payload.action.content.lists;
+      PageDiscoverStore.emitChange();
       break;
     case AppConstants.SHOW_SPINNER:
 
