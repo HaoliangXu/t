@@ -23,7 +23,6 @@ export default class App extends React.Component {
     this.state = {
       page: AppStore.getPage()
     };
-    this._selectPage(this.state.page);
     this._onChange = this._onChange.bind(this);
   }
 
@@ -32,12 +31,8 @@ export default class App extends React.Component {
     Comm.reqPage(Router.parseCurrentRoute());
   }
 
-  shouldComponentUpdate(newProps, newState){
-    this._selectPage(newState.page);
-    return true;
-  }
-
   render() {
+    this._selectPage(this.state.page);
     return (
       <div className="appBox">
         {this.page}

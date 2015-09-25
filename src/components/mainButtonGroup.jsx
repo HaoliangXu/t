@@ -59,39 +59,45 @@ export default class MainButtonGroup extends React.Component {
     console.log("back clicked");
     AppActions.lastPage();
   }
+
   _onLikeClick(e){
     console.log("like clicked");
 
   }
+
   _onShareClick(e){
     console.log("share clicked");
 
   }
+
   _onMenuClick(e){
     console.log("menu clicked");
 
   }
+
   _onCreateTClick(e){
     console.log("create clicked");
     this.refs.dialogCreateT.show();
   }
+
   _onFilterClick(e){
     console.log("filter clicked");
 
   }
   render() {
-    return <div className="mainButtonGroup">
-          <ToolbarGroup float="right">
-            <FloatingActionButton iconClassName="muidocs-icon-action-grade" style={style} secondary={true}
-              onClick={this._onClickButton1} />
-            <FloatingActionButton iconClassName="muidocs-icon-action-thumb-up" style={style} secondary={true}
-              onClick={this._onClickButton2} />
-            <FloatingActionButton iconClassName="muidocs-icon-action-stars" style={style} secondary={true}
-              onClick={this._onClickButton3} />
-            <FloatingActionButton iconClassName="muidocs-icon-action-home" style={style} secondary={true}
-              onClick={this._onClickButton4} />
-          </ToolbarGroup>
-          <DialogCreateT ref="dialogCreateT"/>
+    return
+      <div className="mainButtonGroup">
+        <ToolbarGroup float="right">
+          <FloatingActionButton iconClassName="muidocs-icon-action-grade" style={style} secondary={true}
+            onClick={this._onClickButton1} />
+          <FloatingActionButton iconClassName="muidocs-icon-action-thumb-up" style={style} secondary={true}
+            onClick={this._onClickButton2} />
+          <FloatingActionButton iconClassName="muidocs-icon-action-stars" style={style} secondary={true}
+            onClick={this._onClickButton3} />
+          <FloatingActionButton iconClassName="muidocs-icon-action-home" style={style} secondary={true}
+            onClick={this._onClickButton4} />
+        </ToolbarGroup>
+        <DialogCreateT ref="dialogCreateT"/>
       </div>;
   }
 }
