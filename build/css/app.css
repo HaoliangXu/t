@@ -17,7 +17,7 @@ div#app{
   margin: 0;
 
 }
-div.mainBar{
+div.mainButtonGroup{
   position: absolute;
   bottom: 0;
   width:100%;

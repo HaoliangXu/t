@@ -3,7 +3,7 @@ import AppConstants from "../constants/appConstants.js";
 var AppActions = {
 
   /**
-   * @param  {json} content
+  * @param  {JSON} page content
    *
    */
   loadPage: function(content) {
@@ -14,8 +14,8 @@ var AppActions = {
   },
 
   /**
+   * Switch to a page and clear historyChain.
    * @param  {string} page The name of the page to show
-   * @param  {object} req the Comm request for the page content
    */
   switchPage: function(page) {
     AppDispatcher.handleViewAction({
@@ -25,12 +25,37 @@ var AppActions = {
   },
 
   /**
+   * @param  {String} page The name of the page to show
+   */
+  nextPage: function(page) {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.NEXT_PAGE,
+      page: page
+    });
+  },
+
+  /**
+   * Navigate to last page.
+   */
+  lastPage: function() {
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.LAST_PAGE,
+    });
+  },
+
+  /**
    * Toggle whether a single ToDo is complete
    * @param  {object} todo
    */
   showSpinner: function() {
     AppDispatcher.handleViewAction({
-      actionType: AppConstants.WAIT_COMM
+      actionType: AppConstants.SHOW_SPINNER
+    });
+  },
+
+  hideSpinner: function(){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.HIDE_SPINNER
     });
   },
 
@@ -42,25 +67,6 @@ var AppActions = {
       actionType: AppConstants.CREATE_T
     });
   },
-
-  /**
-   * @param  {string} id
-   */
-  destroy: function(id) {
-    AppDispatcher.dispatch({
-      actionType: AppConstants.TODO_DESTROY,
-      id: id
-    });
-  },
-
-  /**
-   * Delete all the completed ToDos
-   */
-  destroyCompleted: function() {
-    AppDispatcher.dispatch({
-      actionType: AppConstants.TODO_DESTROY_COMPLETED
-    });
-  }
 
 };
 

@@ -5,7 +5,7 @@
 import L from '../services/i18n.js';
 import React from 'react';
 import Mui from 'material-ui';
-import MainBar from './mainBar.jsx';
+import MainButtonGroup from './mainButtonGroup.jsx';
 import PageViewT from './pageViewT.jsx';
 import PageDiscover from "./pageDiscover.jsx";
 import AppStore from "../stores/appStore.js";
@@ -24,11 +24,11 @@ export default class App extends React.Component {
       page: AppStore.getPage()
     };
     this._selectPage(this.state.page);
-    this._onPageLoad = this._onPageLoad.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
 
   componentDidMount(){
-    AppStore.addChangeListener(this._onPageLoad);
+    AppStore.addChangeListener(this._onChange);
     Comm.reqPage(Router.parseCurrentRoute());
   }
 
@@ -52,8 +52,8 @@ export default class App extends React.Component {
     };
   }
 
-  //When app data loaded, set main view to appbox and its contents, hide splash screen, show main view
-  _onPageLoad(){
+  //Once app data loaded, set main view to appbox and its contents, hide splash screen, show main view
+  _onChange(){
     this.setState({
       page: AppStore.getPage()
     });

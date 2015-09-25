@@ -1,7 +1,8 @@
 import React from 'react';
 import Mui from 'material-ui';
-import MainBar from './mainBar.jsx';
+import MainButtonGroup from './mainButtonGroup.jsx';
 import PageViewTStore from "../stores/pageViewTStore.js";
+import AppActions from "../actions/appActions.js";
 var Card = Mui.Card;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
@@ -16,22 +17,22 @@ export default class PageViewT extends React.Component{
     this.state = {
       content: {}
     };
-    this._onLoadContent = this._onLoadContent.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
 
   componentDidMount(){
-    PageViewTStore.addChangeListener(this._onLoadContent);
+    PageViewTStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    PageViewTStore.removeChangeListener(this._onLoadContent);
+    PageViewTStore.removeChangeListener(this._onChange);
   }
 
   render(){
     return (
       <div>
         {JSON.stringify(this.state.content.T)}
-        <MainBar page="viewT" />
+        <MainButtonGroup page="viewT" />
       </div>
     );
   }
@@ -42,9 +43,8 @@ export default class PageViewT extends React.Component{
     };
   }
 
-  _onLoadContent(){
-    console.log("asdf");
-    console.log(PageViewTStore.pageContent);
+  _onChange(){
+    window.setTimeout(AppActions.hideSpinner, 0);
     this.setState({
       content: PageViewTStore.pageContent
     });

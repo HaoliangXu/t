@@ -38,7 +38,7 @@ var Comm = {
       default:
         this.reqTList(req.params);
     }
-    AppActions.switchPage(req.page);
+    AppActions.nextPage(req.page);
   },
 
   //request splash data from local storage

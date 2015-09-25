@@ -2,10 +2,7 @@ import React from 'react'
 import Mui from 'material-ui'
 import DialogCreateT from "./dialogCreateT.jsx";
 import AppActions from "../actions/appActions.js";
-var Toolbar = Mui.Toolbar;
 var ToolbarGroup = Mui.ToolbarGroup;
-var ToolbarSeparator = Mui.ToolbarSeparator;
-var RaisedButton = Mui.RaisedButton;
 var FloatingActionButton = Mui.FloatingActionButton;
 
 var style = {
@@ -30,7 +27,7 @@ var pageProperty = {
   }
 }
 */
-export default class MainBar extends React.Component {
+export default class MainButtonGroup extends React.Component {
   constructor(props){
     super(props);
     this._onClickButton1 = this._onBackClick;
@@ -42,7 +39,7 @@ export default class MainBar extends React.Component {
     this.selectButtons(newProps.page);
   }
 
-  //When page changes, decide which button to use. TODO add avatar selection.
+  //Once page changes, decide which button to use. TODO add avatar selection.
   selectButtons(page){
     switch (page){
       case "discover":
@@ -60,6 +57,7 @@ export default class MainBar extends React.Component {
   }
   _onBackClick(e){
     console.log("back clicked");
+    AppActions.lastPage();
   }
   _onLikeClick(e){
     console.log("like clicked");
@@ -82,7 +80,7 @@ export default class MainBar extends React.Component {
 
   }
   render() {
-    return <div className="mainBar">
+    return <div className="mainButtonGroup">
           <ToolbarGroup float="right">
             <FloatingActionButton iconClassName="muidocs-icon-action-grade" style={style} secondary={true}
               onClick={this._onClickButton1} />

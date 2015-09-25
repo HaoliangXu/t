@@ -1,6 +1,6 @@
 /*
  * Title: The splash screen
- * Description: Show when app starts, hide when data loaded, may contain ads, introductions in the future
+ * Description: Show once app starts, hide when data loaded, may contain ads, introductions in the future
  * @show
  * @
  * @render
@@ -21,7 +21,7 @@ export default class Splash extends React.Component {
     SplashStore.addChangeListener(this._appReady);
   }
 
-  //Trigger when app data is loaded, if splash is in non-intro mode then end splash
+  //Trigger once app data is loaded, if splash is in non-intro mode then end splash
   _appReady(){
     SplashStore.removeChangeListener(this._appReady);
     //If intro mode, do nothing

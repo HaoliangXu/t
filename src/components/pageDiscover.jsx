@@ -2,7 +2,7 @@ import React from 'react';
 import AppActions from "../actions/appActions.js";
 import PageDiscoverStore from "../stores/pageDiscoverStore.js";
 import Mui from 'material-ui';
-import MainBar from './mainBar.jsx';
+import MainButtonGroup from './mainButtonGroup.jsx';
 import Spinner from "./spinner.jsx";
 import Comm from "../services/communicate.js"
 var List = Mui.List;
@@ -19,23 +19,23 @@ export default class PageDiscover extends React.Component{
     this.state = {
       lists: []
     };
-    this._onLoadContent = this._onLoadContent.bind(this);
+    this._onChange = this._onChange.bind(this);
     this._generateListComponents = this._generateListComponents.bind( this );
   }
 
   componentDidMount(){
-    PageDiscoverStore.addChangeListener(this._onLoadContent);
+    PageDiscoverStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    PageDiscoverStore.removeChangeListener(this._onLoadContent);
+    PageDiscoverStore.removeChangeListener(this._onChange);
   }
 
   render(){
     return (
       <div>
         {this.state.lists.map(this._generateListComponents)}
-        <MainBar page="discover"/>
+        <MainButtonGroup page="discover"/>
         <Spinner />
       </div>
     );
@@ -48,7 +48,8 @@ export default class PageDiscover extends React.Component{
   }
 
   _onItemClick( itemIndex, listIndex ){
-    AppActions.switchPage("viewT");
+    AppActions.nextPage("viewT");
+    AppActions.showSpinner();
     Comm.reqT( this.state.lists[ listIndex ].listItems[ itemIndex ].id );
   }
 
@@ -64,7 +65,8 @@ export default class PageDiscover extends React.Component{
     </List>;
   }
 
-  _onLoadContent(){
+  _onChange(){
+    window.setTimeout(AppActions.hideSpinner, 0);
     this.setState({
       lists: this._getLists()
     });
