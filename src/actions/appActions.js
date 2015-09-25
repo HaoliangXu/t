@@ -30,7 +30,7 @@ var AppActions = {
    * Toggle whether a single ToDo is complete
    * @param  {object} todo
    */
-  waitComm: function() {
+  showSpinner: function() {
     AppDispatcher.handleViewAction({
       actionType: AppConstants.WAIT_COMM
     });

@@ -51,7 +51,7 @@ AppDispatcher.register(function(payload) {
       pageState = payload.action.content;
       AppStore.emitChange();
       break;
-    case AppConstants.WAIT_COMM:
+    case AppConstants.SHOW_SPINNER:
       break;
 
     default:

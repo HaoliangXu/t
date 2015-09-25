@@ -26,7 +26,7 @@ var SplashStore = assign({}, EventEmitter.prototype, {
     return splashState;
   },
 
-  emitEndSplash: function(){
+  emitChange: function(){
     this.emit(CHANGE_EVENT);
   },
 
@@ -51,7 +51,7 @@ SplashStore.dispatcherIndex = AppDispatcher.register(function(payload) {
     case AppConstants.LOAD_PAGE:
       appReady = true;
       if (splashState.mode !== "non-intro") break;
-      SplashStore.emitEndSplash();
+      SplashStore.emitChange();
       break;
 
     default:

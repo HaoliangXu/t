@@ -44,6 +44,7 @@ AppDispatcher.register(function(payload) {
     case AppConstants.UPDATE_DISCOVER:
       break;
     case AppConstants.SHOW_SPINNER:
+
       break;
     default:
       // no op

@@ -14,7 +14,7 @@ export default class Splash extends React.Component {
   constructor() {
     super();
     this._appReady = this._appReady.bind(this);
-    this.state = Comm.reqSplash();
+    this.state = SplashStore.getSplashState();
   }
 
   componentDidMount(){
@@ -27,19 +27,19 @@ export default class Splash extends React.Component {
     SplashStore.removeChangeListener(this._appReady);
     //If intro mode, do nothing
     if (this.state.mode !== "non-intro") return;
-    this.endSplash();
+    this._endSplash();
   }
 
   //Turn to next page
-  nextPage(){
+  _nextPage(){
   }
 
   //Turn to last page
-  lastPage(){
+  _lastPage(){
 
   }
   //Invoke end splash event, when Enter button is clicked, or when app data is loaded in non-intro mode
-  endSplash(){
+  _endSplash(){
     var divSplash = document.getElementById("splash");
     SplashStore.unregisterDispatcher();
     React.unmountComponentAtNode(divSplash);

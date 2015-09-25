@@ -6,20 +6,19 @@ let showSpinner = false
 
 export default class PageDiscover extends React.Component{
 
-  constructor(props){
+  constructor( props ){
     super(props);
+    this.state = {
+      show: SpinnerStore.showSpinner
+    };
   }
 
   componentDidMount(){
-    SpinnerStore.addChangeListener(this._onToggleSpinner);
+    SpinnerStore.addChangeListener( this._getState );
   }
 
   componentWillUnmount(){
-    SpinnerStore.removeChangeListener(this._onToggleSpinner);
-  }
-
-  shouldComponentUpdate(){
-
+    SpinnerStore.removeChangeListener( this._getState );
   }
 
   render(){
@@ -31,23 +30,9 @@ export default class PageDiscover extends React.Component{
   }
 
   _getState(){
-  }
-
-  _show(){
-
-  }
-
-  _hide(){
-
-  }
-
-  _onToggleSpinner(){
-    if (showSpinner) {
-      this.show();
-    }
-    else {
-      this.hide();
-    }
+    this.setState({
+      show: SpinnerStore.showSpinner
+    });
   }
 
 }
