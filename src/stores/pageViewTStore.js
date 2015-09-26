@@ -11,6 +11,7 @@ class PageViewTStore extends BaseStore {
       switch ( payload.action.actionType ) {
         case AppConstants.LOAD_PAGE:
           console.log( "dispatching action " + payload.action.actionType + " to pageViewTStore" );
+          if ( payload.action.content.page !== "viewT" ) break;
           pageContent = payload.action.content;
           this.emitChange();
           break;

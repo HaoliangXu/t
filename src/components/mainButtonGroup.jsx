@@ -1,12 +1,13 @@
 import React from 'react'
 import Mui from 'material-ui'
+import MainMenu from "./mainMenu.jsx";
 import DialogCreateT from "./dialogCreateT.jsx";
 import AppActions from "../actions/appActions.js";
 var ToolbarGroup = Mui.ToolbarGroup;
 var FloatingActionButton = Mui.FloatingActionButton;
 
 var style = {
-  margin: "1rem",
+  margin: "0.7rem",
 };
 /*  An over all map of page properties can save some switches, maybe with better performance
  *  But it makes code harder to maintaince.
@@ -30,8 +31,8 @@ var pageProperty = {
 export default class MainButtonGroup extends React.Component {
   constructor(props){
     super(props);
-    this._onClickButton1 = this._onBackClick;
-    this._onClickButton4 = this._onMenuClick;
+    this._onClickButton1 = this._onBackClick.bind(this);
+    this._onClickButton4 = this._onMenuClick.bind(this);
     this.selectButtons(props.page);
   }
 
@@ -72,7 +73,7 @@ export default class MainButtonGroup extends React.Component {
 
   _onMenuClick(e){
     console.log("menu clicked");
-
+    this.refs.mainMenu.open();
   }
 
   _onCreateTClick(e){
@@ -85,19 +86,21 @@ export default class MainButtonGroup extends React.Component {
 
   }
   render() {
-    return
+    return (
       <div className="mainButtonGroup">
         <ToolbarGroup float="right">
           <FloatingActionButton iconClassName="muidocs-icon-action-grade" style={style} secondary={true}
-            onClick={this._onClickButton1} />
+            onTouchTap={this._onClickButton1} />
           <FloatingActionButton iconClassName="muidocs-icon-action-thumb-up" style={style} secondary={true}
-            onClick={this._onClickButton2} />
+            onTouchTap={this._onClickButton2} />
           <FloatingActionButton iconClassName="muidocs-icon-action-stars" style={style} secondary={true}
-            onClick={this._onClickButton3} />
+            onTouchTap={this._onClickButton3} />
           <FloatingActionButton iconClassName="muidocs-icon-action-home" style={style} secondary={true}
-            onClick={this._onClickButton4} />
+            onTouchTap={this._onClickButton4} />
         </ToolbarGroup>
         <DialogCreateT ref="dialogCreateT"/>
-      </div>;
+        <MainMenu ref="mainMenu"/>
+      </div>
+    );
   }
 }

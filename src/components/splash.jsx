@@ -46,7 +46,7 @@ export default class Splash extends React.Component {
   }
 
   render(){
-    return <div id="splash">
+    return <div>
       <h1>{this.state.content}</h1>
     </div>;
   }

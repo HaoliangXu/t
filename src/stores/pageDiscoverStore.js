@@ -39,6 +39,7 @@ AppDispatcher.register(function(payload) {
   switch(payload.action.actionType) {
     case AppConstants.LOAD_PAGE:
       console.log("dispatching action " + payload.action.actionType + " to pageDiscoverStore");
+      if ( payload.action.content.page !== "discover" ) break;
       lists = payload.action.content.lists;
       PageDiscoverStore.emitChange();
       break;

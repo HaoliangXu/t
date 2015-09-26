@@ -4,22 +4,22 @@ import Mui from 'material-ui';
 
 let showSpinner = false
 
-export default class PageDiscover extends React.Component{
+export default class Spinner extends React.Component{
 
   constructor( props ){
     super(props);
     this.state = {
       show: SpinnerStore.showSpinner
     };
-    this._getState = this._getState.bind(this);
+    this._onChange = this._onChange.bind(this);
   }
 
   componentDidMount(){
-    SpinnerStore.addChangeListener( this._getState );
+    SpinnerStore.addChangeListener( this._onChange );
   }
 
   componentWillUnmount(){
-    SpinnerStore.removeChangeListener( this._getState );
+    SpinnerStore.removeChangeListener( this._onChange );
   }
 
   render(){
@@ -30,7 +30,7 @@ export default class PageDiscover extends React.Component{
     );
   }
 
-  _getState(){
+  _onChange(){
     this.setState({
       show: SpinnerStore.showSpinner
     });

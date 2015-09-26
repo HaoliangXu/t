@@ -1,8 +1,10 @@
 import React from 'react';
 import Mui from 'material-ui';
+import AppActions from "../actions/appActions.js";
 var Dialog = Mui.Dialog;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
+var TextField = Mui.TextField;
 
 //Standard Actions
 let TProperties = {
@@ -44,11 +46,17 @@ export default class DialogCreateT extends React.Component{
   render(){
     return (
       <Dialog
-        title="Create A New Tournament"
+        title="Create Tournament"
         actions={this.standardActions}
         actionFocus="submit"
         ref="dialog">
-        The actions in this window are created from the json that's passed in.
+        <form role="form">
+          <div className="form-group">
+            <TextField type="text" hintText="Tournament Name" fullWidth={true} />
+            <br />
+            <TextField type="text" hintText="Game Type" fullWidth={true} />
+          </div>
+        </form>
       </Dialog>
     );
   }
