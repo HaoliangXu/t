@@ -2,6 +2,7 @@ import React from 'react';
 import MainMenuStore from "../stores/mainMenuStore.js";
 import AppActions from "../actions/appActions.js";
 import Mui from 'material-ui';
+import DialogAuth from "./dialogAuth.jsx";
 import Comm from "../services/communicate.js";
 
 //Set mui theme, see material-ui docs
@@ -47,8 +48,11 @@ export default class MainMenu extends React.Component{
 
   render(){
     return (
-      <LeftNav ref="leftNav" disableSwipeToOpen={true} docked={false}
-        menuItems={menuItems} onChange={this._onItemChange}/>
+      <div>
+        <LeftNav ref="leftNav" disableSwipeToOpen={true} docked={false}
+          menuItems={menuItems} onChange={this._onItemChange}/>
+        <DialogAuth />
+      </div>
     );
   }
 
@@ -84,6 +88,7 @@ export default class MainMenu extends React.Component{
     console.log(state);
     if (state.triggerShow) {
       this.open();
+      return
     }
     this.setState(state);
   }

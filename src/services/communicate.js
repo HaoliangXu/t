@@ -7,6 +7,7 @@
 //saveT
 //
 import AppActions from "../actions/appActions.js";
+import AuthActions from "../actions/authActions.js";
 var ajax = reqwest;
 
 //TODO Whenever to load a page, abort current request.
@@ -106,11 +107,20 @@ var Comm = {
     console.log("request match");
   },
 
-  login: function(){//TODO just lonin as sheldon and give some fake data
-
+  reqLogin: function(username, password){//TODO just lonin as sheldon and give some fake data
+    var res = {
+      username: username,
+      id: "238u9ho23r",
+      iconUrl: "",
+      authLevel: 1
+    };
+    window.setTimeout(function(){
+      console.log(username + " has logged in");
+      AuthActions.loginSuccess(res);
+    }, 500);
   },
 
-  logout: function(){
+  reqLogout: function(){
 
   }
 

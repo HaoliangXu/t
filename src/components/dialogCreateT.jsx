@@ -20,9 +20,10 @@ export default class DialogCreateT extends React.Component{
     super(props);
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
+    this.show = this.show.bind(this);
     this.standardActions = [
-      { text: 'Do it', onClick: this._onDialogSubmit, ref: 'submit' },
-      { text: 'Nay', onClick: this._onDialogCancel}
+      { text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit' },
+      { text: 'Nay', onTouchTap: this._onDialogCancel}
     ];
   }
 

@@ -3,6 +3,7 @@ import Mui from 'material-ui'
 import MainMenu from "./mainMenu.jsx";
 import DialogCreateT from "./dialogCreateT.jsx";
 import AppActions from "../actions/appActions.js";
+import Auth from "../services/auth.js";
 var ToolbarGroup = Mui.ToolbarGroup;
 var FloatingActionButton = Mui.FloatingActionButton;
 
@@ -78,13 +79,17 @@ export default class MainButtonGroup extends React.Component {
 
   _onCreateTClick(e){
     console.log("create clicked");
-    this.refs.dialogCreateT.show();
+    var callback = this.refs.dialogCreateT.show;
+    Auth.requestAuth({
+      level: 1,
+      callback: callback
+    });
   }
 
   _onFilterClick(e){
     console.log("filter clicked");
-
   }
+
   render() {
     return (
       <div className="mainButtonGroup">
