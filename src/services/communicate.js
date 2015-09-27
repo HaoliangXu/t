@@ -38,7 +38,6 @@ var Comm = {
       default:
         this.reqTList(req.params);
     }
-    AppActions.nextPage(req.page);
   },
 
   //request splash data from local storage
@@ -70,7 +69,7 @@ var Comm = {
   reqTList: function(params) {
     console.log("requesting discover list");
     //if no keywords, then send hot tournaments list as default
-    if (!params.keywords) {
+    if (params.default) {
       let content = {
         "page": "discover",
         lists: [

@@ -2,23 +2,23 @@ import React from 'react';
 import MainMenuStore from "../stores/mainMenuStore.js";
 import AppActions from "../actions/appActions.js";
 import Mui from 'material-ui';
+import Comm from "../services/communicate.js";
+
+//Set mui theme, see material-ui docs
+var ThemeManager = new Mui.Styles.ThemeManager();
+
 var LeftNav = Mui.LeftNav;
 var MenuItem = Mui.MenuItem;
 
 var menuItems = [
-  { route: 'get-started', text: 'Get Started', onTouchTap: AppActions.lastPage},
-  { route: 'customization', text: 'Customization' },
-  { route: 'components', text: 'Components' },
+  { route: 'discover', text: 'Discover' },
+  { route: 'calendar', text: 'Calendar' },
+  { route: 'likes', text: 'Likes' },
+  { route: 'msg', text: 'Messages' },
+  { route: 'forums', text: 'Forums' },
+  { route: 'settings', text: 'Settings' },
+  { route: 'about', text: 'About' },
   { type: MenuItem.Types.SUBHEADER, text: 'Resources' },
-  {
-     type: MenuItem.Types.LINK,
-     payload: 'https://github.com/callemall/material-ui',
-     text: 'GitHub'
-  },
-  {
-     text: 'Disabled',
-     disabled: true
-  },
   {
      type: MenuItem.Types.LINK,
      payload: 'https://www.google.com',
@@ -47,7 +47,8 @@ export default class MainMenu extends React.Component{
 
   render(){
     return (
-      <LeftNav ref="leftNav" docked={false} menuItems={menuItems} onChange={this._onItemChange}/>
+      <LeftNav ref="leftNav" disableSwipeToOpen={true} docked={false}
+        menuItems={menuItems} onChange={this._onItemChange}/>
     );
   }
 
@@ -59,18 +60,37 @@ export default class MainMenu extends React.Component{
     this.refs.leftNav.close();
   }
 
-  _onItemChange(){
+  //For Mui
+  getChildContext() {
+    return {
+      muiTheme: ThemeManager.getCurrentTheme()
+    };
+  }
+
+  _onItemChange( e, item, payload ){
     console.log("change");
+    AppActions.switchPage(payload.route);
+    AppActions.showSpinner();
+    Comm.reqPage({
+      page: payload.route,
+      params: {
+        default: true,
+      }
+    });
   }
 
   _onChange(){
-    var state = MainMenuStore.mainMenustate;
-    if (state.show) {
+    var state = MainMenuStore.mainMenuState;
+    console.log(state);
+    if (state.triggerShow) {
       this.open();
-    } else {
-      this.close();
     }
     this.setState(state);
   }
 
 }
+
+//For Mui
+MainMenu.childContextTypes = {
+  muiTheme: React.PropTypes.object
+};

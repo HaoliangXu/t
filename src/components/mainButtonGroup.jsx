@@ -73,7 +73,7 @@ export default class MainButtonGroup extends React.Component {
 
   _onMenuClick(e){
     console.log("menu clicked");
-    this.refs.mainMenu.open();
+    AppActions.showMainMenu();
   }
 
   _onCreateTClick(e){
@@ -99,7 +99,6 @@ export default class MainButtonGroup extends React.Component {
             onTouchTap={this._onClickButton4} />
         </ToolbarGroup>
         <DialogCreateT ref="dialogCreateT"/>
-        <MainMenu ref="mainMenu"/>
       </div>
     );
   }

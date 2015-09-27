@@ -68,6 +68,24 @@ var AppActions = {
     });
   },
 
+
+//////////////////////////////////////////////
+//  Menu actionS
+////////////////////////////////////////////
+  showMainMenu: function(){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.SHOW_MAINMENU
+    });
+  },
+
+
+  hideMainMenu: function(){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.HIDE_MAINMENU
+    });
+  },
+
+
 };
 
 export default AppActions;

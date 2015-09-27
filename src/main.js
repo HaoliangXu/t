@@ -7,11 +7,13 @@ import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
 
 import Splash from "./components/splash.jsx";
+import MainMenu from "./components/mainMenu.jsx";
 import App from "./components/app.jsx";
 
 main();
 
 function main() {
   React.render(<Splash />, document.getElementById("splash"));
+  React.render(<MainMenu />, document.getElementById("mainMenu"));
   React.render(<App />, document.getElementById('app'));
 }

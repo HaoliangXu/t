@@ -11,6 +11,7 @@ import PageDiscover from "./pageDiscover.jsx";
 import AppStore from "../stores/appStore.js";
 import Comm from "../services/communicate.js";
 import Router from "../services/router.js";
+import AppActions from "../actions/appActions.js";
 
 //Set mui theme, see material-ui docs
 var ThemeManager = new Mui.Styles.ThemeManager();
@@ -27,8 +28,10 @@ export default class App extends React.Component {
   }
 
   componentDidMount(){
+    var req = Router.parseCurrentRoute();
     AppStore.addChangeListener(this._onChange);
-    Comm.reqPage(Router.parseCurrentRoute());
+    Comm.reqPage(req);
+    AppActions.nextPage(req.page);
   }
 
   render() {

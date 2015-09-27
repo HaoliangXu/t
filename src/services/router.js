@@ -15,6 +15,7 @@ var Router = {
       "page": "discover",
       "params": {
         //'pageSource': 'template',
+        "default": true,
         "userID": 0,
         "keywords": "",
         "kinds": "",

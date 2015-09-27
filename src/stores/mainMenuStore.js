@@ -2,20 +2,22 @@ import BaseStore from './BaseStore';
 import AppConstants from "../constants/appConstants.js"
 
 var mainMenuState = {
-  show: false,
+  triggerShow: false,
   user: {}
-}
+};
 
 class MainMenuStore extends BaseStore {
 
   constructor() {
     super();
     this.subscribe( function( payload ){
-      console.log( "dispatching action " + payload.action.actionType + " to MainMenuStore" );
       switch ( payload.action.actionType ) {
-        case AppConstants.TOGGLE_MAINMENU:
-          mainMenuState.show = mainMenuState.show ? false : true ;
-          MainMenuStore.emitChange();
+        case AppConstants.SHOW_MAINMENU:
+          console.log( "dispatching action " + payload.action.actionType + " to MainMenuStore" );
+          mainMenuState.triggerShow = true;
+          this.emitChange();
+          mainMenuState.triggerShow = false;
+          break;
         default:
           // no op
 
