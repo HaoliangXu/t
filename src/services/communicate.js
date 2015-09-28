@@ -3,7 +3,6 @@
 //reqT
 //reqTList
 //reqMatch
-//createT
 //saveT
 //
 import AppActions from "../actions/appActions.js";
@@ -27,8 +26,6 @@ var Comm = {
     switch (req.page) {
       case "viewT":
         this.reqT(req.params);
-        break;
-      case 'createT':
         break;
       case 'match':
         break;

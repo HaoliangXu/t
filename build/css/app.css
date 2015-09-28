@@ -3,7 +3,6 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
-  font-size: 3vh;
 }
 div#container {
   overflow-x:hidden;

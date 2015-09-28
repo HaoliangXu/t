@@ -51,7 +51,7 @@ export default class MainButtonGroup extends React.Component {
         this._onClickButton3 = this._onFilterClick.bind(this);
         break;
       case "viewT":
-      case "createT":
+      case "editT":
         this._onClickButton2 = this._onLikeClick.bind(this);
         this._onClickButton3 = this._onShareClick.bind(this);
         break;

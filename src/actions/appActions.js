@@ -59,16 +59,6 @@ var AppActions = {
     });
   },
 
-  /**
-   * create a new T, with showing a dialog first.
-   */
-  createT: function() {
-    AppDispatcher.handleViewAction({
-      actionType: AppConstants.CREATE_T
-    });
-  },
-
-
 //////////////////////////////////////////////
 //  Menu actionS
 ////////////////////////////////////////////

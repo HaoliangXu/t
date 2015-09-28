@@ -9,9 +9,6 @@ var List = Mui.List;
 var ListItem = Mui.ListItem;
 var ListDivider = Mui.ListDivider;
 
-//TODO remove this theme manager when React 0.14 released, aka the parent-based context takes effect
-var ThemeManager = new Mui.Styles.ThemeManager();
-
 export default class PageDiscover extends React.Component{
 
   constructor( props ){
@@ -39,12 +36,6 @@ export default class PageDiscover extends React.Component{
         <Spinner />
       </div>
     );
-  }
-
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
   }
 
   _onItemClick( itemIndex, listIndex ){
@@ -77,7 +68,3 @@ export default class PageDiscover extends React.Component{
     return PageDiscoverStore.getLists();
   }
 }
-
-PageDiscover.childContextTypes = {
-  muiTheme: React.PropTypes.object
-};

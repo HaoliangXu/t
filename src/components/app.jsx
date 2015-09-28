@@ -8,13 +8,16 @@ import Mui from 'material-ui';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import PageViewT from './pageViewT.jsx';
 import PageDiscover from "./pageDiscover.jsx";
+import PageEditT from "./pageEditT.jsx";
 import AppStore from "../stores/appStore.js";
 import Comm from "../services/communicate.js";
 import Router from "../services/router.js";
 import AppActions from "../actions/appActions.js";
+//import rawTheme from "../myMuiTheme.js";
 
+console.log("asdf");
 //Set mui theme, see material-ui docs
-var ThemeManager = new Mui.Styles.ThemeManager();
+//var ThemeManager = Mui.Styles.ThemeManager;
 
 export default class App extends React.Component {
 
@@ -44,12 +47,13 @@ export default class App extends React.Component {
   }
 
   //For Mui
+  /*
   getChildContext() {
     return {
-      muiTheme: ThemeManager.getCurrentTheme()
+      muiTheme: ThemeManager.getMuiTheme(rawTheme)
     };
   }
-
+*/
   //Once app data loaded, set main view to appbox and its contents, hide splash screen, show main view
   _onChange(){
     this.setState({
@@ -62,11 +66,11 @@ export default class App extends React.Component {
       case 'vacancy':
         this.page = "";
         break;
-      case 'createT':
-        this.page = <PageViewT mode="edit" />;
+      case 'editT':
+        this.page = <PageEditT />;
         break;
       case 'viewT':
-        this.page = <PageViewT mode="view" />;
+        this.page = <PageViewT />;
         break;
       case 'match':
         break;
@@ -82,6 +86,7 @@ export default class App extends React.Component {
 }
 
 //For Mui
-App.childContextTypes = {
+/*App.childContextTypes = {
   muiTheme: React.PropTypes.object
 };
+*/

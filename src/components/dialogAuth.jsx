@@ -24,6 +24,7 @@ export default class DialogAuth extends React.Component{
 
   componentDidMount(){
     DialogAuthStore.addChangeListener( this._onChange );
+    console.log( this.refs );
   }
 
   componentWillUnmount(){
@@ -47,6 +48,7 @@ export default class DialogAuth extends React.Component{
         ref="dialog"
         onDismiss={this._onDismiss}>
         <form role="form">
+          <p ref="tips">Tips:</p>
           <div className="form-group">
             <TextField type="text" hintText="Username" ref="txtUsername" fullWidth={true} />
             <br />
@@ -63,6 +65,7 @@ export default class DialogAuth extends React.Component{
 
   _onDialogSubmit(){
     console.log("on dialog submit");
+
     Comm.reqLogin(this.refs.txtUsername.getValue(), this.refs.txtPassword.getValue());
     this._showSpinner();//TODO show and hid spinner
   }

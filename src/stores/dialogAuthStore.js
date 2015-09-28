@@ -4,6 +4,15 @@ import Auth from "../services/auth.js";
 
 //Indicate whether to show the spinner.
 var _showDialog = false;
+//TODO Flags are better way to config component updating
+/*
+var _flags = {
+  showDialog: false;
+  showSpinner: false;
+  rerender: false;
+  tips: false;
+}
+*/
 var _msg = {
   type: "",
   text: ""
@@ -14,7 +23,6 @@ class DialogAuthStore extends BaseStore {
   constructor() {
     super();
     this.subscribe( function( payload ){
-      console.log( "dispatching action " + payload.action.actionType + " to dialogAuthStore" );
       switch ( payload.action.actionType ) {
         case AuthConstants.SHOW_LOGIN:
           _showDialog = true;

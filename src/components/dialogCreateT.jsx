@@ -1,19 +1,13 @@
 import React from 'react';
 import Mui from 'material-ui';
 import AppActions from "../actions/appActions.js";
+import {newT} from "../utils/appConfig.js"
 var Dialog = Mui.Dialog;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
 var TextField = Mui.TextField;
-
-//Standard Actions
-let TProperties = {
-  name: "",
-  game: "",
-  paticipants: [],
-  location: "",
-  startTime: 0
-};
+var DatePicker = Mui.DatePicker;
+var TimePicker = Mui.TimePicker;
 
 export default class DialogCreateT extends React.Component{
   constructor(props){
@@ -37,6 +31,13 @@ export default class DialogCreateT extends React.Component{
 
   _onDialogSubmit(){
     console.log("on dialog submit");
+    newT.name = this.refs.TName.value;
+    newT.game = this.refs.GameType.value;
+    newT.location = this.refs.Location.value;
+    newT.startTime = this.refs.Time.getTime();
+    console.log(newT);
+    AppActions.nextPage("editT");
+    AppActions.loadPage(newT);
   }
 
   _onDialogCancel(){
@@ -53,9 +54,15 @@ export default class DialogCreateT extends React.Component{
         ref="dialog">
         <form role="form">
           <div className="form-group">
-            <TextField type="text" hintText="Tournament Name" fullWidth={true} />
-            <br />
-            <TextField type="text" hintText="Game Type" fullWidth={true} />
+            <TextField type="text" hintText="Tournament Name (Required)" ref="TName" fullWidth={true} />
+            <TextField type="text" hintText="Game Type (Required)" ref="GameType" fullWidth={true} />
+            <TextField type="text" hintText="Location" ref="Location" fullWidth={true} />
+            <TextField type="text" hintText="Players" ref="Players" fullWidth={true} /><br /><br />
+            Start Date
+            <DatePicker
+              onChange={this._handleChange} ref="Date" />
+            Start Time
+            <TimePicker format="ampm" ref="Time"/>
           </div>
         </form>
       </Dialog>

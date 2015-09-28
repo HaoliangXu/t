@@ -4,9 +4,10 @@ import AppActions from "../actions/appActions.js";
 import Mui from 'material-ui';
 import DialogAuth from "./dialogAuth.jsx";
 import Comm from "../services/communicate.js";
+//import rawTheme from "../myMuiTheme.js";
 
 //Set mui theme, see material-ui docs
-var ThemeManager = new Mui.Styles.ThemeManager();
+//var ThemeManager = Mui.Styles.ThemeManager;
 
 var LeftNav = Mui.LeftNav;
 var MenuItem = Mui.MenuItem;
@@ -65,11 +66,11 @@ export default class MainMenu extends React.Component{
   }
 
   //For Mui
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getCurrentTheme()
-    };
-  }
+//  getChildContext() {
+//    return {
+//      muiTheme: ThemeManager.getMuiTheme(rawTheme)
+//    };
+//  }
 
   _onItemChange( e, item, payload ){
     console.log("change");
@@ -88,7 +89,7 @@ export default class MainMenu extends React.Component{
     console.log(state);
     if (state.triggerShow) {
       this.open();
-      return
+      return;
     }
     this.setState(state);
   }
@@ -96,6 +97,6 @@ export default class MainMenu extends React.Component{
 }
 
 //For Mui
-MainMenu.childContextTypes = {
-  muiTheme: React.PropTypes.object
-};
+//MainMenu.childContextTypes = {
+//  muiTheme: React.PropTypes.object
+//};

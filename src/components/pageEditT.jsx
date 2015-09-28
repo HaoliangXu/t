@@ -1,13 +1,13 @@
 import React from 'react';
 import Mui from 'material-ui';
 import MainButtonGroup from './mainButtonGroup.jsx';
-import PageViewTStore from "../stores/pageViewTStore.js";
+import PageEditTStore from "../stores/pageEditTStore.js";
 import AppActions from "../actions/appActions.js";
 var Card = Mui.Card;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
 
-export default class PageViewT extends React.Component{
+export default class PageEditT extends React.Component{
   constructor(props){
     super(props);
     this.state = {
@@ -17,11 +17,11 @@ export default class PageViewT extends React.Component{
   }
 
   componentDidMount(){
-    PageViewTStore.addChangeListener(this._onChange);
+    PageEditTStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    PageViewTStore.removeChangeListener(this._onChange);
+    PageEditTStore.removeChangeListener(this._onChange);
   }
 
   render(){
@@ -36,7 +36,7 @@ export default class PageViewT extends React.Component{
   _onChange(){
     window.setTimeout(AppActions.hideSpinner, 0);
     this.setState({
-      content: PageViewTStore.pageContent
+      content: PageEditTStore.pageContent
     });
   }
 
