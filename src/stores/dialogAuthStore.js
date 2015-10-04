@@ -40,7 +40,8 @@ class DialogAuthStore extends BaseStore {
           this.emitChange();
           _msg.type = "";
           break;
-        case AuthConstants.CANCEL_LOGIN:
+        case AuthConstants.DISMISS_LOGIN:
+          console.log("2");
           Auth.authFail();
           break;
         default:

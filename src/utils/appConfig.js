@@ -3,13 +3,13 @@ function NewT(){
     "id": "",
     "name": "",
     "brief": "",
-    "game": "",
+    "sport": "",
     "series": "",
     "organizer": "",
     "sponsors": {},
     "format": "",
     "prize": {},
-    "start time": "",
+    "startDate": "",
     "duration": "",
     "others": "",
     "tier": "",
@@ -19,10 +19,52 @@ function NewT(){
     "stages": [
       {
         "name": "",
-        "type": ""
+        "groups": [
+          {
+            "format": "tbd"
+          }
+        ]
       }
     ]
   };
 }
 
-export var newT = NewT();
+function NewGroupDual(){
+  return {
+    name: "Group " + (this.props.groupIndex + 1),
+    format: "groupDual",
+    when: "",
+    location: "",
+    links: {},
+    scores: [
+      {
+        icon: "",
+        tid: "",
+        score: 0,
+        points: 0,
+        color: ""
+      }
+    ],
+    matches: [
+      {
+        icon: "",
+        note: "",
+        players: [
+          {
+            tid: "",
+            name: "",
+            color: ""
+          },
+          {
+            tid: "",
+            name: "",
+            color: ""
+          }
+        ]
+      }
+    ]
+  };
+}
+
+export var NewT;
+export var NewGroupDual;

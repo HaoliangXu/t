@@ -57,6 +57,7 @@ export default class MainButtonGroup extends React.Component {
         break;
     }
   }
+
   _onBackClick(e){
     console.log("back clicked");
     AppActions.lastPage();

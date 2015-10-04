@@ -15,7 +15,6 @@ import Router from "../services/router.js";
 import AppActions from "../actions/appActions.js";
 //import rawTheme from "../myMuiTheme.js";
 
-console.log("asdf");
 //Set mui theme, see material-ui docs
 //var ThemeManager = Mui.Styles.ThemeManager;
 

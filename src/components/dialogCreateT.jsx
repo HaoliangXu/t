@@ -1,7 +1,7 @@
 import React from 'react';
 import Mui from 'material-ui';
 import AppActions from "../actions/appActions.js";
-import {newT} from "../utils/appConfig.js"
+import {NewT} from "../utils/appConfig.js"
 var Dialog = Mui.Dialog;
 var CardText = Mui.CardText;
 var CardTitle = Mui.CardTitle;
@@ -31,13 +31,12 @@ export default class DialogCreateT extends React.Component{
 
   _onDialogSubmit(){
     console.log("on dialog submit");
-    newT.name = this.refs.TName.value;
-    newT.game = this.refs.GameType.value;
-    newT.location = this.refs.Location.value;
-    newT.startTime = this.refs.Time.getTime();
-    console.log(newT);
+    var newT = NewT();
+    newT.name = this.refs.TName.getValue();
+    newT.game = this.refs.GameType.getValue();
+    newT.location = this.refs.Location.getValue();
     AppActions.nextPage("editT");
-    AppActions.loadPage(newT);
+    window.setTimeout(AppActions.loadPage.bind(this, {page:"editT",Tjson:newT}), 0);
   }
 
   _onDialogCancel(){
@@ -61,8 +60,6 @@ export default class DialogCreateT extends React.Component{
             Start Date
             <DatePicker
               onChange={this._handleChange} ref="Date" />
-            Start Time
-            <TimePicker format="ampm" ref="Time"/>
           </div>
         </form>
       </Dialog>

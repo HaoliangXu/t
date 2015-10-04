@@ -24,7 +24,6 @@ export default class DialogAuth extends React.Component{
 
   componentDidMount(){
     DialogAuthStore.addChangeListener( this._onChange );
-    console.log( this.refs );
   }
 
   componentWillUnmount(){
@@ -83,6 +82,7 @@ export default class DialogAuth extends React.Component{
   }
 
   _onChange(){
+    //Check if there is msg to show
     if ( DialogAuthStore.msg.type !== "" ) {
       console.log( DialogAuthStore.msg.text );
       return;

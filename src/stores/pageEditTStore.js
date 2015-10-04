@@ -1,29 +1,98 @@
 import BaseStore from './BaseStore';
-import AppConstants from "../constants/appConstants.js"
+import AppConstants from "../constants/appConstants.js";
+import EditTConstants from "../constants/editTConstants.js";
+import {NewGroup} from "../utils/appConfig.js"
 
-//Indicate whether to show the spinner.
-var _showSpinner = false;
+var _flags = {
+  //Indicates whether to rerender pageEdit component.
+  rerender: false,
+  //TODO Indecates whether the T is edited, to determine to save T or not.
+  pageChanged: false,
+};
+var Tjson;
 
 class PageEditTStore extends BaseStore {
 
   constructor() {
     super();
     this.subscribe( function( payload ){
-      console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
       switch ( payload.action.actionType ) {
-        case AppConstants.SHOW_SPINNER:
-          _showSpinner = true;
-          this.emitChange();
-          break;
-        case AppConstants.HIDE_SPINNER:
-          _showSpinner = false;
-          this.emitChange();
-          break;
-        //When page load, the spinner reloads, hence set _showSpinner to false as default
         case AppConstants.LOAD_PAGE:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
           if ( payload.action.content.page !== "editT" ) break;
-          lists = payload.action.content.lists;
-          PageDiscoverStore.emitChange();
+          Tjson = payload.action.content.Tjson;
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.SET_GROUP_FORMAT:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          this._setGroupFormat( payload.action.format, payload.action.number,
+            Tjson.stages[ payload.action.stageIndex ].groups[ payload.action.groupIndex ]);
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.ADD_GROUP:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          //Add group into Tjson
+          Tjson.stages[ payload.action.stageIndex ].groups.splice(
+            payload.action.groupIndex, 0, payload.action.group
+          );
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.ADD_STAGE:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          //Add stage into Tjson
+          Tjson.stages.splice(
+            payload.action.stageIndex, 0, payload.action.stage
+          );
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.REMOVE_GROUP:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          Tjson.stages[ payload.action.stageIndex ].groups.splice(
+            payload.action.groupIndex, 1
+          );
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.MOVE_GROUP_UP:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          if ( !payload.action.groupIndex ) break;
+          let groups1 = Tjson.stages[ payload.action.stageIndex ].groups;
+          let swap1 = groups1[ payload.action.groupIndex - 1];
+          groups1[ payload.action.groupIndex - 1] = groups1[ payload.action.groupIndex];
+          groups1[ payload.action.groupIndex] = swap1;
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.MOVE_GROUP_DOWN:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          let groups2 = Tjson.stages[ payload.action.stageIndex ].groups;
+          if ( payload.action.groupIndex >= groups2.length - 1 ) break;
+          let swap2 = groups2[ payload.action.groupIndex + 1];
+          groups2[ payload.action.groupIndex + 1] = groups2[ payload.action.groupIndex];
+          groups2[ payload.action.groupIndex] = swap2;
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.COPY_GROUP:
+          console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
+          console.log(payload.action.groupData);
+          Tjson.stages[ payload.action.stageIndex ].groups.splice(
+            payload.action.groupIndex, 0, payload.action.groupData
+          );
+          _flags.rerender = true;
+          this.emitChange();
+          _flags.rerender = false;
           break;
         default:
           // no op
@@ -31,11 +100,36 @@ class PageEditTStore extends BaseStore {
       }
     }.bind( this ));
   }
-/*
-  get showSpinner(){
-    return _showSpinner;
+
+  _setGroupFormat( format, number, target ){
+    target.format = format;
+    switch ( format ) {
+      case "elimination":
+        switch ( number ) {
+          case 4:
+            break;
+          case 8:
+            break;
+          case 16:
+            break;
+          case 32:
+            break;
+          case 64:
+            break;
+        }
+        break;
+      case "groupDual":
+        break;
+    }
   }
-*/
+
+  get flags(){
+    return _flags;
+  }
+
+  get Tjson(){
+    return Tjson;
+  }
 }
 
 export default new PageEditTStore();
