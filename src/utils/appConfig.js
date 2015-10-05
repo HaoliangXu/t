@@ -1,3 +1,39 @@
+function NewTBD( groupNumber ){
+  return {
+    name: "Group " + groupNumber,
+    format: "groupDual",
+    when: "",
+    location: "",
+    links: {},
+    scores: [
+      {
+        icon: "",
+        tid: "",
+        score: 0,
+        points: 0,
+        color: ""
+      }
+    ],
+    matches: [
+      {
+        icon: "",
+        note: "",
+        players: [
+          {
+            tid: "",
+            name: "",
+            color: ""
+          },
+          {
+            tid: "",
+            name: "",
+            color: ""
+          }
+        ]
+      }
+    ]
+  };
+}
 function NewT(){
   return {
     "id": "",
@@ -66,5 +102,4 @@ function NewGroupDual(){
   };
 }
 
-export var NewT;
-export var NewGroupDual;
+export {NewT, NewGroupDual, NewTBD};
