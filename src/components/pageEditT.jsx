@@ -81,7 +81,6 @@ export default class PageEditT extends React.Component{
         }
         return groupItem;
       }.bind(this));
-      console.log(stageIndex);
       return <div className="stage">
         <AppBar title={stage.name}
           iconClassNameRight="muidocs-icon-navigation-expand-more" />

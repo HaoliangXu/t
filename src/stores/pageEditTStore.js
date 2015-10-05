@@ -86,7 +86,6 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.COPY_GROUP:
           console.log( "dispatching action " + payload.action.actionType + " to PageEditTStore" );
-          console.log(payload.action.groupData);
           Tjson.stages[ payload.action.stageIndex ].groups.splice(
             payload.action.groupIndex, 0, payload.action.groupData
           );

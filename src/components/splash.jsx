@@ -7,7 +7,6 @@
  */
 import React from 'react';
 import SplashStore from "../stores/splashStore.js";
-import Comm from "../services/communicate.js";
 
 export default class Splash extends React.Component {
 
