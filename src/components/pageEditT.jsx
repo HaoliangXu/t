@@ -1,22 +1,17 @@
 import React from 'react';
 import Mui from 'material-ui';
-import RaisedButton from "material-ui/lib/raised-button.js"
+import RaisedButton from 'material-ui/lib/raised-button.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
-import PageEditTStore from "../stores/pageEditTStore.js";
+import PageEditTStore from '../stores/pageEditTStore.js';
 //Import Group Creators
-import TBD from "./formats/tbd.jsx";
-import Elimination from "./formats/elimination.jsx";
-import GroupDual from "./formats/groupDual.jsx";
+import TBD from './formats/tbd.jsx';
+import Elimination from './formats/elimination.jsx';
+import GroupDual from './formats/groupDual.jsx';
 
-import AppActions from "../actions/appActions.js";
-import EditTActions from "../actions/editTActions.js";
+import AppActions from '../actions/appActions.js';
+import EditTActions from '../actions/editTActions.js';
 
 var AppBar = Mui.AppBar;
-var Paper = Mui.Paper;
-var Card = Mui.Card;
-var CardText = Mui.CardText;
-var CardTitle = Mui.CardTitle;
-var CardHeader = Mui.CardHeader;
 
 export default class PageEditT extends React.Component{
   constructor( props ){
@@ -43,51 +38,53 @@ export default class PageEditT extends React.Component{
       <div>
         <AppBar
           title={this.state.Tjson.name}
-          style={{height: "10rem"}}
+          style={{height: '10rem'}}
           zDepth={2}
-          iconClassNameRight="muidocs-icon-navigation-expand-more" />
+          iconClassNameRight='muidocs-icon-navigation-expand-more' />
         {this._generateT( this.state.Tjson )}
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
-          secondary={true} style={{"width": "100%"}} label="Add A New Stage" />
-        <MainButtonGroup page="editT" />
+          secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
+        <MainButtonGroup page='editT' />
       </div>
     );
   }
 
   _generateT( Tjson ){
     //Check whether page is loaded, if not, skip generateT.
-    if ( !Tjson.stages ) return;
-    var output = Tjson.stages.map( function( stage, stageIndex ){
-      var stageItem = stage.groups.map( function( group, groupIndex ){
-        var groupItem;
-        var props = {
+    if ( !Tjson.stages ) {
+      return;
+    }
+    let output = Tjson.stages.map( function( stage, stageIndex ){
+      let stageItem = stage.groups.map( function( group, groupIndex ){
+        let groupItem;
+        let props = {
           groupData: group,
           stageIndex: stageIndex,
           groupIndex: groupIndex,
           editMode: true,
-          key: groupIndex + "." + stageIndex
+          key: groupIndex + '.' + stageIndex
         };
         switch ( group.format ) {
           //Group format to be decided, for user to select.
-          case "tbd":
-            groupItem = <TBD {...props} key={groupIndex + "." + stageIndex} />;//TODO Solve key warning
+          case 'tbd':
+            groupItem = <TBD {...props} key={groupIndex + '.' + stageIndex} />;//TODO Solve key warning
             break;
-          case "elimination":
+          case 'elimination':
             groupItem = <Elimination {...props} />;
             break;
-          case "groupDual":
+          case 'groupDual':
             groupItem = <GroupDual {...props} />;
             break;
         }
         return groupItem;
       }.bind(this));
-      return <div className="stage">
+      return <div className='stage'>
         <AppBar title={stage.name}
-          iconClassNameRight="muidocs-icon-navigation-expand-more" />
+          iconClassNameRight='muidocs-icon-navigation-expand-more' />
         {stageItem}
         <RaisedButton
           onTouchTap={this._onAddNewGroup.bind( this, stage.groups.length, stageIndex )}
-          style={{"width": "96%", "margin": "2% 2% 0 2%"}} label="Add A New Group" />
+          style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group' />
       </div>;
     }.bind(this));
     return output;
@@ -95,17 +92,17 @@ export default class PageEditT extends React.Component{
 
   _onAddNewGroup( groupIndex, stageIndex ){
     var group = {
-      "format": "tbd"
+      'format': 'tbd'
     };
     EditTActions.addGroup( group, groupIndex, stageIndex );
   }
 
   _onAddNewStage( stageIndex ){
     var stage = {
-      "name": "",
-      "groups": [
+      'name': '',
+      'groups': [
         {
-          "format": "tbd"
+          'format': 'tbd'
         }
       ]
     };
@@ -118,6 +115,12 @@ export default class PageEditT extends React.Component{
       this.setState({
         Tjson: PageEditTStore.Tjson
       });
+      window.setTimeout(function(){
+        AppActions.updateHistoryContent({
+          page: 'editT',
+          Tjson: this.state.Tjson
+        });
+      }.bind(this), 0);
     }
   }
 

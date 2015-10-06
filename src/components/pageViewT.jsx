@@ -1,11 +1,8 @@
 import React from 'react';
 import Mui from 'material-ui';
 import MainButtonGroup from './mainButtonGroup.jsx';
-import PageViewTStore from "../stores/pageViewTStore.js";
-import AppActions from "../actions/appActions.js";
-var Card = Mui.Card;
-var CardText = Mui.CardText;
-var CardTitle = Mui.CardTitle;
+import PageViewTStore from '../stores/pageViewTStore.js';
+import AppActions from '../actions/appActions.js';
 
 export default class PageViewT extends React.Component{
   constructor(props){
@@ -28,7 +25,7 @@ export default class PageViewT extends React.Component{
     return (
       <div>
         {JSON.stringify(this.state.content.T)}
-        <MainButtonGroup page="viewT" />
+        <MainButtonGroup page='viewT' />
       </div>
     );
   }
@@ -38,6 +35,12 @@ export default class PageViewT extends React.Component{
     this.setState({
       content: PageViewTStore.pageContent
     });
+    window.setTimeout(function(){
+      AppActions.updateHistoryContent({
+        page: 'viewT',
+        content: this.state.content
+      });
+    }.bind(this), 0);
   }
 
 }

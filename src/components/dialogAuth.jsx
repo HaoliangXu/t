@@ -1,11 +1,9 @@
 import React from 'react';
 import Mui from 'material-ui';
-import AuthActions from "../actions/authActions.js";
-import DialogAuthStore from "../stores/dialogAuthStore.js";
-import Comm from "../services/communicate.js";
+import AuthActions from '../actions/authActions.js';
+import DialogAuthStore from '../stores/dialogAuthStore.js';
+import Comm from '../services/communicate.js';
 var Dialog = Mui.Dialog;
-var CardText = Mui.CardText;
-var CardTitle = Mui.CardTitle;
 var TextField = Mui.TextField;
 
 var preventDismissEvent = false;
@@ -41,17 +39,17 @@ export default class DialogAuth extends React.Component{
   render(){
     return (
       <Dialog
-        title="Login"
+        title='Login'
         actions={this.standardActions}
-        actionFocus="submit"
-        ref="dialog"
+        actionFocus='submit'
+        ref='dialog'
         onDismiss={this._onDismiss}>
-        <form role="form">
-          <p ref="tips">Tips:</p>
-          <div className="form-group">
-            <TextField type="text" hintText="Username" ref="txtUsername" fullWidth={true} />
+        <form role='form'>
+          <p ref='tips'>Tips:</p>
+          <div className='form-group'>
+            <TextField type='text' hintText='Username' ref='txtUsername' fullWidth={true} />
             <br />
-            <TextField type="password" hintText="Password" ref="txtPassword" fullWidth={true} />
+            <TextField type='password' hintText='Password' ref='txtPassword' fullWidth={true} />
           </div>
         </form>
       </Dialog>
@@ -63,14 +61,14 @@ export default class DialogAuth extends React.Component{
   }
 
   _onDialogSubmit(){
-    console.log("on dialog submit");
+    console.log('on dialog submit');
 
     Comm.reqLogin(this.refs.txtUsername.getValue(), this.refs.txtPassword.getValue());
     this._showSpinner();//TODO show and hid spinner
   }
 
   _onDialogCancel(){
-    console.log("on dialog cancel");
+    console.log('on dialog cancel');
     this.dismiss();
   }
 
@@ -83,7 +81,7 @@ export default class DialogAuth extends React.Component{
 
   _onChange(){
     //Check if there is msg to show
-    if ( DialogAuthStore.msg.type !== "" ) {
+    if ( DialogAuthStore.msg.type !== '' ) {
       console.log( DialogAuthStore.msg.text );
       return;
     }

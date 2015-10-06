@@ -9,7 +9,7 @@ export default keyMirror({
   SWITCH_PAGE: null,
   LOAD_PAGE: null,
   CREATE_T: null,
-  UPDATE_DISCOVER: null,
+  UPDATE_HISTORY_CONTENT: null,
 
   SHOW_MAINMENU: null,
   HIDE_MAINMENU: null

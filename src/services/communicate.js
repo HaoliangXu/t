@@ -5,18 +5,21 @@
 //reqMatch
 //saveT
 //
-import AppActions from "../actions/appActions.js";
-import AuthActions from "../actions/authActions.js";
+import AppActions from '../actions/appActions.js';
+import AuthActions from '../actions/authActions.js';
 var ajax = reqwest;
 
 //TODO Whenever to load a page, abort current request.
 //     Active waiting mode (but by AppStore).
+/*
 var tokenPrototype = {
-  reqObj : {},
+  reqObj: {},
   abort: function(){
   }.bind(this)
 };
+*/
 var token = {};
+
 
 var Comm = {
 
@@ -24,7 +27,7 @@ var Comm = {
   //Usually for applying new route
   reqPage: function(req){
     switch (req.page) {
-      case "viewT":
+      case 'viewT':
         this.reqT(req.params);
         break;
       case 'match':
@@ -41,20 +44,20 @@ var Comm = {
   //request splash data from local storage
   reqSplash: function(){
     return {
-      "mode": "non-intro",
-      "content": "Loading..."
+      'mode': 'non-intro',
+      'content': 'Loading...'
     };
   },
 
   //request tournament json
   reqT: function(tID) {
-    console.log("request T");
+    console.log('request T');
     token = ajax({
       url: './demoT.json',//TODO diffs when not in dev mode
       //type: 'html',
       success: function(resp) {
         AppActions.loadPage({
-          page: "viewT",
+          page: 'viewT',
           T: resp
         });
       },
@@ -65,54 +68,53 @@ var Comm = {
   },
 
   reqTList: function(params) {
-    console.log("requesting discover list");
+    console.log('requesting discover list');
     //if no keywords, then send hot tournaments list as default
     if (params.default) {
       let content = {
-        "page": "discover",
+        'page': 'discover',
         lists: [
           {
-            listName: "Hot",
+            listName: 'Hot',
             listItems: [
               {
-                itemName: "demo T",
-                id: "asdf1",
-                pic: "",
-                kind: "",
-                location: ""
+                itemName: 'demo T',
+                id: 'asdf1',
+                pic: '',
+                kind: '',
+                location: ''
               },
               {
-                itemName: "demo T 2",
-                id: "qwer2",
-                pic: "",
-                kind: "",
-                location: ""
+                itemName: 'demo T 2',
+                id: 'qwer2',
+                pic: '',
+                kind: '',
+                location: ''
               }
             ]
           }
         ]
       };
       window.setTimeout(function(){
-        console.log("got content from server");
         AppActions.loadPage(content);
-      }, 1000);
+      }, 500);
     }
   },
 
   //request match details from server
   reqMatch: function(){
-    console.log("request match");
+    console.log('request match');
   },
 
   reqLogin: function(username, password){//TODO just lonin as sheldon and give some fake data
     var res = {
       username: username,
-      id: "238u9ho23r",
-      iconUrl: "",
+      id: '238u9ho23r',
+      iconUrl: '',
       authLevel: 1
     };
     window.setTimeout(function(){
-      console.log(username + " has logged in");
+      console.log(username + ' has logged in');
       AuthActions.loginSuccess(res);
     }, 500);
   },

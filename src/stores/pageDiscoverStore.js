@@ -6,14 +6,12 @@
  * @
  */
 
-import AppDispatcher from "../dispatchers/appDispatcher.js";
-import {EventEmitter} from "events";
-import AppConstants from "../constants/appConstants.js";
-import Router from "../services/router.js";
-import Comm from "../services/communicate.js";
-import assign from "object-assign";
+import AppDispatcher from '../dispatchers/appDispatcher.js';
+import {EventEmitter} from 'events';
+import AppConstants from '../constants/appConstants.js';
+import assign from 'object-assign';
 
-var CHANGE_EVENT = "change";
+var CHANGE_EVENT = 'change';
 var lists = [];
 
 var PageDiscoverStore = assign({}, EventEmitter.prototype, {
@@ -38,8 +36,10 @@ var PageDiscoverStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(payload) {
   switch(payload.action.actionType) {
     case AppConstants.LOAD_PAGE:
-      console.log("dispatching action " + payload.action.actionType + " to pageDiscoverStore");
-      if ( payload.action.content.page !== "discover" ) break;
+      console.log('dispatching action ' + payload.action.actionType + ' to pageDiscoverStore');
+      if ( payload.action.content.page !== 'discover' ) {
+        break;
+      }
       lists = payload.action.content.lists;
       PageDiscoverStore.emitChange();
       break;

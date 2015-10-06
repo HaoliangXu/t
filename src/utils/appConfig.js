@@ -1,33 +1,33 @@
 function NewTBD( groupNumber ){
   return {
-    name: "Group " + groupNumber,
-    format: "groupDual",
-    when: "",
-    location: "",
+    name: 'Group ' + groupNumber,
+    format: 'groupDual',
+    when: '',
+    location: '',
     links: {},
     scores: [
       {
-        icon: "",
-        tid: "",
+        icon: '',
+        tid: '',
         score: 0,
         points: 0,
-        color: ""
+        color: ''
       }
     ],
     matches: [
       {
-        icon: "",
-        note: "",
+        icon: '',
+        note: '',
         players: [
           {
-            tid: "",
-            name: "",
-            color: ""
+            tid: '',
+            name: '',
+            color: ''
           },
           {
-            tid: "",
-            name: "",
-            color: ""
+            tid: '',
+            name: '',
+            color: ''
           }
         ]
       }
@@ -36,28 +36,28 @@ function NewTBD( groupNumber ){
 }
 function NewT(){
   return {
-    "id": "",
-    "name": "",
-    "brief": "",
-    "sport": "",
-    "series": "",
-    "organizer": "",
-    "sponsors": {},
-    "format": "",
-    "prize": {},
-    "startDate": "",
-    "duration": "",
-    "others": "",
-    "tier": "",
-    "players": [
+    'id': '',
+    'name': '',
+    'brief': '',
+    'sport': '',
+    'series': '',
+    'organizer': '',
+    'sponsors': {},
+    'format': '',
+    'prize': {},
+    'startDate': '',
+    'duration': '',
+    'others': '',
+    'tier': '',
+    'players': [
 
     ],
-    "stages": [
+    'stages': [
       {
-        "name": "",
-        "groups": [
+        'name': '',
+        'groups': [
           {
-            "format": "tbd"
+            'format': 'tbd'
           }
         ]
       }
@@ -67,34 +67,34 @@ function NewT(){
 
 function NewGroupDual(){
   return {
-    name: "Group " + (this.props.groupIndex + 1),
-    format: "groupDual",
-    when: "",
-    location: "",
+    name: 'Group ' + (this.props.groupIndex + 1),
+    format: 'groupDual',
+    when: '',
+    location: '',
     links: {},
     scores: [
       {
-        icon: "",
-        tid: "",
+        icon: '',
+        tid: '',
         score: 0,
         points: 0,
-        color: ""
+        color: ''
       }
     ],
     matches: [
       {
-        icon: "",
-        note: "",
+        icon: '',
+        note: '',
         players: [
           {
-            tid: "",
-            name: "",
-            color: ""
+            tid: '',
+            name: '',
+            color: ''
           },
           {
-            tid: "",
-            name: "",
-            color: ""
+            tid: '',
+            name: '',
+            color: ''
           }
         ]
       }

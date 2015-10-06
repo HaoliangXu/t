@@ -75,7 +75,12 @@ var AppActions = {
     });
   },
 
-
+  updateHistoryContent: function(content){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.UPDATE_HISTORY_CONTENT,
+      content: content
+    });
+  }
 };
 
 export default AppActions;

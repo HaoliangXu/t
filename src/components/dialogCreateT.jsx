@@ -1,13 +1,10 @@
 import React from 'react';
 import Mui from 'material-ui';
-import AppActions from "../actions/appActions.js";
-import {NewT} from "../utils/appConfig.js"
+import AppActions from '../actions/appActions.js';
+import {NewT} from '../utils/appConfig.js';
 var Dialog = Mui.Dialog;
-var CardText = Mui.CardText;
-var CardTitle = Mui.CardTitle;
 var TextField = Mui.TextField;
 var DatePicker = Mui.DatePicker;
-var TimePicker = Mui.TimePicker;
 
 export default class DialogCreateT extends React.Component{
   constructor(props){
@@ -30,36 +27,36 @@ export default class DialogCreateT extends React.Component{
   }
 
   _onDialogSubmit(){
-    console.log("on dialog submit");
+    console.log('on dialog submit');
     var newT = NewT();
     newT.name = this.refs.TName.getValue();
     newT.game = this.refs.GameType.getValue();
     newT.location = this.refs.Location.getValue();
-    AppActions.nextPage("editT");
-    window.setTimeout(AppActions.loadPage.bind(this, {page:"editT",Tjson:newT}), 0);
+    AppActions.nextPage('editT');
+    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: newT}), 0);
   }
 
   _onDialogCancel(){
-    console.log("on dialog cancel");
+    console.log('on dialog cancel');
     this.dismiss();
   }
 
   render(){
     return (
       <Dialog
-        title="Create Tournament"
+        title='Create Tournament'
         actions={this.standardActions}
-        actionFocus="submit"
-        ref="dialog">
-        <form role="form">
-          <div className="form-group">
-            <TextField type="text" hintText="Tournament Name (Required)" ref="TName" fullWidth={true} />
-            <TextField type="text" hintText="Game Type (Required)" ref="GameType" fullWidth={true} />
-            <TextField type="text" hintText="Location" ref="Location" fullWidth={true} />
-            <TextField type="text" hintText="Players" ref="Players" fullWidth={true} /><br /><br />
+        actionFocus='submit'
+        ref='dialog'>
+        <form role='form'>
+          <div className='form-group'>
+            <TextField type='text' hintText='Tournament Name (Required)' ref='TName' fullWidth={true} />
+            <TextField type='text' hintText='Game Type (Required)' ref='GameType' fullWidth={true} />
+            <TextField type='text' hintText='Location' ref='Location' fullWidth={true} />
+            <TextField type='text' hintText='Players' ref='Players' fullWidth={true} /><br /><br />
             Start Date
             <DatePicker
-              onChange={this._handleChange} ref="Date" />
+              onChange={this._handleChange} ref='Date' />
           </div>
         </form>
       </Dialog>
