@@ -3,6 +3,7 @@ import Mui from 'material-ui';
 import RaisedButton from 'material-ui/lib/raised-button.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
+
 //Import Group Creators
 import TBD from './formats/tbd.jsx';
 import Elimination from './formats/elimination.jsx';
@@ -40,19 +41,41 @@ export default class PageEditT extends React.Component{
           title={this.state.Tjson.name}
           style={{height: '10rem'}}
           zDepth={2}
+          onLeftIconButtonTouchTap={this._onShowTMenu}
+          onRightIconButtonTouchTap={this._onToggleT}
           iconClassNameRight='muidocs-icon-navigation-expand-more' />
         {this._generateT( this.state.Tjson )}
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
+        <RaisedButton onTouchTap={this._onSave}
+          primary={true} style={{'width': '50%', 'margin-top': '3rem'}} label='Save' />
+        <RaisedButton onTouchTap={this._onDiscard}
+          primary={true} style={{'width': '50%', 'margin-top': '3rem'}} label='Discard' />
         <MainButtonGroup page='editT' />
       </div>
     );
   }
 
+  _onSave(){
+    console.log('on save T');
+  }
+
+  _onDiscard(){
+    console.log('on discard T');
+  }
+
+  _onToggleT(){
+    console.log('on toggle T');
+  }
+
+  _onShowTMenu(){
+    console.log('on show t menu');
+  }
+
   _generateT( Tjson ){
     //Check whether page is loaded, if not, skip generateT.
     if ( !Tjson.stages ) {
-      return;
+      return undefined;
     }
     let output = Tjson.stages.map( function( stage, stageIndex ){
       let stageItem = stage.groups.map( function( group, groupIndex ){
@@ -77,7 +100,7 @@ export default class PageEditT extends React.Component{
             break;
         }
         return groupItem;
-      }.bind(this));
+      });
       return <div className='stage'>
         <AppBar title={stage.name}
           iconClassNameRight='muidocs-icon-navigation-expand-more' />
@@ -99,7 +122,7 @@ export default class PageEditT extends React.Component{
 
   _onAddNewStage( stageIndex ){
     var stage = {
-      'name': '',
+      'name': 'Stage ' + (stageIndex + 1),
       'groups': [
         {
           'format': 'tbd'

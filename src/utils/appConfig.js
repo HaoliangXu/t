@@ -1,4 +1,4 @@
-function NewTBD( groupNumber ){
+function newTBD( groupNumber ){
   return {
     name: 'Group ' + groupNumber,
     format: 'groupDual',
@@ -34,7 +34,7 @@ function NewTBD( groupNumber ){
     ]
   };
 }
-function NewT(){
+function newT(){
   return {
     'id': '',
     'name': '',
@@ -54,7 +54,7 @@ function NewT(){
     ],
     'stages': [
       {
-        'name': '',
+        'name': 'Stage 1',
         'groups': [
           {
             'format': 'tbd'
@@ -65,7 +65,7 @@ function NewT(){
   };
 }
 
-function NewGroupDual(){
+function newGroupDual(){
   return {
     name: 'Group ' + (this.props.groupIndex + 1),
     format: 'groupDual',
@@ -102,4 +102,4 @@ function NewGroupDual(){
   };
 }
 
-export {NewT, NewGroupDual, NewTBD};
+export {newT, newGroupDual, newTBD};

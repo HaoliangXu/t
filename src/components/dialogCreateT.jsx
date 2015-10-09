@@ -1,7 +1,7 @@
 import React from 'react';
 import Mui from 'material-ui';
 import AppActions from '../actions/appActions.js';
-import {NewT} from '../utils/appConfig.js';
+import {newT} from '../utils/appConfig.js';
 var Dialog = Mui.Dialog;
 var TextField = Mui.TextField;
 var DatePicker = Mui.DatePicker;
@@ -28,12 +28,12 @@ export default class DialogCreateT extends React.Component{
 
   _onDialogSubmit(){
     console.log('on dialog submit');
-    var newT = NewT();
-    newT.name = this.refs.TName.getValue();
-    newT.game = this.refs.GameType.getValue();
-    newT.location = this.refs.Location.getValue();
+    var anewT = newT();
+    anewT.name = this.refs.TName.getValue();
+    anewT.game = this.refs.GameType.getValue();
+    anewT.location = this.refs.Location.getValue();
     AppActions.nextPage('editT');
-    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: newT}), 0);
+    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT}), 0);
   }
 
   _onDialogCancel(){

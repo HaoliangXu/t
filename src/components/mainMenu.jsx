@@ -1,10 +1,10 @@
 import React from 'react';
-import MainMenuStore from "../stores/mainMenuStore.js";
-import AppActions from "../actions/appActions.js";
+import MainMenuStore from '../stores/mainMenuStore.js';
+import AppActions from '../actions/appActions.js';
 import Mui from 'material-ui';
-import DialogAuth from "./dialogAuth.jsx";
-import Comm from "../services/communicate.js";
-//import rawTheme from "../myMuiTheme.js";
+import DialogAuth from './dialogAuth.jsx';
+import Comm from '../services/communicate.js';
+//import rawTheme from '../myMuiTheme.js';
 
 //Set mui theme, see material-ui docs
 //var ThemeManager = Mui.Styles.ThemeManager;
@@ -26,7 +26,7 @@ var menuItems = [
      payload: 'https://www.google.com',
      text: 'Disabled Link',
      disabled: true
-  },
+  }
 ];
 
 export default class MainMenu extends React.Component{
@@ -50,7 +50,7 @@ export default class MainMenu extends React.Component{
   render(){
     return (
       <div>
-        <LeftNav ref="leftNav" disableSwipeToOpen={true} docked={false}
+        <LeftNav ref='leftNav' disableSwipeToOpen={true} docked={false}
           menuItems={menuItems} onChange={this._onItemChange}/>
         <DialogAuth />
       </div>
@@ -73,13 +73,13 @@ export default class MainMenu extends React.Component{
 //  }
 
   _onItemChange( e, item, payload ){
-    console.log("change");
+    console.log('change');
     AppActions.switchPage(payload.route);
     AppActions.showSpinner();
     Comm.reqPage({
       page: payload.route,
       params: {
-        default: true,
+        default: true
       }
     });
   }
