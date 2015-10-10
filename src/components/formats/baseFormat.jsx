@@ -1,9 +1,7 @@
 import React from 'react';
-import FlatButton from "material-ui/lib/flat-button.js";
-import EditTActions from "../../actions/editTActions.js";
-import {Card, CardTitle, CardText, CardHeader} from "material-ui/lib/card/index.js";
+import EditTActions from '../../actions/editTActions.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
-import IconButton from "material-ui/lib/icon-button.js";
+import IconButton from 'material-ui/lib/icon-button.js';
 
 /*
  * Title: BaseFormat
@@ -15,21 +13,21 @@ import IconButton from "material-ui/lib/icon-button.js";
 export default class BaseFormat extends React.Component{
   constructor( props ){
     super( props );
-    this._iconButtonElement = <IconButton iconClassName="muidocs-icon-custom-github" tooltip="Config"/>
+    this._iconButtonElement = <IconButton iconClassName='muidocs-icon-custom-github' />;
     //Show only on edit mode
     this._basicIconMenu = [
       <MenuItem
         onTouchTap={this._onMoveUp.bind( this, this.props.groupIndex, this.props.stageIndex )}
-        primaryText="Move up" />,
+        primaryText='Move up' key='menuItem1' />,
       <MenuItem
         onTouchTap={this._onMoveDown.bind( this, this.props.groupIndex, this.props.stageIndex )}
-        primaryText="Move down" />,
+        primaryText='Move down' key='menuItem2' />,
       <MenuItem
         onTouchTap={this._onCopyGroup.bind( this, this.props.groupData, this.props.groupIndex, this.props.stageIndex )}
-        primaryText="Copy" />,
+        primaryText='Copy' key='menuItem3' />,
       <MenuItem
         onTouchTap={this._onRemoveGroup.bind( this, this.props.groupIndex, this.props.stageIndex )}
-        primaryText="Remove" />
+        primaryText='Remove' key='menuItem4' />
     ];
   }
 
@@ -40,7 +38,7 @@ export default class BaseFormat extends React.Component{
   _onMoveDown( groupIndex, stageIndex ){
     EditTActions.moveGroupDown( groupIndex, stageIndex );
   }
-  
+
   _onCopyGroup( groupData, groupIndex, stageIndex ){
     EditTActions.copyGroup( groupData, groupIndex, stageIndex );
   }

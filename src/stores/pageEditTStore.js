@@ -6,7 +6,7 @@ var _flags = {
   // Indicates whether to rerender pageEdit component.
   rerender: false,
   // TODO Indecates whether the T is edited, to determine to save T or not.
-  pageChanged: false
+  modified: false
 };
 var Tjson;
 

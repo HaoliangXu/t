@@ -1,10 +1,9 @@
 import React from 'react';
-import Mui from 'material-ui';
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group.js';
+import FloatingActionButton from 'material-ui/lib/floating-action-button.js';
 import DialogCreateT from './dialogCreateT.jsx';
 import AppActions from '../actions/appActions.js';
 import Auth from '../services/auth.js';
-var ToolbarGroup = Mui.ToolbarGroup;
-var FloatingActionButton = Mui.FloatingActionButton;
 
 var style = {
   margin: '0.7rem'

@@ -6,6 +6,7 @@
  * @render
  */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import SplashStore from "../stores/splashStore.js";
 
 export default class Splash extends React.Component {
@@ -40,7 +41,7 @@ export default class Splash extends React.Component {
   _endSplash(){
     var divSplash = document.getElementById("splash");
     SplashStore.unregisterDispatcher();
-    React.unmountComponentAtNode(divSplash);
+    ReactDOM.unmountComponentAtNode(divSplash);
     divSplash.parentNode.removeChild(divSplash);
   }
 

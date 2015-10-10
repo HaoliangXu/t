@@ -1,16 +1,14 @@
 import React from 'react';
 import MainMenuStore from '../stores/mainMenuStore.js';
 import AppActions from '../actions/appActions.js';
-import Mui from 'material-ui';
+import LeftNav from 'material-ui/lib/left-nav.js';
+import MenuItem from 'material-ui/lib/menu/menu-item.js';
 import DialogAuth from './dialogAuth.jsx';
 import Comm from '../services/communicate.js';
 //import rawTheme from '../myMuiTheme.js';
 
 //Set mui theme, see material-ui docs
 //var ThemeManager = Mui.Styles.ThemeManager;
-
-var LeftNav = Mui.LeftNav;
-var MenuItem = Mui.MenuItem;
 
 var menuItems = [
   { route: 'discover', text: 'Discover' },

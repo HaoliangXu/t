@@ -1,8 +1,5 @@
 import React from 'react';
-import SpinnerStore from "../stores/SpinnerStore.js";
-import Mui from 'material-ui';
-
-let showSpinner = false
+import SpinnerStore from '../stores/SpinnerStore.js';
 
 export default class Spinner extends React.Component{
 
@@ -24,7 +21,7 @@ export default class Spinner extends React.Component{
 
   render(){
     return (
-      <div id="spinner">
+      <div id='spinner'>
 
       </div>
     );

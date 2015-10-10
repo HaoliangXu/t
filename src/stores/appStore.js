@@ -72,7 +72,6 @@ AppDispatcher.register(function(payload) {
     case AppConstants.LAST_PAGE:
       console.log('dispatching action ' + payload.action.actionType + ' to appStore');
       pageData = historyStore.lastPage();
-      console.log(pageData);
       page = pageData.page;
       AppStore.emitChange();
       //TODO setTimeout is not a good logic for this action
@@ -81,21 +80,20 @@ AppDispatcher.register(function(payload) {
       window.setTimeout(AppActions.updateHistoryContent.bind( undefined, pageData.content ), 0);
       break;
     case AppConstants.SWITCH_PAGE:
+      console.log('dispatching action ' + payload.action.actionType + ' to appStore');
       page = payload.action.page;
       historyStore.switchPage( page );
       AppStore.emitChange();
       break;
     case AppConstants.UPDATE_HISTORY_CONTENT:
+      console.log('dispatching action ' + payload.action.actionType + ' to appStore');
       //TEST: the content may change automatically without updates while LOAD_PAGE, because it is a reference. Not sure.
       if ( _historyChain[0].page === payload.action.content.page ){
         historyStore.loadPage( payload.action.content );
       }
-      console.log(payload.action.content);
       break;
     case AppConstants.SHOW_SPINNER:
       break;
-
-
     default:
       // no op
   }

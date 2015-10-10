@@ -1,11 +1,9 @@
-import keyMirror from "react/lib/keyMirror.js";
-
-export default keyMirror({
-  SET_GROUP_FORMAT: null,
-  ADD_GROUP: null,
-  ADD_STAGE: null,
-  REMOVE_GROUP: null,
-  MOVE_GROUP_UP: null,
-  MOVE_GROUP_DOWN: null,
-  COPY_GROUP: null
-});
+export default {
+  SET_GROUP_FORMAT: 'SET_GROUP_FORMAT',
+  ADD_GROUP: 'ADD_GROUP',
+  ADD_STAGE: 'ADD_STAGE',
+  REMOVE_GROUP: 'REMOVE_GROUP',
+  MOVE_GROUP_UP: 'MOVE_GROUP_UP',
+  MOVE_GROUP_DOWN: 'MOVE_GROUP_DOWN',
+  COPY_GROUP: 'COPY_GROUP'
+};

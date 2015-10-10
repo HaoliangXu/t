@@ -30,74 +30,77 @@ export default class GroupDual extends BaseFormat{
     return (
       <div className='groupDual group'>
         <Card>
-          <CardTitle subtitle={this.state.groupData.when}
-            title={<div>
-              <span>{this.state.groupData.name}</span>
-              {this._iconMenu}
-            </div>} />
+          <div className='groupTitle'>
+            {this._iconMenu}
+            <span>{this.state.groupData.name}</span>
+          </div>
           <table className='groupTable'>
-            <tr>
-              <th colSpan={'4'}>Score</th>
-            </tr>
-            <tr>
-              <td className='colNumber'>1.</td>
-              <td className='playerName'>qwer</td>
-              <td>3-0</td>
-              <td>0-3</td>
-            </tr>
-            <tr>
-              <td className='colNumber'>2.</td>
-              <td className='playerName'>wafe</td>
-              <td className='playerNumber'>323-202</td>
-              <td className='playerNumber'>23-233</td>
-            </tr>
-            <tr>
-              <td className='colNumber'>3.</td>
-              <td className='playerName'>rtsxf</td>
-              <td>3-0</td>
-              <td>0-3</td>
-            </tr>
-            <tr>
-              <td className='colNumber'>4.</td>
-              <td className='playerName'>erwte</td>
-              <td>3-0</td>
-              <td>0-3</td>
-            </tr>
+            <tbody>
+              <tr>
+                <th colSpan='4'>Score</th>
+              </tr>
+              <tr>
+                <td className='colNumber'>1.</td>
+                <td className='playerName'>qwer</td>
+                <td>3-0</td>
+                <td>0-3</td>
+              </tr>
+              <tr>
+                <td className='colNumber'>2.</td>
+                <td className='playerName'>wafe</td>
+                <td className='playerNumber'>323-202</td>
+                <td className='playerNumber'>23-233</td>
+              </tr>
+              <tr>
+                <td className='colNumber'>3.</td>
+                <td className='playerName'>rtsxf</td>
+                <td>3-0</td>
+                <td>0-3</td>
+              </tr>
+              <tr>
+                <td className='colNumber'>4.</td>
+                <td className='playerName'>erwte</td>
+                <td>3-0</td>
+                <td>0-3</td>
+              </tr>
+            </tbody>
           </table>
           <table>
-            <tr>
-              <th colSpan='4'>Matches</th>
-            </tr>
-            <tr>
-              <td className='colName'>asdfasdf</td>
-              <td className='colPoints'>3</td>
-              <td className='colPoints'>3</td>
-              <td className='colName'>qwerqwer</td>
-            </tr>
-            <tr>
-              <td className='colName'>asdfasdf</td>
-              <td className='colPoints'>3</td>
-              <td className='colPoints'>0</td>
-              <td className='colName'>qwerqwer</td>
-            </tr>
-            <tr>
-              <td className='colName'>asdfasdf</td>
-              <td className='colPoints'>0</td>
-              <td className='colPoints'>0</td>
-              <td className='colName'>qwerqwer</td>
-            </tr>
-            <tr>
-              <td className='colName'>asdfasdf</td>
-              <td className='colPoints'>0</td>
-              <td className='colPoints'>3</td>
-              <td className='colName'>qwerqwer</td>
-            </tr>
-            <tr onTouchTap={this._onChangeMatchRow.bind(this, 5)}>
-              <td className='colName'>asdfasdf</td>
-              <td className='colPoints'>3</td>
-              <td className='colPoints'>0</td>
-              <td className='colName'>qwerqwer</td>
-            </tr>
+            <tbody>
+              <tr>
+                <th colSpan='4'>Matches</th>
+              </tr>
+              <tr>
+                <td className='colName'>asdfasdf</td>
+                <td className='colPoints'>3</td>
+                <td className='colPoints'>3</td>
+                <td className='colName'>qwerqwer</td>
+              </tr>
+              <tr>
+                <td className='colName'>asdfasdf</td>
+                <td className='colPoints'>3</td>
+                <td className='colPoints'>0</td>
+                <td className='colName'>qwerqwer</td>
+              </tr>
+              <tr>
+                <td className='colName'>asdfasdf</td>
+                <td className='colPoints'>0</td>
+                <td className='colPoints'>0</td>
+                <td className='colName'>qwerqwer</td>
+              </tr>
+              <tr>
+                <td className='colName'>asdfasdf</td>
+                <td className='colPoints'>0</td>
+                <td className='colPoints'>3</td>
+                <td className='colName'>qwerqwer</td>
+              </tr>
+              <tr onTouchTap={this._onChangeMatchRow.bind(this, 5)}>
+                <td className='colName'>asdfasdf</td>
+                <td className='colPoints'>3</td>
+                <td className='colPoints'>0</td>
+                <td className='colName'>qwerqwer</td>
+              </tr>
+            </tbody>
           </table>
         </Card>
       </div>

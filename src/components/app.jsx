@@ -4,16 +4,15 @@
  */
 import L from '../services/i18n.js';
 import React from 'react';
-import Mui from 'material-ui';
-import MainButtonGroup from './mainButtonGroup.jsx';
 import PageViewT from './pageViewT.jsx';
-import PageDiscover from "./pageDiscover.jsx";
-import PageEditT from "./pageEditT.jsx";
-import AppStore from "../stores/appStore.js";
-import Comm from "../services/communicate.js";
-import Router from "../services/router.js";
-import AppActions from "../actions/appActions.js";
-//import rawTheme from "../myMuiTheme.js";
+import PageDiscover from './pageDiscover.jsx';
+import PageEditT from './pageEditT.jsx';
+import Notice from './notice.jsx';
+import AppStore from '../stores/appStore.js';
+import Comm from '../services/communicate.js';
+import Router from '../services/router.js';
+import AppActions from '../actions/appActions.js';
+//import rawTheme from '../myMuiTheme.js';
 
 //Set mui theme, see material-ui docs
 //var ThemeManager = Mui.Styles.ThemeManager;
@@ -39,8 +38,9 @@ export default class App extends React.Component {
   render() {
     this._selectPage(this.state.page);
     return (
-      <div className="appBox">
+      <div className='appBox'>
         {this.page}
+        <Notice />
       </div>
     );
   }
@@ -63,7 +63,7 @@ export default class App extends React.Component {
   _selectPage(page){
     switch (page){
       case 'vacancy':
-        this.page = "";
+        this.page = '';
         break;
       case 'editT':
         this.page = <PageEditT />;

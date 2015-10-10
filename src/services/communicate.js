@@ -106,7 +106,7 @@ var Comm = {
     console.log('request match');
   },
 
-  reqLogin: function(username, password){//TODO just lonin as sheldon and give some fake data
+  reqLogin: function(username, password){//TODO give some fake data
     var res = {
       username: username,
       id: '238u9ho23r',
@@ -121,9 +121,20 @@ var Comm = {
 
   reqLogout: function(){
 
+  },
+
+  saveT: function(Tjson){
+    if (!Tjson.name){
+      window.setTimeout(function(){
+        console.log('save failed');
+      }, 500);
+    }
+    window.setTimeout(function(){
+      console.log('saved');
+      AppActions.hideSpinner();
+      AppActions.showNotice('T saved');
+    }, 500);
   }
-
-
 };
 
 export default Comm;

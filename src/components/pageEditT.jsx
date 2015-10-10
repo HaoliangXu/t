@@ -1,5 +1,5 @@
 import React from 'react';
-import Mui from 'material-ui';
+import AppBar from 'material-ui/lib/app-bar.js';
 import RaisedButton from 'material-ui/lib/raised-button.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
@@ -9,10 +9,9 @@ import TBD from './formats/tbd.jsx';
 import Elimination from './formats/elimination.jsx';
 import GroupDual from './formats/groupDual.jsx';
 
+import Comm from '../services/communicate.js';
 import AppActions from '../actions/appActions.js';
 import EditTActions from '../actions/editTActions.js';
-
-var AppBar = Mui.AppBar;
 
 export default class PageEditT extends React.Component{
   constructor( props ){
@@ -23,6 +22,7 @@ export default class PageEditT extends React.Component{
       Tjson: {}
     };
     this._onChange = this._onChange.bind( this );
+    this._onSave = this._onSave.bind(this);
   }
 
   componentDidMount(){
@@ -48,9 +48,9 @@ export default class PageEditT extends React.Component{
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
         <RaisedButton onTouchTap={this._onSave}
-          primary={true} style={{'width': '50%', 'margin-top': '3rem'}} label='Save' />
+          primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Save' />
         <RaisedButton onTouchTap={this._onDiscard}
-          primary={true} style={{'width': '50%', 'margin-top': '3rem'}} label='Discard' />
+          primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Discard' />
         <MainButtonGroup page='editT' />
       </div>
     );
@@ -58,6 +58,8 @@ export default class PageEditT extends React.Component{
 
   _onSave(){
     console.log('on save T');
+    AppActions.showSpinner();
+    Comm.saveT(this.state.Tjson);
   }
 
   _onDiscard(){
@@ -93,15 +95,15 @@ export default class PageEditT extends React.Component{
             groupItem = <TBD {...props} key={groupIndex + '.' + stageIndex} />;//TODO Solve key warning
             break;
           case 'elimination':
-            groupItem = <Elimination {...props} />;
+            groupItem = <Elimination {...props} key={groupIndex + '.' + stageIndex} />;
             break;
           case 'groupDual':
-            groupItem = <GroupDual {...props} />;
+            groupItem = <GroupDual {...props} key={groupIndex + '.' + stageIndex} />;
             break;
         }
         return groupItem;
       });
-      return <div className='stage'>
+      return <div className='stage' key={'stage.' + stageIndex}>
         <AppBar title={stage.name}
           iconClassNameRight='muidocs-icon-navigation-expand-more' />
         {stageItem}
@@ -115,7 +117,7 @@ export default class PageEditT extends React.Component{
 
   _onAddNewGroup( groupIndex, stageIndex ){
     var group = {
-      'format': 'tbd'
+      format: 'tbd'
     };
     EditTActions.addGroup( group, groupIndex, stageIndex );
   }

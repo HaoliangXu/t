@@ -1,5 +1,5 @@
-import AppDispatcher from "../dispatchers/appDispatcher.js";
-import AppConstants from "../constants/appConstants.js";
+import AppDispatcher from '../dispatchers/appDispatcher.js';
+import AppConstants from '../constants/appConstants.js';
 var AppActions = {
 
   /**
@@ -39,7 +39,7 @@ var AppActions = {
    */
   lastPage: function() {
     AppDispatcher.handleViewAction({
-      actionType: AppConstants.LAST_PAGE,
+      actionType: AppConstants.LAST_PAGE
     });
   },
 
@@ -56,6 +56,13 @@ var AppActions = {
   hideSpinner: function(){
     AppDispatcher.handleViewAction({
       actionType: AppConstants.HIDE_SPINNER
+    });
+  },
+
+  showNotice: function(notice){
+    AppDispatcher.handleViewAction({
+      actionType: AppConstants.SHOW_NOTICE,
+      notice: notice
     });
   },
 

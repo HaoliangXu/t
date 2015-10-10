@@ -69,11 +69,9 @@ export default {
     });
   },
 
-  loginSuccess: function(res){
-    console.log("loginSuccess");
-    AppDispatcher.handleServerAction({
-      actionType: EditTConstants.LOGIN_SUCCESS,
-      res: res
+  saveT: function(){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.SAVE_T
     });
-  },
+  }
 };
