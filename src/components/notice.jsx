@@ -23,7 +23,7 @@ export default class Notice extends React.Component{
   render(){
     return <Snackbar
       message={this.state.notice}
-      autoHideDuration={1200}
+      autoHideDuration={1500}
       ref='notice' />;
   }
 

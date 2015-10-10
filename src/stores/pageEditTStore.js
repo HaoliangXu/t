@@ -31,6 +31,7 @@ class PageEditTStore extends BaseStore {
           this._setGroupFormat( payload.action.format, payload.action.number,
             Tjson.stages[ payload.action.stageIndex ].groups[ payload.action.groupIndex ]);
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
         }
@@ -42,6 +43,7 @@ class PageEditTStore extends BaseStore {
             payload.action.groupIndex, 0, payload.action.group
           );
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
@@ -52,6 +54,7 @@ class PageEditTStore extends BaseStore {
             payload.action.stageIndex, 0, payload.action.stage
           );
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
@@ -61,6 +64,7 @@ class PageEditTStore extends BaseStore {
             payload.action.groupIndex, 1
           );
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
@@ -74,6 +78,7 @@ class PageEditTStore extends BaseStore {
           groups1[ payload.action.groupIndex - 1] = groups1[ payload.action.groupIndex];
           groups1[ payload.action.groupIndex] = swap1;
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
@@ -87,6 +92,7 @@ class PageEditTStore extends BaseStore {
           groups2[ payload.action.groupIndex + 1] = groups2[ payload.action.groupIndex];
           groups2[ payload.action.groupIndex] = swap2;
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
@@ -96,6 +102,7 @@ class PageEditTStore extends BaseStore {
             payload.action.groupIndex, 0, payload.action.groupData
           );
           _flags.rerender = true;
+          _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
@@ -104,6 +111,10 @@ class PageEditTStore extends BaseStore {
 
       }
     }.bind( this ));
+  }
+
+  get modifyFlag(){
+    return _flags.modified;
   }
 
   _setGroupFormat( format, number, target ){

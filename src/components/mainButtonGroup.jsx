@@ -30,7 +30,11 @@ var pageProperty = {
 export default class MainButtonGroup extends React.Component {
   constructor(props){
     super(props);
-    this._onClickButton1 = this._onBackClick.bind(this);
+    if (props.back) {
+      this._onClickButton1 = props.back;
+    } else {
+      this._onClickButton1 = this._onBackClick.bind(this);
+    }
     this._onClickButton4 = this._onMenuClick.bind(this);
     this.selectButtons(props.page);
   }

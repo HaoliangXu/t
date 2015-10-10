@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar.js';
+import Dialog from 'material-ui/lib/dialog.js';
 import RaisedButton from 'material-ui/lib/raised-button.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
@@ -23,6 +24,12 @@ export default class PageEditT extends React.Component{
     };
     this._onChange = this._onChange.bind( this );
     this._onSave = this._onSave.bind(this);
+    this._onDiscard = this._onDiscard.bind(this);
+    this._onDialogCancel = this._onDialogCancel.bind(this);
+    this.standardActions = [
+      { text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit' },
+      { text: 'Cancel', onTouchTap: this._onDialogCancel}
+    ];
   }
 
   componentDidMount(){
@@ -51,7 +58,13 @@ export default class PageEditT extends React.Component{
           primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Save' />
         <RaisedButton onTouchTap={this._onDiscard}
           primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Discard' />
-        <MainButtonGroup page='editT' />
+        <Dialog
+          title='Really want to leave without save?'
+          actions={this.standardActions}
+          actionFocus='submit'
+          ref='dialog'>
+        </Dialog>
+        <MainButtonGroup page='editT' back={this._onDiscard}/>
       </div>
     );
   }
@@ -64,6 +77,21 @@ export default class PageEditT extends React.Component{
 
   _onDiscard(){
     console.log('on discard T');
+    if (PageEditTStore.modifyFlag) {
+      console.log('back clicked');
+      AppActions.lastPage();
+      return;
+    }
+    console.log(this);
+    this.refs.dialog.show();
+  }
+
+  _onDialogSubmit(){
+    AppActions.lastPage();
+  }
+
+  _onDialogCancel(){
+    this.refs.dialog.dismiss();
   }
 
   _onToggleT(){
