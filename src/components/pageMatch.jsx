@@ -1,8 +1,7 @@
 import React from 'react';
-import Mui from 'material-ui';
-var Card = Mui.Card;
-var CardText = Mui.CardText;
-var CardTitle = Mui.CardTitle;
+import Card from 'material-ui/card/card.js';
+import CardTitle from 'material-ui/card/card-title.js';
+import CardText from 'material-ui/card/card-text.js';
 
 export default class PageMatch extends React.Component{
   constructor(props){

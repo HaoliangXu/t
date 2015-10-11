@@ -1,10 +1,9 @@
 import React from 'react';
-import Mui from 'material-ui';
+import Dialog from 'material-ui/lib/dialog.js';
+import TextField from 'material-ui/lib/text-field.js';
+import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import AppActions from '../actions/appActions.js';
 import {newT} from '../utils/appConfig.js';
-var Dialog = Mui.Dialog;
-var TextField = Mui.TextField;
-var DatePicker = Mui.DatePicker;
 
 export default class DialogCreateT extends React.Component{
   constructor(props){

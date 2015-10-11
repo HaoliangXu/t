@@ -1,13 +1,11 @@
 import React from 'react';
 import AppActions from '../actions/appActions.js';
 import PageDiscoverStore from '../stores/pageDiscoverStore.js';
-import Mui from 'material-ui';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import Spinner from './spinner.jsx';
 import Comm from '../services/communicate.js';
-var List = Mui.List;
-var ListItem = Mui.ListItem;
-var ListDivider = Mui.ListDivider;
+import List from 'material-ui/lib/lists/list.js';
+import ListItem from 'material-ui/lib/lists/list-item.js';
 
 export default class PageDiscover extends React.Component{
 

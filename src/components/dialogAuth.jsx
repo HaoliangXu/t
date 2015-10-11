@@ -1,10 +1,10 @@
 import React from 'react';
-import Mui from 'material-ui';
+import Dialog from 'material-ui/lib/dialog.js';
+import Card from 'material-ui/lib/card/card.js';
+import TextField from 'material-ui/lib/text-field.js';
 import AuthActions from '../actions/authActions.js';
 import DialogAuthStore from '../stores/dialogAuthStore.js';
 import Comm from '../services/communicate.js';
-var Dialog = Mui.Dialog;
-var TextField = Mui.TextField;
 
 var preventDismissEvent = false;
 

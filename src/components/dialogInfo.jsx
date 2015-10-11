@@ -1,8 +1,7 @@
 import React from 'react';
-import Mui from 'material-ui';
-var Card = Mui.Card;
-var CardText = Mui.CardText;
-var CardTitle = Mui.CardTitle;
+import Card from 'material-ui/lib/card/card.js';
+import CardText from 'material-ui/lib/card/card-text.js';
+import CardTitle from 'material-ui/lib/card/card-title.js';
 
 export default class CardInfo extends React.Component{
   constructor(props){
