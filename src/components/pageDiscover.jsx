@@ -59,12 +59,6 @@ export default class PageDiscover extends React.Component{
     this.setState({
       lists: this._getLists()
     });
-    window.setTimeout(function(){
-      AppActions.updateHistoryContent({
-        page: 'discover',
-        lists: this.state.lists
-      });
-    }.bind(this), 0);
   }
 
 

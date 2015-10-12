@@ -97,6 +97,7 @@ var Comm = {
       };
       window.setTimeout(function(){
         AppActions.loadPage(content);
+        AppActions.updateHistoryContent(content);
       }, 500);
     }
   },
@@ -130,8 +131,13 @@ var Comm = {
       }, 500);
     }
     window.setTimeout(function(){
+      var T = Tjson;
       console.log('saved');
       AppActions.hideSpinner();
+      AppActions.loadPage({
+        page: 'editT',
+        Tjson: T
+      });
       AppActions.showNotice('T saved');
     }, 500);
   }

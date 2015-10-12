@@ -46,8 +46,8 @@ export default class PageEditT extends React.Component{
       <div>
         <AppBar
           title={this.state.Tjson.name}
-          style={{height: '10rem'}}
           zDepth={2}
+          style={{'background-color': '#ff4081', 'height': '10rem'}}
           onLeftIconButtonTouchTap={this._onShowTMenu}
           onRightIconButtonTouchTap={this._onToggleT}
           iconClassNameRight='muidocs-icon-navigation-expand-more' />
@@ -77,12 +77,10 @@ export default class PageEditT extends React.Component{
 
   _onDiscard(){
     console.log('on discard T');
-    if (PageEditTStore.modifyFlag) {
-      console.log('back clicked');
+    if (!PageEditTStore.modifyFlag) {
       AppActions.lastPage();
       return;
     }
-    console.log(this);
     this.refs.dialog.show();
   }
 
