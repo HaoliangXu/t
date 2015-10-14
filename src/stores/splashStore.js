@@ -6,13 +6,13 @@
  * @
  */
 
-import AppDispatcher from "../dispatchers/appDispatcher.js";
-import {EventEmitter} from "events";
-import AppConstants from "../constants/appConstants";
-import Comm from "../services/communicate.js";
-import assign from "object-assign";
+import AppDispatcher from '../dispatchers/appDispatcher.js';
+import {EventEmitter} from 'events';
+import AppConstants from '../constants/appConstants';
+import Comm from '../services/communicate.js';
+import assign from 'object-assign';
 
-var CHANGE_EVENT = "change";
+var CHANGE_EVENT = 'change';
 var splashState = Comm.reqSplash();
 //Flag indicates app is ready to show, splash screen may unmount.
 var appReady = false;
@@ -46,11 +46,13 @@ var SplashStore = assign({}, EventEmitter.prototype, {
 });
 
 SplashStore.dispatcherIndex = AppDispatcher.register(function(payload) {
-  console.log("dispatching actions to splashStore");
+  console.log('dispatching actions to splashStore');
   switch(payload.action.actionType) {
     case AppConstants.LOAD_PAGE:
       appReady = true;
-      if (splashState.mode !== "non-intro") break;
+      if (splashState.mode !== 'non-intro') {
+        break;
+      }
       SplashStore.emitChange();
       break;
 

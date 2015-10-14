@@ -1,6 +1,6 @@
 import BaseStore from './BaseStore';
-import AuthConstants from "../constants/authConstants.js";
-import Auth from "../services/auth.js";
+import AuthConstants from '../constants/authConstants.js';
+import Auth from '../services/auth.js';
 
 //Indicate whether to show the spinner.
 var _showDialog = false;
@@ -14,8 +14,8 @@ var _flags = {
 }
 */
 var _msg = {
-  type: "",
-  text: ""
+  type: '',
+  text: ''
 };
 
 class DialogAuthStore extends BaseStore {
@@ -35,13 +35,13 @@ class DialogAuthStore extends BaseStore {
           break;
         case AuthConstants.LOGIN_FAIL:
           //TODO handle error text
-          _msg.type = "Error";
-          _msg.text = "Login failed, try other username or password.";
+          _msg.type = 'Error';
+          _msg.text = 'Login failed, try other username or password.';
           this.emitChange();
-          _msg.type = "";
+          _msg.type = '';
           break;
         case AuthConstants.DISMISS_LOGIN:
-          console.log("2");
+          console.log('2');
           Auth.authFail();
           break;
         default:

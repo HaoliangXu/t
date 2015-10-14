@@ -1,5 +1,5 @@
 import BaseStore from './BaseStore';
-import AppConstants from "../constants/appConstants.js"
+import AppConstants from '../constants/appConstants.js';
 
 //Indicate whether to show the spinner.
 var _showSpinner = false;
@@ -9,7 +9,7 @@ class SpinnerStore extends BaseStore {
   constructor() {
     super();
     this.subscribe( function( payload ){
-      console.log( "dispatching action " + payload.action.actionType + " to spinnerStore" );
+      console.log( 'dispatching action ' + payload.action.actionType + ' to spinnerStore' );
       switch ( payload.action.actionType ) {
         case AppConstants.SHOW_SPINNER:
           _showSpinner = true;

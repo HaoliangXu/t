@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatchers/appDispatcher.js';
-import EditTConstants from "../constants/editTConstants.js";
+import EditTConstants from '../constants/editTConstants.js';
 
 export default {
 

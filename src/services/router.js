@@ -6,21 +6,21 @@
  */
 
 //Load router lib, get address at the beginning of the app.
-var currentRoute = "";
+var currentRoute = '';
 
 var Router = {
   //Parse the route, return the parsed data
   parseCurrentRoute: function(){
     return{
-      "page": "discover",
-      "params": {
+      'page': 'discover',
+      'params': {
         //'pageSource': 'template',
-        "default": true,
-        "userID": 0,
-        "keywords": "",
-        "kinds": "",
-        "location": "",
-        "tier": ""
+        'default': true,
+        'userID': 0,
+        'keywords': '',
+        'kinds': '',
+        'location': '',
+        'tier': ''
       },
     };
   }
