@@ -1,14 +1,12 @@
 import BaseFormat from './baseFormat.jsx';
 import React from 'react';
 
-import {Card, CardTitle, CardText, CardHeader} from 'material-ui/lib/card/index.js';
-import {Table, TableHeader, TableHeaderColumn, TableFooter, TableBody, TableRow, th} from 'material-ui/lib/table/index.js';
+import {Card, CardTitle} from 'material-ui/lib/card/index.js';
+//import {Table, TableHeader, TableHeaderColumn, TableFooter, TableBody, TableRow, th} from 'material-ui/lib/table/index.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
-import IconButton from 'material-ui/lib/icon-button.js';
 
 import EditTActions from '../../actions/editTActions.js';
-import {newTBD} from '../../utils/appConfig.js';
 
 
 export default class GroupDual extends BaseFormat{
@@ -18,11 +16,13 @@ export default class GroupDual extends BaseFormat{
       {this._basicIconMenu}
       <MenuItem
         onTouchTap={this._onRenameGroup} primaryText='Rename' />
+      <MenuItem
+        onTouchTap={this._onRenameGroup} primaryText='Generate' />
     </IconMenu> : null;
     this.state = {
       groupIndex: props.groupIndex,
       stageIndex: props.stageIndex,
-      groupData: props.groupData.name ? props.groupData : newTBD( this.props.groupIndex + 1 )
+      groupData: props.groupData
     };
   }
 
@@ -30,10 +30,12 @@ export default class GroupDual extends BaseFormat{
     return (
       <div className='groupDual group'>
         <Card>
-          <div className='groupTitle'>
-            {this._iconMenu}
-            <span>{this.state.groupData.name}</span>
-          </div>
+          <CardTitle
+            title={<div>
+              {this._iconMenu}
+              <span>{this.state.groupData.name}</span>
+            </div>}
+            subtitle='Ongoing' />
           <table className='groupTable'>
             <tbody>
               <tr>

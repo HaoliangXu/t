@@ -1,9 +1,9 @@
-import Flux from "flux";
+import Flux from 'flux';
 let AppDispatcher = new Flux.Dispatcher();
 
 AppDispatcher.handleViewAction = function(action) {
   this.dispatch({
-    source: "view",
+    source: 'view',
     action: action
   });
 };

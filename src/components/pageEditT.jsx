@@ -1,6 +1,12 @@
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar.js';
 import Dialog from 'material-ui/lib/dialog.js';
+import IconMenu from 'material-ui/lib/menus/icon-menu.js';
+import MenuItem from 'material-ui/lib/menus/menu-item.js';
+import IconButton from 'material-ui/lib/icon-button.js';
+import NavigationClose from 'material-ui/lib/svg-icons/navigation/close.js';
+import ExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more.js';
+import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
 import RaisedButton from 'material-ui/lib/raised-button.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
@@ -47,10 +53,17 @@ export default class PageEditT extends React.Component{
         <AppBar
           title={this.state.Tjson.name}
           zDepth={2}
-          style={{'background-color': '#ff4081', 'height': '10rem'}}
-          onLeftIconButtonTouchTap={this._onShowTMenu}
-          onRightIconButtonTouchTap={this._onToggleT}
-          iconClassNameRight='muidocs-icon-navigation-expand-more' />
+          style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
+          iconElementRight={<IconButton onTouchTap={this._onShowTMenu}><NavigationClose /></IconButton>}
+          iconElementLeft={
+            <IconMenu iconButtonElement={
+              <IconButton><Menu /></IconButton>
+              }
+              openDirection="bottom-right">
+              <MenuItem primaryText="Players" />
+              <MenuItem primaryText="Info" />
+            </IconMenu>
+          } />
         {this._generateT( this.state.Tjson )}
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
@@ -92,8 +105,8 @@ export default class PageEditT extends React.Component{
     this.refs.dialog.dismiss();
   }
 
-  _onToggleT(){
-    console.log('on toggle T');
+  _onToggleStage(stageIndex){
+    console.log('on toggle ' + stageIndex);
   }
 
   _onShowTMenu(){
@@ -131,37 +144,40 @@ export default class PageEditT extends React.Component{
       });
       return <div className='stage' key={'stage.' + stageIndex}>
         <AppBar title={stage.name}
-          iconClassNameRight='muidocs-icon-navigation-expand-more' />
-        {stageItem}
-        <RaisedButton
-          onTouchTap={this._onAddNewGroup.bind( this, stage.groups.length, stageIndex )}
-          style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group' />
+          iconElementRight={<IconButton onTouchTap={this._onToggleStage.bind(this, stageIndex)}><ExpandMore /></IconButton>}
+          iconElementLeft={
+            <IconMenu iconButtonElement={
+              <IconButton><Menu /></IconButton>
+              }
+              openDirection="bottom-right">
+              <MenuItem onTouchTap={this._onRemoveStage.bind(this, stageIndex)} primaryText="Delete" />
+              <MenuItem primaryText="Rename" />
+            </IconMenu>} />
+        <div ref={'content' + stageIndex}>
+          {stageItem}
+          <RaisedButton
+            onTouchTap={this._onAddNewGroup.bind( this, stage.groups.length, stageIndex )}
+            style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group' />
+        </div>
       </div>;
     }.bind(this));
     return output;
   }
 
-  _onAddNewGroup( groupIndex, stageIndex ){
-    var group = {
-      format: 'tbd'
-    };
-    EditTActions.addGroup( group, groupIndex, stageIndex );
+  _onRemoveStage(stageIndex){
+    EditTActions.removeStage(stageIndex);
   }
 
-  _onAddNewStage( stageIndex ){
-    var stage = {
-      'name': 'Stage ' + (stageIndex + 1),
-      'groups': [
-        {
-          'format': 'tbd'
-        }
-      ]
-    };
-    EditTActions.addStage( stage, stageIndex );
+  _onAddNewGroup( groupIndex, stageIndex ){
+    EditTActions.addGroup(groupIndex, stageIndex );
+  }
+
+  _onAddNewStage(stageIndex){
+    EditTActions.addStage(stageIndex);
   }
 
   _onChange(){
-    window.setTimeout( AppActions.hideSpinner, 0 );
+    window.setTimeout(AppActions.hideSpinner, 0);
     if ( PageEditTStore.flags.rerender ) {
       this.setState({
         Tjson: PageEditTStore.Tjson

@@ -3,7 +3,7 @@ body{
   -moz-user-select: none;
   -ms-user-select: none;
   -webkit-user-select: none;
-  background-color: #e2e2e2;
+  background-color: #ddd;
 }
 div#container {
   overflow-x:hidden;

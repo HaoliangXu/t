@@ -1,40 +1,24 @@
-function newTBD( groupNumber ){
+export function newTBD(){
   return {
-    name: 'Group ' + groupNumber,
-    format: 'groupDual',
+    name: '',
+    format: 'tbd',
     when: '',
     location: '',
-    links: {},
-    scores: [
-      {
-        icon: '',
-        tid: '',
-        score: 0,
-        points: 0,
-        color: ''
-      }
-    ],
-    matches: [
-      {
-        icon: '',
-        note: '',
-        players: [
-          {
-            tid: '',
-            name: '',
-            color: ''
-          },
-          {
-            tid: '',
-            name: '',
-            color: ''
-          }
-        ]
-      }
-    ]
+    links: {}
   };
 }
-function newT(){
+
+export function newStage(stageIndex){
+  return {
+    'name': 'Stage ' + (stageIndex + 1),
+    'groups': [
+      newTBD()
+    ],
+    notes: []
+  };
+}
+
+export function newT(){
   return {
     'id': '',
     'name': '',
@@ -53,21 +37,14 @@ function newT(){
 
     ],
     'stages': [
-      {
-        'name': 'Stage 1',
-        'groups': [
-          {
-            'format': 'tbd'
-          }
-        ]
-      }
+      newStage(0)
     ]
   };
 }
 
-function newGroupDual(){
+export function newGroupDual(groupIndex){
   return {
-    name: 'Group ' + (this.props.groupIndex + 1),
+    name: 'Group ' + (groupIndex + 1),
     format: 'groupDual',
     when: '',
     location: '',
@@ -98,8 +75,7 @@ function newGroupDual(){
           }
         ]
       }
-    ]
+    ],
+    notes: []
   };
 }
-
-export {newT, newGroupDual, newTBD};

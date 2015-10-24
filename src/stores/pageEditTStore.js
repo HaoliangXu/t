@@ -1,6 +1,7 @@
 import BaseStore from './BaseStore';
 import AppConstants from '../constants/appConstants.js';
 import EditTConstants from '../constants/editTConstants.js';
+import {newTBD, newStage, newGroupDual} from '../utils/appConfig.js';
 
 var _flags = {
   // Indicates whether to rerender pageEdit component.
@@ -27,32 +28,45 @@ class PageEditTStore extends BaseStore {
           this.emitChange();
           _flags.rerender = false;
           break;
-        case EditTConstants.SET_GROUP_FORMAT: {
+        case EditTConstants.ADD_STAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          this._setGroupFormat( payload.action.format, payload.action.number,
-            Tjson.stages[ payload.action.stageIndex ].groups[ payload.action.groupIndex ]);
+          let stageContent = newStage(payload.action.stageIndex);
+          //Add stage into Tjson
+          Tjson.stages.splice(payload.action.stageIndex, 0, stageContent);
           _flags.rerender = true;
           _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
-        }
           break;
-        case EditTConstants.ADD_GROUP:
+        case EditTConstants.REMOVE_STAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          //Add group into Tjson
-          Tjson.stages[ payload.action.stageIndex ].groups.splice(
-            payload.action.groupIndex, 0, payload.action.group
+          Tjson.stages.splice(
+            payload.action.stageIndex, 1
           );
           _flags.rerender = true;
           _flags.modified = true;
           this.emitChange();
           _flags.rerender = false;
           break;
-        case EditTConstants.ADD_STAGE:
+        case EditTConstants.SET_GROUP_FORMAT:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          //Add stage into Tjson
-          Tjson.stages.splice(
-            payload.action.stageIndex, 0, payload.action.stage
+          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex] =
+            this._setGroupFormat(
+              payload.action.format, payload.action.number,
+              payload.action.groupIndex
+            );
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.ADD_GROUP:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          let groupContent = newTBD();
+          //Add group into Tjson
+          console.log(Tjson, payload.action.stageIndex);
+          Tjson.stages[ payload.action.stageIndex ].groups.splice(
+            payload.action.groupIndex, 0, groupContent
           );
           _flags.rerender = true;
           _flags.modified = true;
@@ -100,7 +114,8 @@ class PageEditTStore extends BaseStore {
         case EditTConstants.COPY_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           Tjson.stages[ payload.action.stageIndex ].groups.splice(
-            payload.action.groupIndex, 0, payload.action.groupData
+            //Deep copy groupData
+            payload.action.groupIndex, 0, JSON.parse(JSON.stringify(payload.action.groupData))
           );
           _flags.rerender = true;
           _flags.modified = true;
@@ -118,8 +133,9 @@ class PageEditTStore extends BaseStore {
     return _flags.modified;
   }
 
-  _setGroupFormat( format, number, target ){
-    target.format = format;
+  //Generate initial group data
+  _setGroupFormat( format, number, groupIndex ){
+    var target;
     switch ( format ) {
       case 'elimination':
         switch ( number ) {
@@ -136,8 +152,10 @@ class PageEditTStore extends BaseStore {
         }
         break;
       case 'groupDual':
+        target = newGroupDual(groupIndex);
         break;
     }
+    return target;
   }
 
   get flags(){

@@ -2,6 +2,7 @@ import React from 'react';
 import EditTActions from '../../actions/editTActions.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 import IconButton from 'material-ui/lib/icon-button.js';
+import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
 
 /*
  * Title: BaseFormat
@@ -13,7 +14,7 @@ import IconButton from 'material-ui/lib/icon-button.js';
 export default class BaseFormat extends React.Component{
   constructor( props ){
     super( props );
-    this._iconButtonElement = <IconButton iconClassName='muidocs-icon-custom-github' />;
+    this._iconButtonElement = <IconButton><Menu /></IconButton>;
     //Show only on edit mode
     this._basicIconMenu = [
       <MenuItem

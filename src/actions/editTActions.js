@@ -3,6 +3,20 @@ import EditTConstants from '../constants/editTConstants.js';
 
 export default {
 
+  addStage: function(stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.ADD_STAGE,
+      stageIndex: stageIndex
+    });
+  },
+
+  removeStage: function(stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.REMOVE_STAGE,
+      stageIndex: stageIndex
+    });
+  },
+
   /*********************
    * @param String Type of the group to be set
    * @param Number Numer of players or matches (depends on type) in the group
@@ -19,19 +33,10 @@ export default {
     });
   },
 
-  addGroup: function( group, groupIndex, stageIndex ){
+  addGroup: function(groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.ADD_GROUP,
-      group: group,
       groupIndex: groupIndex,
-      stageIndex: stageIndex
-    });
-  },
-
-  addStage: function( stage, stageIndex ){
-    AppDispatcher.handleViewAction({
-      actionType: EditTConstants.ADD_STAGE,
-      stage: stage,
       stageIndex: stageIndex
     });
   },
