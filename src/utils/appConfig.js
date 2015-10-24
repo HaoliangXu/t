@@ -14,7 +14,8 @@ export function newStage(stageIndex){
     'groups': [
       newTBD()
     ],
-    notes: []
+    notes: [],
+    expand: true
   };
 }
 

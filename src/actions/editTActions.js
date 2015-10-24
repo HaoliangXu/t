@@ -17,6 +17,13 @@ export default {
     });
   },
 
+  toggleStage: function(stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.TOGGLE_STAGE,
+      stageIndex: stageIndex
+    });
+  },
+
   /*********************
    * @param String Type of the group to be set
    * @param Number Numer of players or matches (depends on type) in the group
@@ -71,12 +78,6 @@ export default {
       groupData: groupData,
       groupIndex: groupIndex,
       stageIndex: stageIndex
-    });
-  },
-
-  saveT: function(){
-    AppDispatcher.handleViewAction({
-      actionType: EditTConstants.SAVE_T
     });
   }
 };

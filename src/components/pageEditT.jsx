@@ -106,7 +106,7 @@ export default class PageEditT extends React.Component{
   }
 
   _onToggleStage(stageIndex){
-    console.log('on toggle ' + stageIndex);
+    EditTActions.toggleStage(stageIndex);
   }
 
   _onShowTMenu(){
@@ -153,7 +153,7 @@ export default class PageEditT extends React.Component{
               <MenuItem onTouchTap={this._onRemoveStage.bind(this, stageIndex)} primaryText="Delete" />
               <MenuItem primaryText="Rename" />
             </IconMenu>} />
-        <div ref={'content' + stageIndex}>
+          <div style={{display: stage.expand ? 'block' : 'none'}}>
           {stageItem}
           <RaisedButton
             onTouchTap={this._onAddNewGroup.bind( this, stage.groups.length, stageIndex )}

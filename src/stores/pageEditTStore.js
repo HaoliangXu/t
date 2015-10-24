@@ -48,6 +48,14 @@ class PageEditTStore extends BaseStore {
           this.emitChange();
           _flags.rerender = false;
           break;
+        case EditTConstants.TOGGLE_STAGE:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          Tjson.stages[payload.action.stageIndex].expand = !Tjson.stages[payload.action.stageIndex].expand;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
         case EditTConstants.SET_GROUP_FORMAT:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex] =
@@ -134,11 +142,11 @@ class PageEditTStore extends BaseStore {
   }
 
   //Generate initial group data
-  _setGroupFormat( format, number, groupIndex ){
+  _setGroupFormat(format, number, groupIndex){
     var target;
-    switch ( format ) {
+    switch (format) {
       case 'elimination':
-        switch ( number ) {
+        switch (number) {
           case 4:
             break;
           case 8:
