@@ -130,6 +130,15 @@ class PageEditTStore extends BaseStore {
           this.emitChange();
           _flags.rerender = false;
           break;
+        case EditTConstants.EDIT_GROUP_INFO:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          let group = Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex];
+          [group.name, group.status, group.location, group.when] = payload.action.groupInfo;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
         default:
           // no op
 

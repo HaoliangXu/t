@@ -32,7 +32,7 @@ export default class DialogCreateT extends React.Component{
     anewT.game = this.refs.GameType.getValue();
     anewT.location = this.refs.Location.getValue();
     AppActions.nextPage('editT');
-    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT}), 0);
+    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT}));
   }
 
   _onDialogCancel(){

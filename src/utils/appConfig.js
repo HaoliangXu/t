@@ -47,9 +47,9 @@ export function newGroupDual(groupIndex){
   return {
     name: 'Group ' + (groupIndex + 1),
     format: 'groupDual',
+    status: 'Upcoming',
     when: '',
     location: '',
-    links: {},
     scores: [
       {
         icon: '',

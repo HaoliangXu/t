@@ -79,5 +79,14 @@ export default {
       groupIndex: groupIndex,
       stageIndex: stageIndex
     });
+  },
+
+  editGroupInfo: function(groupInfo, groupIndex, stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.EDIT_GROUP_INFO,
+      groupInfo: groupInfo,
+      groupIndex: groupIndex,
+      stageIndex: stageIndex
+    });
   }
 };
