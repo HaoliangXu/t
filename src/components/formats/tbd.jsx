@@ -4,7 +4,6 @@ import {Card, CardTitle, CardText, CardHeader} from 'material-ui/lib/card/index.
 import FlatButton from 'material-ui/lib/flat-button.js';
 import EditTActions from '../../actions/editTActions.js';
 
-import AppBar from 'material-ui/lib/app-bar.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 
@@ -23,9 +22,9 @@ export default class TBD extends BaseFormat{
           <CardTitle
             title={<div>
               {this._iconMenu}
-              <span>Choose Format</span>
+              <span>{this.props.groupData.name}</span>
             </div>}
-            subtitle='Click one below' />
+            subtitle='Choose Format' />
           <div className='buttons'>
             <FlatButton label='Elimination' onTouchTap={ this._onSelectFormat.bind( this, 'elimination' )}/>
             <br />
