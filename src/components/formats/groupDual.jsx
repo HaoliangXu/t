@@ -25,11 +25,6 @@ export default class GroupDual extends BaseFormat{
       <MenuItem
         onTouchTap={this._onRenameGroup} primaryText='Generate' />
     </IconMenu> : null;
-    this.state = {
-      groupIndex: props.groupIndex,
-      stageIndex: props.stageIndex,
-      groupData: props.groupData
-    };
     //Actions for  dialog
     this.standardActions = [
       { text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit' },
@@ -44,9 +39,9 @@ export default class GroupDual extends BaseFormat{
           <CardTitle
             title={<div>
               {this._iconMenu}
-              <span>{this.state.groupData.name}</span>
+              <span>{this.props.groupData.name}</span>
             </div>}
-            subtitle={this.state.groupData.status} />
+            subtitle={this.props.groupData.status} />
           <table className='groupTable'>
             <tbody>
               <tr>
@@ -123,11 +118,11 @@ export default class GroupDual extends BaseFormat{
           ref='editInfoDialog'>
           <form role='form'>
             <div className='form-group'>
-              <TextField type='text' defaultValue={this.state.groupData.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
-              <TextField type='text' defaultValue={this.state.groupData.status} hintText='Status' ref='status' fullWidth={true} />
-              <TextField type='text' defaultValue={this.state.groupData.location} hintText='Location' ref='location' fullWidth={true} />              Start Time
+              <TextField type='text' defaultValue={this.props.groupData.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
+              <TextField type='text' defaultValue={this.props.groupData.status} hintText='Status' ref='status' fullWidth={true} />
+              <TextField type='text' defaultValue={this.props.groupData.location} hintText='Location' ref='location' fullWidth={true} />              Start Time
               <DatePicker
-                onChange={this._handleChange} defaultValue={this.state.groupData.when} ref='date' />
+                onChange={this._handleChange} defaultValue={this.props.groupData.when} ref='date' />
             </div>
           </form>
         </Dialog>
@@ -150,8 +145,8 @@ export default class GroupDual extends BaseFormat{
     window.setTimeout(EditTActions.editGroupInfo.bind(
       this,
       groupInfo,
-      this.state.groupIndex,
-      this.state.stageIndex
+      this.props.groupIndex,
+      this.props.stageIndex
     ));
     this.refs.editInfoDialog.dismiss();
   }

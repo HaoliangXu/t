@@ -46,7 +46,6 @@ var SplashStore = assign({}, EventEmitter.prototype, {
 });
 
 SplashStore.dispatcherIndex = AppDispatcher.register(function(payload) {
-  console.log('dispatching actions to splashStore');
   switch(payload.action.actionType) {
     case AppConstants.LOAD_PAGE:
       appReady = true;

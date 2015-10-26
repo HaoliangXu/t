@@ -48,7 +48,7 @@ export default {
     });
   },
 
-  removeGroup: function( groupIndex, stageIndex ){
+  removeGroup: function(groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.REMOVE_GROUP,
       groupIndex: groupIndex,
@@ -56,7 +56,7 @@ export default {
     });
   },
 
-  moveGroupUp: function( groupIndex, stageIndex ){
+  moveGroupUp: function(groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.MOVE_GROUP_UP,
       groupIndex: groupIndex,
@@ -64,7 +64,7 @@ export default {
     });
   },
 
-  moveGroupDown: function( groupIndex, stageIndex ){
+  moveGroupDown: function(groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.MOVE_GROUP_DOWN,
       groupIndex: groupIndex,
@@ -72,7 +72,7 @@ export default {
     });
   },
 
-  copyGroup: function( groupData, groupIndex, stageIndex ){
+  copyGroup: function(groupData, groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.COPY_GROUP,
       groupData: groupData,

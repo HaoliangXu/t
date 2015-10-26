@@ -19,7 +19,7 @@ class PageEditTStore extends BaseStore {
       switch (payload.action.actionType){
         case AppConstants.LOAD_PAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          if ( payload.action.content.page !== 'editT' ) {
+          if (payload.action.content.page !== 'editT') {
             break;
           }
           Tjson = payload.action.content.Tjson;
@@ -73,7 +73,7 @@ class PageEditTStore extends BaseStore {
           let groupContent = newTBD(payload.action.groupIndex);
           //Add group into Tjson
           console.log(Tjson, payload.action.stageIndex);
-          Tjson.stages[ payload.action.stageIndex ].groups.splice(
+          Tjson.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 0, groupContent
           );
           _flags.rerender = true;
@@ -83,7 +83,7 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.REMOVE_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[ payload.action.stageIndex ].groups.splice(
+          Tjson.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 1
           );
           _flags.rerender = true;
@@ -93,13 +93,13 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.MOVE_GROUP_UP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          if ( !payload.action.groupIndex ) {
+          if (!payload.action.groupIndex) {
             break;
           }
-          let groups1 = Tjson.stages[ payload.action.stageIndex ].groups;
-          let swap1 = groups1[ payload.action.groupIndex - 1];
-          groups1[ payload.action.groupIndex - 1] = groups1[ payload.action.groupIndex];
-          groups1[ payload.action.groupIndex] = swap1;
+          let groups1 = Tjson.stages[payload.action.stageIndex].groups;
+          let swap1 = groups1[payload.action.groupIndex - 1];
+          groups1[payload.action.groupIndex - 1] = groups1[payload.action.groupIndex];
+          groups1[payload.action.groupIndex] = swap1;
           _flags.rerender = true;
           _flags.modified = true;
           this.emitChange();
@@ -107,13 +107,13 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.MOVE_GROUP_DOWN:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          let groups2 = Tjson.stages[ payload.action.stageIndex ].groups;
-          if ( payload.action.groupIndex >= groups2.length - 1 ) {
+          let groups2 = Tjson.stages[payload.action.stageIndex].groups;
+          if (payload.action.groupIndex >= groups2.length - 1) {
             break;
           }
-          let swap2 = groups2[ payload.action.groupIndex + 1];
-          groups2[ payload.action.groupIndex + 1] = groups2[ payload.action.groupIndex];
-          groups2[ payload.action.groupIndex] = swap2;
+          let swap2 = groups2[payload.action.groupIndex + 1];
+          groups2[payload.action.groupIndex + 1] = groups2[payload.action.groupIndex];
+          groups2[payload.action.groupIndex] = swap2;
           _flags.rerender = true;
           _flags.modified = true;
           this.emitChange();
@@ -121,8 +121,8 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.COPY_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[ payload.action.stageIndex ].groups.splice(
-            //Deep copy groupData
+          Tjson.stages[payload.action.stageIndex].groups.splice(
+            //Deep copy groupData, then insert it to groups array
             payload.action.groupIndex, 0, JSON.parse(JSON.stringify(payload.action.groupData))
           );
           _flags.rerender = true;

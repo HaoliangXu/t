@@ -5,16 +5,12 @@ import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 import IconButton from 'material-ui/lib/icon-button.js';
 import PeopleSvg from 'material-ui/lib/svg-icons/social/people.js';
-import ExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more.js';
 import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
 import RaisedButton from 'material-ui/lib/raised-button.js';
+
+import Stage from './stage.jsx';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
-
-//Import Group Creators
-import TBD from './formats/tbd.jsx';
-import Elimination from './formats/elimination.jsx';
-import GroupDual from './formats/groupDual.jsx';
 
 import Comm from '../services/communicate.js';
 import AppActions from '../actions/appActions.js';
@@ -26,7 +22,9 @@ export default class PageEditT extends React.Component{
     this.state = {
       //TODO Determine whether ask to save before leaving
       modified: false,
-      Tjson: {}
+      Tjson: {
+        stages: []
+      }
     };
     this._onChange = this._onChange.bind( this );
     this._onSave = this._onSave.bind(this);
@@ -47,7 +45,7 @@ export default class PageEditT extends React.Component{
   }
 
   render(){
-    var stageLength = this.state.Tjson.stages ? this.state.Tjson.stages.length : 0;
+    var stageLength = this.state.Tjson.stages.length;
     return (
       <div>
         <AppBar
@@ -64,7 +62,9 @@ export default class PageEditT extends React.Component{
               <MenuItem primaryText="Info" />
             </IconMenu>
           } />
-        {this._generateT( this.state.Tjson )}
+        {this.state.Tjson.stages.map(function(stage, stageIndex){
+          return <Stage stageData={stage} stageIndex={stageIndex} key={'stage.' + stageIndex} />;
+        })}
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
         <RaisedButton onTouchTap={this._onSave}
@@ -105,71 +105,8 @@ export default class PageEditT extends React.Component{
     this.refs.dialog.dismiss();
   }
 
-  _onToggleStage(stageIndex){
-    EditTActions.toggleStage(stageIndex);
-  }
-
-  _onShowTMenu(){
-    console.log('on show t menu');
-  }
-
-  _generateT( Tjson ){
-    //Check whether page is loaded, if not, skip generateT.
-    if ( !Tjson.stages ) {
-      return undefined;
-    }
-    let output = Tjson.stages.map( function( stage, stageIndex ){
-      let stageItem = stage.groups.map( function( group, groupIndex ){
-        let groupItem;
-        let props = {
-          groupData: group,
-          stageIndex: stageIndex,
-          groupIndex: groupIndex,
-          editMode: true,
-          key: groupIndex + '.' + stageIndex
-        };
-        switch ( group.format ) {
-          //Group format to be decided, for user to select.
-          case 'tbd':
-            groupItem = <TBD {...props} key={groupIndex + '.' + stageIndex} />;//TODO Solve key warning
-            break;
-          case 'elimination':
-            groupItem = <Elimination {...props} key={groupIndex + '.' + stageIndex} />;
-            break;
-          case 'groupDual':
-            groupItem = <GroupDual {...props} key={groupIndex + '.' + stageIndex} />;
-            break;
-        }
-        return groupItem;
-      });
-      return <div className='stage' key={'stage.' + stageIndex}>
-        <AppBar title={stage.name}
-          iconElementRight={<IconButton onTouchTap={this._onToggleStage.bind(this, stageIndex)}><ExpandMore /></IconButton>}
-          iconElementLeft={
-            <IconMenu iconButtonElement={
-              <IconButton><Menu /></IconButton>
-              }
-              openDirection="bottom-right">
-              <MenuItem onTouchTap={this._onRemoveStage.bind(this, stageIndex)} primaryText="Delete" />
-              <MenuItem primaryText="Rename" />
-            </IconMenu>} />
-          <div style={{display: stage.expand ? 'block' : 'none'}}>
-          {stageItem}
-          <RaisedButton
-            onTouchTap={this._onAddNewGroup.bind( this, stage.groups.length, stageIndex )}
-            style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group' />
-        </div>
-      </div>;
-    }.bind(this));
-    return output;
-  }
-
   _onRemoveStage(stageIndex){
     EditTActions.removeStage(stageIndex);
-  }
-
-  _onAddNewGroup( groupIndex, stageIndex ){
-    EditTActions.addGroup(groupIndex, stageIndex );
   }
 
   _onAddNewStage(stageIndex){
@@ -178,7 +115,7 @@ export default class PageEditT extends React.Component{
 
   _onChange(){
     window.setTimeout(AppActions.hideSpinner, 0);
-    if ( PageEditTStore.flags.rerender ) {
+    if (PageEditTStore.flags.rerender) {
       this.setState({
         Tjson: PageEditTStore.Tjson
       });

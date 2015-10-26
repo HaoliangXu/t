@@ -8,9 +8,8 @@ class SpinnerStore extends BaseStore {
 
   constructor() {
     super();
-    this.subscribe( function( payload ){
-      console.log( 'dispatching action ' + payload.action.actionType + ' to spinnerStore' );
-      switch ( payload.action.actionType ) {
+    this.subscribe(function(payload){
+      switch (payload.action.actionType) {
         case AppConstants.SHOW_SPINNER:
           _showSpinner = true;
           this.emitChange();
@@ -28,7 +27,7 @@ class SpinnerStore extends BaseStore {
           // no op
 
       }
-    }.bind( this ));
+    }.bind(this));
   }
 
   get showSpinner(){
