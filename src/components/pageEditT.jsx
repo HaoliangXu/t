@@ -4,7 +4,7 @@ import Dialog from 'material-ui/lib/dialog.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 import IconButton from 'material-ui/lib/icon-button.js';
-import NavigationClose from 'material-ui/lib/svg-icons/navigation/close.js';
+import PeopleSvg from 'material-ui/lib/svg-icons/social/people.js';
 import ExpandMore from 'material-ui/lib/svg-icons/navigation/expand-more.js';
 import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
 import RaisedButton from 'material-ui/lib/raised-button.js';
@@ -54,7 +54,7 @@ export default class PageEditT extends React.Component{
           title={this.state.Tjson.name}
           zDepth={2}
           style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
-          iconElementRight={<IconButton onTouchTap={this._onShowTMenu}><NavigationClose /></IconButton>}
+          iconElementRight={<IconButton onTouchTap={this._onShowTMenu}><PeopleSvg /></IconButton>}
           iconElementLeft={
             <IconMenu iconButtonElement={
               <IconButton><Menu /></IconButton>

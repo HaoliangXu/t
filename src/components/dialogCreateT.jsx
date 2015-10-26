@@ -5,6 +5,8 @@ import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import AppActions from '../actions/appActions.js';
 import {newT} from '../utils/appConfig.js';
 
+import PlayersService from '../services/players.js';
+
 export default class DialogCreateT extends React.Component{
   constructor(props){
     super(props);
@@ -31,6 +33,7 @@ export default class DialogCreateT extends React.Component{
     anewT.name = this.refs.TName.getValue();
     anewT.game = this.refs.GameType.getValue();
     anewT.location = this.refs.Location.getValue();
+    PlayersService.addInitialPlayers(anewT.players, Number(this.refs.Players.getValue()));
     AppActions.nextPage('editT');
     window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT}));
   }
@@ -52,7 +55,7 @@ export default class DialogCreateT extends React.Component{
             <TextField type='text' hintText='Tournament Name (Required)' ref='TName' fullWidth={true} />
             <TextField type='text' hintText='Game Type (Required)' ref='GameType' fullWidth={true} />
             <TextField type='text' hintText='Location' ref='Location' fullWidth={true} />
-            <TextField type='text' hintText='Players' ref='Players' fullWidth={true} /><br /><br />
+            <TextField type='text' hintText='Number of Players' ref='Players' fullWidth={true} /><br /><br />
             Start Date
             <DatePicker
               onChange={this._handleChange} ref='Date' />

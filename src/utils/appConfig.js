@@ -10,8 +10,8 @@ export function newTBD(groupIndex){
 
 export function newStage(stageIndex){
   return {
-    'name': 'Stage ' + (stageIndex + 1),
-    'groups': [
+    name: 'Stage ' + (stageIndex + 1),
+    groups: [
       newTBD(0)
     ],
     notes: [],
@@ -21,23 +21,28 @@ export function newStage(stageIndex){
 
 export function newT(){
   return {
-    'id': '',
-    'name': '',
-    'brief': '',
-    'sport': '',
-    'series': '',
-    'organizer': '',
-    'sponsors': {},
-    'format': '',
-    'prize': {},
-    'startDate': '',
-    'duration': '',
-    'others': '',
-    'tier': '',
-    'players': [
+    id: '',
+    name: '',
+    brief: '',
+    sport: '',
+    series: '',
+    organizer: '',
+    sponsors: [],
+    format: '',
+    prize: {},
+    startDate: '',
+    duration: '',
+    others: '',
+    tier: '',
+    polularity: {
+      view: 0,
+      like: 0,
+      share: 0
+    },
+    players: [
 
     ],
-    'stages': [
+    stages: [
       newStage(0)
     ]
   };
