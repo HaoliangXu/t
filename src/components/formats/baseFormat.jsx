@@ -32,19 +32,21 @@ export default class BaseFormat extends React.Component{
     ];
   }
 
-  _onMoveUp( groupIndex, stageIndex ){
-    EditTActions.moveGroupUp( groupIndex, stageIndex );
+  _onMoveUp(groupIndex, stageIndex){
+    EditTActions.moveGroupUp(groupIndex, stageIndex);
   }
 
-  _onMoveDown( groupIndex, stageIndex ){
-    EditTActions.moveGroupDown( groupIndex, stageIndex );
+  _onMoveDown(groupIndex, stageIndex){
+    EditTActions.moveGroupDown(groupIndex, stageIndex);
   }
 
-  _onCopyGroup( groupData, groupIndex, stageIndex ){
-    EditTActions.copyGroup( groupData, groupIndex, stageIndex );
+  _onCopyGroup(groupData, groupIndex, stageIndex){
+    //Deep copy groupData, to break the reference chain
+    groupData = JSON.parse(JSON.stringify(groupData));
+    EditTActions.copyGroup(groupData, groupIndex, stageIndex);
   }
 
-  _onRemoveGroup( groupIndex, stageIndex ){
-    EditTActions.removeGroup( groupIndex, stageIndex );
+  _onRemoveGroup(groupIndex, stageIndex){
+    EditTActions.removeGroup(groupIndex, stageIndex);
   }
 }

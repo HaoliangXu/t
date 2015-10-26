@@ -70,7 +70,7 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.ADD_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          let groupContent = newTBD(payload.action.groupIndex);
+          let groupContent = newTBD();
           //Add group into Tjson
           console.log(Tjson, payload.action.stageIndex);
           Tjson.stages[payload.action.stageIndex].groups.splice(
@@ -122,8 +122,7 @@ class PageEditTStore extends BaseStore {
         case EditTConstants.COPY_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           Tjson.stages[payload.action.stageIndex].groups.splice(
-            //Deep copy groupData, then insert it to groups array
-            payload.action.groupIndex, 0, JSON.parse(JSON.stringify(payload.action.groupData))
+            payload.action.groupIndex, 0, payload.action.groupData
           );
           _flags.rerender = true;
           _flags.modified = true;

@@ -5,10 +5,9 @@ import FlatButton from 'material-ui/lib/flat-button.js';
 import EditTActions from '../../actions/editTActions.js';
 
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
-import MenuItem from 'material-ui/lib/menus/menu-item.js';
 
 export default class TBD extends BaseFormat{
-  constructor( props ){
+  constructor(props){
     super(props);
     this._iconMenu = this.props.editMode ? <IconMenu style={{'float': 'left'}} openDirection='bottom-right' iconButtonElement={this._iconButtonElement}>
       {this._basicIconMenu}
@@ -22,26 +21,26 @@ export default class TBD extends BaseFormat{
           <CardTitle
             title={<div>
               {this._iconMenu}
-              <span>{this.props.groupData.name}</span>
+              <span>Select Format</span>
             </div>}
-            subtitle='Choose Format' />
+            subtitle='Choose one below' />
           <div className='buttons'>
-            <FlatButton label='Elimination' onTouchTap={ this._onSelectFormat.bind( this, 'elimination' )}/>
+            <FlatButton label='Elimination' onTouchTap={this._onSelectFormat.bind( this, 'elimination')} />
             <br />
-            <FlatButton label='Double Elimination' onTouchTap={ this._onSelectFormat.bind( this, 'doubleElimination' )}/>
+            <FlatButton label='Double Elimination' onTouchTap={this._onSelectFormat.bind( this, 'doubleElimination')} />
             <br />
-            <FlatButton label='Group Dual' onTouchTap={ this._onSelectFormat.bind( this, 'groupDual' )}/>
+            <FlatButton label='Group Dual' onTouchTap={this._onSelectFormat.bind( this, 'groupDual')} />
             <br />
-            <FlatButton label='Round Robin' onTouchTap={ this._onSelectFormat.bind( this, 'roundRobin' ) }/>
+            <FlatButton label='Round Robin' onTouchTap={this._onSelectFormat.bind( this, 'roundRobin')} />
           </div>
         </Card>
       </div>
     );
   }
 
-  _onSelectFormat( format, p ){
+  _onSelectFormat(format, p){
     //TODO second param, numer
-    EditTActions.setGroupFormat( format, 4, this.props.groupIndex, this.props.stageIndex );
+    EditTActions.setGroupFormat(format, 4, this.props.groupIndex, this.props.stageIndex);
   }
 
 }

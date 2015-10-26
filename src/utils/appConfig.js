@@ -1,10 +1,6 @@
-export function newTBD(groupIndex){
+export function newTBD(){
   return {
-    name: 'Group ' + (groupIndex + 1),
-    format: 'tbd',
-    when: '',
-    location: '',
-    links: {}
+    format: 'tbd'
   };
 }
 
@@ -12,7 +8,7 @@ export function newStage(stageIndex){
   return {
     name: 'Stage ' + (stageIndex + 1),
     groups: [
-      newTBD(0)
+      newTBD()
     ],
     notes: [],
     expand: true
