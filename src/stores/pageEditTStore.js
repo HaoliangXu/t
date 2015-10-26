@@ -138,6 +138,23 @@ class PageEditTStore extends BaseStore {
           this.emitChange();
           _flags.rerender = false;
           break;
+        case EditTConstants.EDIT_STAGE_INFO:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          let stage = Tjson.stages[payload.action.stageIndex];
+          [stage.name, stage.status, stage.location, stage.when] = payload.action.stageInfo;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.EDIT_T_INFO:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          [Tjson.name, Tjson.game, Tjson.status, Tjson.location, Tjson.brief, Tjson.when] = payload.action.TInfo;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
         default:
           // no op
 

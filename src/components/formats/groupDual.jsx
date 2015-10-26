@@ -121,8 +121,7 @@ export default class GroupDual extends BaseFormat{
               <TextField type='text' defaultValue={this.props.groupData.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
               <TextField type='text' defaultValue={this.props.groupData.status} hintText='Status' ref='status' fullWidth={true} />
               <TextField type='text' defaultValue={this.props.groupData.location} hintText='Location' ref='location' fullWidth={true} />              Start Time
-              <DatePicker
-                onChange={this._handleChange} defaultValue={this.props.groupData.when} ref='date' />
+              <DatePicker defaultValue={this.props.groupData.when} ref='date' />
             </div>
           </form>
         </Dialog>

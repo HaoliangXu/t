@@ -88,5 +88,20 @@ export default {
       groupIndex: groupIndex,
       stageIndex: stageIndex
     });
+  },
+
+  editStageInfo: function(stageInfo, stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.EDIT_STAGE_INFO,
+      stageInfo: stageInfo,
+      stageIndex: stageIndex
+    });
+  },
+
+  editTInfo: function(TInfo){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.EDIT_T_INFO,
+      TInfo: TInfo
+    });
   }
 };

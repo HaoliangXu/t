@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/lib/raised-button.js';
 
 import Stage from './stage.jsx';
 import MainButtonGroup from './mainButtonGroup.jsx';
+import DialogTInfo from './dialogTInfo.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
 
 import Comm from '../services/communicate.js';
@@ -26,11 +27,12 @@ export default class PageEditT extends React.Component{
         stages: []
       }
     };
+    this._onTInfo = this._onTInfo.bind(this);
     this._onChange = this._onChange.bind( this );
     this._onSave = this._onSave.bind(this);
     this._onDiscard = this._onDiscard.bind(this);
     this._onDialogCancel = this._onDialogCancel.bind(this);
-    this.standardActions = [
+    this._backDialogActions = [
       { text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit' },
       { text: 'Cancel', onTouchTap: this._onDialogCancel}
     ];
@@ -59,7 +61,7 @@ export default class PageEditT extends React.Component{
               }
               openDirection="bottom-right">
               <MenuItem primaryText="Players" />
-              <MenuItem primaryText="Info" />
+              <MenuItem onTouchTap={this._onTInfo} primaryText="Info" />
             </IconMenu>
           } />
         {this.state.Tjson.stages.map(function(stage, stageIndex){
@@ -73,13 +75,18 @@ export default class PageEditT extends React.Component{
           primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Discard' />
         <Dialog
           title='Really want to leave without save?'
-          actions={this.standardActions}
+          actions={this._backDialogActions}
           actionFocus='submit'
           ref='dialog'>
         </Dialog>
+        <DialogTInfo Tjson={this.state.Tjson} ref='dialogTInfo' />
         <MainButtonGroup page='editT' back={this._onDiscard}/>
       </div>
     );
+  }
+
+  _onTInfo(){
+    this.refs.dialogTInfo.show();
   }
 
   _onSave(){

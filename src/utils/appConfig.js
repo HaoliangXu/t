@@ -11,6 +11,9 @@ export function newStage(stageIndex){
       newTBD()
     ],
     notes: [],
+    status: 'Upcoming',
+    location: '',
+    when: '',
     expand: true
   };
 }
@@ -19,6 +22,8 @@ export function newT(){
   return {
     id: '',
     name: '',
+    location: '',
+    status: '',
     brief: '',
     sport: '',
     series: '',
@@ -26,7 +31,7 @@ export function newT(){
     sponsors: [],
     format: '',
     prize: {},
-    startDate: '',
+    when: '',
     duration: '',
     others: '',
     tier: '',
