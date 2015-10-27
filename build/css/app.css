@@ -74,14 +74,14 @@ div#splashContent{
 .buttons{
   margin: 1rem;
 }
-table {
+table.groupTable {
   border-collapse: collapse;
   margin: 0 1em 2rem 1rem;
   width: 23rem;
   text-align: center;
 }
 
-tr {
+table.groupTable tr{
   border-top: 2px solid #eee;
   border-bottom: 2px solid #eee;
   padding: 0.3rem

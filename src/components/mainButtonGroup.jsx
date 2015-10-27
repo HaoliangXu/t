@@ -54,6 +54,7 @@ export default class MainButtonGroup extends React.Component {
         break;
       case 'viewT':
       case 'editT':
+      case 'players':
         this._onClickButton2 = this._onLikeClick.bind(this);
         this._onClickButton3 = this._onShareClick.bind(this);
         break;

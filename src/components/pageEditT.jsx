@@ -54,7 +54,7 @@ export default class PageEditT extends React.Component{
           title={this.state.Tjson.name}
           zDepth={2}
           style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
-          iconElementRight={<IconButton onTouchTap={this._onShowTMenu}><PeopleSvg /></IconButton>}
+          iconElementRight={<IconButton onTouchTap={this._onPagePlayer}><PeopleSvg /></IconButton>}
           iconElementLeft={
             <IconMenu iconButtonElement={
               <IconButton><Menu /></IconButton>
@@ -83,6 +83,12 @@ export default class PageEditT extends React.Component{
         <MainButtonGroup page='editT' back={this._onDiscard}/>
       </div>
     );
+  }
+
+  _onPagePlayer(){
+    console.log('on turn page player');
+    AppActions.nextPage('players');
+    AppActions.showSpinner();
   }
 
   _onTInfo(){

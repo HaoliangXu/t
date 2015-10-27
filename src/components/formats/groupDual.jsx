@@ -73,7 +73,7 @@ export default class GroupDual extends BaseFormat{
               </tr>
             </tbody>
           </table>
-          <table>
+          <table className='groupTable'>
             <tbody>
               <tr>
                 <th colSpan='4'>Matches</th>

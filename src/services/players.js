@@ -10,6 +10,7 @@ class PlayersService {
     _players = players;
     for (var i = 0; i < NumOfPlayers; i++) {
       _players[i] = {
+        iconUrl: '',
         name: 'Player ' + (i + 1),
         pid: null,
         tid: i,
@@ -38,8 +39,8 @@ class PlayersService {
 
   }
 
-  reqPlayerListJson(){
-
+  reqPlayerList(){
+    return _players;
   }
 }
 
