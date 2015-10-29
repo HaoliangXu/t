@@ -29,11 +29,15 @@ export default class DialogCreateT extends React.Component{
 
   _onDialogSubmit(){
     console.log('on dialog submit');
+    var playerNumber = Number(this.refs.Players.getValue());
     var anewT = newT();
     anewT.name = this.refs.TName.getValue();
     anewT.game = this.refs.GameType.getValue();
     anewT.location = this.refs.Location.getValue();
-    PlayersService.addInitialPlayers(anewT.players, Number(this.refs.Players.getValue()));
+    if (!playerNumber || playerNumber < 2){
+      playerNumber = 2;
+    }
+    PlayersService.addInitialPlayers(anewT.players, playerNumber);
     AppActions.nextPage('editT');
     window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT}));
   }
