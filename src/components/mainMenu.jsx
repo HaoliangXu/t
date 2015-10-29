@@ -2,7 +2,7 @@ import React from 'react';
 import MainMenuStore from '../stores/mainMenuStore.js';
 import AppActions from '../actions/appActions.js';
 import LeftNav from 'material-ui/lib/left-nav.js';
-import MenuItem from 'material-ui/lib/menu/menu-item.js';
+import MenuItem from 'material-ui/lib/menus/menu-item.js';
 import DialogAuth from './dialogAuth.jsx';
 import Comm from '../services/communicate.js';
 //import rawTheme from '../myMuiTheme.js';
@@ -17,14 +17,7 @@ var menuItems = [
   { route: 'msg', text: 'Messages' },
   { route: 'forums', text: 'Forums' },
   { route: 'settings', text: 'Settings' },
-  { route: 'about', text: 'About' },
-  { type: MenuItem.Types.SUBHEADER, text: 'Resources' },
-  {
-     type: MenuItem.Types.LINK,
-     payload: 'https://www.google.com',
-     text: 'Disabled Link',
-     disabled: true
-  }
+  { route: 'about', text: 'About' }
 ];
 
 export default class MainMenu extends React.Component{
