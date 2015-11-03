@@ -40,12 +40,36 @@ export function newT(){
       like: 0,
       share: 0
     },
-    players: [
-
-    ],
+    creator: '',
+    editors: [],
+    players: [],
     stages: [
       newStage(0)
     ]
+  };
+}
+
+export function newGroupDual(groupIndex){
+  return {
+    name: 'Group ' + (groupIndex + 1),
+    format: 'groupDual',
+    status: 'Upcoming',
+    when: '',
+    location: '',
+    players: [],
+    scores: [
+      newScoreRow(),
+      newScoreRow(),
+      newScoreRow(),
+      newScoreRow()
+    ],
+    matches: [
+      newMatch(),
+      newMatch(),
+      newMatch(),
+      newMatch()
+    ],
+    notes: []
   };
 }
 
@@ -77,29 +101,5 @@ export function newMatch(){
         points: ''
       }
     ]
-  };
-}
-
-export function newGroupDual(groupIndex){
-  return {
-    name: 'Group ' + (groupIndex + 1),
-    format: 'groupDual',
-    status: 'Upcoming',
-    when: '',
-    location: '',
-    players: [],
-    scores: [
-      newScoreRow(),
-      newScoreRow(),
-      newScoreRow(),
-      newScoreRow()
-    ],
-    matches: [
-      newMatch(),
-      newMatch(),
-      newMatch(),
-      newMatch()
-    ],
-    notes: []
   };
 }

@@ -18,8 +18,8 @@ import AppActions from '../actions/appActions.js';
 import EditTActions from '../actions/editTActions.js';
 
 export default class PageEditT extends React.Component{
-  constructor( props ){
-    super( props );
+  constructor(props){
+    super(props);
     this.state = {
       //TODO Determine whether ask to save before leaving
       modified: false,
@@ -29,22 +29,22 @@ export default class PageEditT extends React.Component{
       }
     };
     this._onTInfo = this._onTInfo.bind(this);
-    this._onChange = this._onChange.bind( this );
+    this._onChange = this._onChange.bind(this);
     this._onSave = this._onSave.bind(this);
     this._onDiscard = this._onDiscard.bind(this);
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._backDialogActions = [
-      { text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit' },
-      { text: 'Cancel', onTouchTap: this._onDialogCancel}
+      {text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit'},
+      {text: 'Cancel', onTouchTap: this._onDialogCancel}
     ];
   }
 
   componentDidMount(){
-    PageEditTStore.addChangeListener( this._onChange );
+    PageEditTStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    PageEditTStore.removeChangeListener( this._onChange );
+    PageEditTStore.removeChangeListener(this._onChange);
   }
 
   render(){
@@ -86,7 +86,7 @@ export default class PageEditT extends React.Component{
           ref='dialogLeave'>
         </Dialog>
         <DialogTInfo Tjson={this.state.Tjson} ref='dialogTInfo' />
-        <MainButtonGroup page='editT' back={this._onDiscard}/>
+        <MainButtonGroup page='editT' back={this._onDiscard} />
       </div>
     );
   }
@@ -143,7 +143,9 @@ export default class PageEditT extends React.Component{
       window.setTimeout(function(){
         AppActions.updateHistoryContent({
           page: 'editT',
-          Tjson: this.state.Tjson
+          Tjson: this.state.Tjson,
+          editMode: this.state.editMode,
+          modified: this.state.modified
         });
       }.bind(this), 0);
     }

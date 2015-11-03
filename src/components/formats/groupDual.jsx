@@ -6,7 +6,6 @@ import Dialog from 'material-ui/lib/dialog.js';
 import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import TextField from 'material-ui/lib/text-field.js';
 import SelectField from 'material-ui/lib/select-field.js';
-import {Table, TableHeader, TableHeaderColumn, TableBody, TableRow, TableRowColumn} from 'material-ui/lib/table/index.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 
@@ -42,12 +41,12 @@ export default class GroupDual extends BaseFormat{
     </IconMenu> : null;
     //Actions for  dialog
     this.dialogInfoActions = [
-      { text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit' },
-      { text: 'Nay', onTouchTap: this._onDialogCancel}
+      {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
+      {text: 'Nay', onTouchTap: this._onDialogCancel}
     ];
     this.dialogScoreActions = [
-      { text: 'Do it', onTouchTap: this._onDialogScoreSubmit, ref: 'scoreSubmit' },
-      { text: 'Nay', onTouchTap: this._onDialogScoreCancel}
+      {text: 'Do it', onTouchTap: this._onDialogScoreSubmit, ref: 'scoreSubmit'},
+      {text: 'Nay', onTouchTap: this._onDialogScoreCancel}
     ];
   }
 
@@ -129,6 +128,10 @@ export default class GroupDual extends BaseFormat{
     );
   }
 
+  _onEditInfo(){
+    this.refs.dialogEditInfo.show();
+  }
+
   _onShowDialogPlayers(){
     this.refs.dialogGroupPlayers.show();
   }
@@ -165,6 +168,25 @@ export default class GroupDual extends BaseFormat{
     });
   }
 
+  _generateMatches(){
+    return this.props.groupData.matches.map((match, index)=>{
+      var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
+      var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
+      if (match.players[0].tid !== -1 || !player1){
+        match.players[0].tid = -1;//TODO not complete
+      }
+      if (match.players[1].tid !== -1 || !player2){
+        match.players[1].tid = -1;//TODO not complete
+      }
+      return <tr key={'tm' + index} onTouchTap={this._onPageMatch.bind(this, index)}>
+        <td className='colName'>{player1 ? player1.name : ''}</td>
+        <td className='colPoints'>{player1 ? player1.points : 0}</td>
+        <td className='colPoints'>{player2 ? player2.points : 0}</td>
+        <td className='colName'>{player2 ? player2.name : ''}</td>
+      </tr>
+    });
+  }
+
   _onRemoveScoreRow(index){
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
     scores.splice(index, 1);
@@ -189,33 +211,10 @@ export default class GroupDual extends BaseFormat{
     players.splice(index, 1);
   }
 
-  _generateMatches(){
-    return this.props.groupData.matches.map((match, index)=>{
-      var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
-      var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
-      if (match.players[0].tid !== -1 || !player1){
-        match.players[0].tid = -1;//TODO not complete
-      }
-      if (match.players[1].tid !== -1 || !player2){
-        match.players[1].tid = -1;//TODO not complete
-      }
-      return <tr key={'tm' + index} onTouchTap={this._onPageMatch.bind(this, index)}>
-        <td className='colName'>{player1 ? player1.name : ''}</td>
-        <td className='colPoints'>{player1 ? player1.points : 0}</td>
-        <td className='colPoints'>{player2 ? player2.points : 0}</td>
-        <td className='colName'>{player2 ? player2.name : ''}</td>
-      </tr>
-    });
-  }
-
   _onPageMatch(index){
     console.log('on turn match page');
     AppActions.nextPage('match');
     AppActions.showSpinner();
-  }
-
-  _onEditInfo(){
-    this.refs.dialogEditInfo.show();
   }
 
   //Methods of dialogEditInfo
@@ -261,6 +260,11 @@ export default class GroupDual extends BaseFormat{
     this.refs.dialogScore.dismiss();
   }
 
+  _onDialogScoreCancel(){
+    editingScoreRow = -1;
+    this.refs.dialogScore.dismiss();
+  }
+
   _onAddPlayer(){
     var scoreRow = newScore();
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
@@ -283,10 +287,5 @@ export default class GroupDual extends BaseFormat{
       this.props.groupIndex,
       this.props.stageIndex
     ));
-  }
-
-  _onDialogScoreCancel(){
-    editingScoreRow = -1;
-    this.refs.dialogScore.dismiss();
   }
 }

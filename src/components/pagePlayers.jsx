@@ -23,13 +23,13 @@ var editingPlayerTid = -1;
 
 export default class PagePlayers extends React.Component{
 
-  constructor( props ){
-    super( props );
+  constructor(props){
+    super(props);
     this._onDialogInfoSubmit = this._onDialogInfoSubmit.bind(this);
     this._onDialogInfoCancel = this._onDialogInfoCancel.bind(this);
     this._dialogActions = [
-      { text: 'Yep', onTouchTap: this._onDialogInfoSubmit, ref: 'submit' },
-      { text: 'Cancel', onTouchTap: this._onDialogInfoCancel}
+      {text: 'Yep', onTouchTap: this._onDialogInfoSubmit, ref: 'submit'},
+      {text: 'Cancel', onTouchTap: this._onDialogInfoCancel}
     ];
   }
 
@@ -55,9 +55,9 @@ export default class PagePlayers extends React.Component{
         multiSelectable={true}>
         <TableHeader enableSelectAll={true}>
           <TableRow>
-            <TableHeaderColumn tooltip='The ID'>No.</TableHeaderColumn>
-            <TableHeaderColumn tooltip='The Name'>Name</TableHeaderColumn>
-            <TableHeaderColumn tooltip='The Status'>Notes</TableHeaderColumn>
+            <TableHeaderColumn>No.</TableHeaderColumn>
+            <TableHeaderColumn>Name</TableHeaderColumn>
+            <TableHeaderColumn>Notes</TableHeaderColumn>
           </TableRow>
         </TableHeader>
         <TableBody

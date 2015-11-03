@@ -26,7 +26,7 @@ class PageEditTStore extends BaseStore {
           Tjson = payload.action.content.Tjson;
           _flags.editMode = payload.action.content.editMode;
           _flags.rerender = true;
-          _flags.modified = false;
+          _flags.modified = payload.action.content.modified;
           this.emitChange();
           _flags.rerender = false;
           break;
