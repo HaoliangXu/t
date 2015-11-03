@@ -8,7 +8,7 @@ import PageViewT from './pageViewT.jsx';
 import PageDiscover from './pageDiscover.jsx';
 import PageEditT from './pageEditT.jsx';
 import PagePlayers from './pagePlayers.jsx';
-import pageMatch from './pageMatch.jsx';
+import PageMatch from './pageMatch.jsx';
 import Notice from './notice.jsx';
 import AppStore from '../stores/appStore.js';
 import Comm from '../services/communicate.js';
@@ -77,7 +77,7 @@ export default class App extends React.Component {
         this.page = <PagePlayers />;
         break;
       case 'match':
-        this.page = <Match />;
+        this.page = <PageMatch />;
         break;
       case 'calendar':
         break;

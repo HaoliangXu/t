@@ -1,3 +1,6 @@
+//TODO This method changes the original data, may cause bugs.
+//Should create a new piece of data then take an action to save it to original data.
+
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar.js';
 import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
@@ -120,6 +123,7 @@ export default class PagePlayers extends React.Component{
     editingPlayerTid = index;
     this.refs.playerInfoDialog.show();
     setTimeout(function(){
+      this.refs.name.focus();
       this.refs.name.setValue(player.name);
       this.refs.notes.setValue(player.notes);
     }.bind(this), 0);

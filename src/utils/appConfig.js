@@ -49,6 +49,37 @@ export function newT(){
   };
 }
 
+export function newScoreRow(){
+  return {
+    icon: '',
+    tid: -1,
+    score: '',
+    points: '',
+    color: 0,
+    notes: ''
+  };
+}
+
+export function newMatch(){
+  return {
+    note: '',
+    players: [
+      {
+        icon: '',
+        tid: -1,
+        color: '',
+        points: ''
+      },
+      {
+        icon: '',
+        tid: -1,
+        color: '',
+        points: ''
+      }
+    ]
+  };
+}
+
 export function newGroupDual(groupIndex){
   return {
     name: 'Group ' + (groupIndex + 1),
@@ -56,32 +87,18 @@ export function newGroupDual(groupIndex){
     status: 'Upcoming',
     when: '',
     location: '',
+    players: [],
     scores: [
-      {
-        icon: '',
-        tid: '',
-        score: 0,
-        points: 0,
-        color: ''
-      }
+      newScoreRow(),
+      newScoreRow(),
+      newScoreRow(),
+      newScoreRow()
     ],
     matches: [
-      {
-        icon: '',
-        note: '',
-        players: [
-          {
-            tid: '',
-            name: '',
-            color: ''
-          },
-          {
-            tid: '',
-            name: '',
-            color: ''
-          }
-        ]
-      }
+      newMatch(),
+      newMatch(),
+      newMatch(),
+      newMatch()
     ],
     notes: []
   };

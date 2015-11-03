@@ -45,8 +45,6 @@ class PlayersService {
     var index = _players.findIndex((item)=>{
       if (item.tid === tid){
         return true;
-      } else {
-        return false;
       }
     });
     _players.splice(index, 1);
@@ -61,6 +59,12 @@ class PlayersService {
 
   reqPlayerByIndex(index){
     return _players[index];
+  }
+
+  reqPlayerByTid(tid){
+    return _players.find((item)=>{
+      return item.tid == tid;//TODO Don't know why '===' doesn't work properly.
+    });
   }
 
   updatePlayer(tid, player){

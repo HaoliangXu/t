@@ -90,6 +90,35 @@ export default {
     });
   },
 
+  changeGroupPlayers: function(groupPlayers, groupIndex, stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.CHANGE_GROUP_PLAYERS,
+      groupPlayers: groupPlayers,
+      groupIndex: groupIndex,
+      stageIndex: stageIndex
+    });
+  },
+
+  //TODO Could combine all group change actions to one action.
+  //Then there will not be too many actions for scoreboard or matches,
+  editScoreBoard: function(scores, groupIndex, stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.EDIT_SCOREBOARD,
+      scores: scores,
+      groupIndex: groupIndex,
+      stageIndex: stageIndex
+    });
+  },
+
+  editMatches:function(matches, groupIndex, stageIndex){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.EDIT_MATCHES,
+      matches: matches,
+      groupIndex: groupIndex,
+      stageIndex: stageIndex
+    });
+  },
+
   editStageInfo: function(stageInfo, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.EDIT_STAGE_INFO,

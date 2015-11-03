@@ -23,6 +23,7 @@ export default class PageEditT extends React.Component{
     this.state = {
       //TODO Determine whether ask to save before leaving
       modified: false,
+      editMode: false,
       Tjson: {
         stages: []
       }
@@ -64,8 +65,13 @@ export default class PageEditT extends React.Component{
               <MenuItem onTouchTap={this._onTInfo} primaryText="Info" />
             </IconMenu>
           } />
-        {this.state.Tjson.stages.map(function(stage, stageIndex){
-          return <Stage stageData={stage} stageIndex={stageIndex} key={'stage.' + stageIndex} />;
+        {this.state.Tjson.stages.map((stage, stageIndex)=>{
+          return <Stage
+            stageData={stage}
+            stageIndex={stageIndex}
+            editMode={this.state.editMode}
+            key={'stage.' + stageIndex}
+            />;
         })}
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
@@ -77,7 +83,7 @@ export default class PageEditT extends React.Component{
           title='Really want to leave without save?'
           actions={this._backDialogActions}
           actionFocus='submit'
-          ref='dialog'>
+          ref='dialogLeave'>
         </Dialog>
         <DialogTInfo Tjson={this.state.Tjson} ref='dialogTInfo' />
         <MainButtonGroup page='editT' back={this._onDiscard}/>
@@ -86,7 +92,7 @@ export default class PageEditT extends React.Component{
   }
 
   _onPagePlayer(){
-    console.log('on turn page player');
+    console.log('on turn player page');
     AppActions.nextPage('players');
     AppActions.showSpinner();
   }
@@ -107,7 +113,7 @@ export default class PageEditT extends React.Component{
       AppActions.lastPage();
       return;
     }
-    this.refs.dialog.show();
+    this.refs.dialogLeave.show();
   }
 
   _onDialogSubmit(){
@@ -115,7 +121,7 @@ export default class PageEditT extends React.Component{
   }
 
   _onDialogCancel(){
-    this.refs.dialog.dismiss();
+    this.refs.dialogLeave.dismiss();
   }
 
   _onRemoveStage(stageIndex){
@@ -130,7 +136,9 @@ export default class PageEditT extends React.Component{
     window.setTimeout(AppActions.hideSpinner, 0);
     if (PageEditTStore.flags.rerender) {
       this.setState({
-        Tjson: PageEditTStore.Tjson
+        Tjson: PageEditTStore.Tjson,
+        editMode: PageEditTStore.editMode,
+        modified: PageEditTStore.modified
       });
       window.setTimeout(function(){
         AppActions.updateHistoryContent({
@@ -140,5 +148,4 @@ export default class PageEditT extends React.Component{
       }.bind(this), 0);
     }
   }
-
 }

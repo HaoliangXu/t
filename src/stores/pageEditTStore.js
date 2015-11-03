@@ -7,7 +7,8 @@ var _flags = {
   // Indicates whether to rerender pageEdit component.
   rerender: false,
   // TODO Indecates whether the T is edited, to determine to save T or not.
-  modified: false
+  modified: false,
+  editMode: false,
 };
 var Tjson;
 
@@ -23,6 +24,7 @@ class PageEditTStore extends BaseStore {
             break;
           }
           Tjson = payload.action.content.Tjson;
+          _flags.editMode = payload.action.content.editMode;
           _flags.rerender = true;
           _flags.modified = false;
           this.emitChange();
@@ -72,7 +74,6 @@ class PageEditTStore extends BaseStore {
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           let groupContent = newTBD();
           //Add group into Tjson
-          console.log(Tjson, payload.action.stageIndex);
           Tjson.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 0, groupContent
           );
@@ -138,6 +139,30 @@ class PageEditTStore extends BaseStore {
           this.emitChange();
           _flags.rerender = false;
           break;
+        case EditTConstants.CHANGE_GROUP_PLAYERS:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex].players = payload.action.groupPlayers;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.EDIT_SCOREBOARD:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex].scores = payload.action.scores;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
+        case EditTConstants.EDIT_MATCHES:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
+          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex].matches = payload.action.matches;
+          _flags.rerender = true;
+          _flags.modified = true;
+          this.emitChange();
+          _flags.rerender = false;
+          break;
         case EditTConstants.EDIT_STAGE_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           let stage = Tjson.stages[payload.action.stageIndex];
@@ -162,8 +187,12 @@ class PageEditTStore extends BaseStore {
     }.bind( this ));
   }
 
-  get modifyFlag(){
+  get modified(){
     return _flags.modified;
+  }
+
+  get editMode(){
+    return _flags.editMode;
   }
 
   //Generate initial group data

@@ -112,7 +112,7 @@ export default class Stage extends React.Component{
         groupData: group,
         groupIndex: groupIndex,
         stageIndex: this.props.stageIndex,
-        editMode: true
+        editMode: this.props.editMode
       };
       switch (group.format) {
         //Group format to be decided, for user to select.

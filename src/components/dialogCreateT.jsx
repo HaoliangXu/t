@@ -39,7 +39,7 @@ export default class DialogCreateT extends React.Component{
     }
     PlayersService.addInitialPlayers(anewT.players, playerNumber);
     AppActions.nextPage('editT');
-    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT}));
+    window.setTimeout(AppActions.loadPage.bind(this, {page: 'editT', Tjson: anewT, editMode: true}));
   }
 
   _onDialogCancel(){

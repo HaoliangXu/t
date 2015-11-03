@@ -16,7 +16,9 @@ config = {
     module: {
         loaders: [
             {test: /\.css$/, loader: 'style!css' },
-            {test: /\.jsx?$/, loader: 'babel'}
+            {test: /\.jsx?$/, loader: 'babel', query: {
+              presets:['react', 'es2015']
+            }}
         ],
         noParse: '[node_modules]'
     }
