@@ -144,7 +144,7 @@ export default class GroupDual extends BaseFormat{
       this.refs.scoreRowTid.value = scoreRow.tid;
       this.refs.score.setValue(scoreRow.score);
       this.refs.points.setValue(scoreRow.points);
-    }.bind(this), 0);
+    }.bind(this));
   }
 
   _generateScores(){

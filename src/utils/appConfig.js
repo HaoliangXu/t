@@ -113,10 +113,10 @@ export function newMatch(){
 
 export function newGameOfMatch(){
   return {
-    leftPoint: '',
+    leftProperty: '',
     leftColor: 0,
     set: '',
     rightColor: 0,
-    rightPoint: ''
+    rightProperty: ''
   }
 }

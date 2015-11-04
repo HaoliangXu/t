@@ -126,7 +126,7 @@ export default class PagePlayers extends React.Component{
       this.refs.name.focus();
       this.refs.name.setValue(player.name);
       this.refs.notes.setValue(player.notes);
-    }.bind(this), 0);
+    }.bind(this));
   }
 
   _onDeletePlayer(index){
