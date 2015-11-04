@@ -55,7 +55,7 @@ var Comm = {
     token = ajax({
       url: './demoT.json',//TODO diffs when not in dev mode
       //type: 'html',
-      success: function(resp) {
+      success: function(resp){
         AppActions.loadPage({
           page: 'viewT',
           T: resp
@@ -97,8 +97,7 @@ var Comm = {
       };
       window.setTimeout(function(){
         AppActions.loadPage(content);
-        AppActions.updateHistoryContent(content);
-      }, 500);
+      });
     }
   },
 
@@ -114,10 +113,10 @@ var Comm = {
       iconUrl: '',
       authLevel: 1
     };
-    window.setTimeout(function(){
+    setTimeout(function(){
       console.log(username + ' has logged in');
       AuthActions.loginSuccess(res);
-    }, 500);
+    }, 200);
   },
 
   reqLogout: function(){
@@ -126,11 +125,11 @@ var Comm = {
 
   saveT: function(Tjson){
     if (!Tjson.name){
-      window.setTimeout(function(){
+      setTimeout(function(){
         console.log('save failed');
       }, 500);
     }
-    window.setTimeout(function(){
+    setTimeout(function(){
       var T = Tjson;
       console.log('saved');
       AppActions.hideSpinner();

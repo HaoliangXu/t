@@ -30,16 +30,15 @@ export default class PageViewT extends React.Component{
   }
 
   _onChange(){
-    window.setTimeout(AppActions.hideSpinner, 0);
-    this.setState({
+    setTimeout(AppActions.hideSpinner);
+    let newState = {
+      page: 'viewT',
       content: PageViewTStore.pageContent
+    };
+    this.setState(newState);
+    setTimeout(function(){
+      AppActions.updateHistoryContent(newState);
     });
-    window.setTimeout(function(){
-      AppActions.updateHistoryContent({
-        page: 'viewT',
-        content: this.state.content
-      });
-    }.bind(this), 0);
   }
 
 }

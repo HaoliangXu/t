@@ -76,8 +76,7 @@ AppDispatcher.register(function(payload) {
       AppStore.emitChange();
       //TODO setTimeout is not a good logic for this action
       //More importantly, a store should not trigger any actions.
-      window.setTimeout(AppActions.loadPage.bind(undefined, pageData.content), 0);
-      window.setTimeout(AppActions.updateHistoryContent.bind(undefined, pageData.content), 0);
+      setTimeout(AppActions.loadPage.bind(undefined, pageData.content));
       break;
     case AppConstants.SWITCH_PAGE:
       console.log('dispatching action ' + payload.action.actionType + ' to appStore');

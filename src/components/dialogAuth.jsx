@@ -1,6 +1,5 @@
 import React from 'react';
 import Dialog from 'material-ui/lib/dialog.js';
-import Card from 'material-ui/lib/card/card.js';
 import TextField from 'material-ui/lib/text-field.js';
 import AuthActions from '../actions/authActions.js';
 import DialogAuthStore from '../stores/dialogAuthStore.js';

@@ -87,8 +87,8 @@ export default class PagePlayers extends React.Component{
 
   _generateTable(){
     var list = PlayersService.reqPlayerList();
-    return list.map(function(player, index){
-      return <TableRow key={'row' + index}>
+    return list.map((player, index)=>{
+      return <TableRow key={'pt' + index}>
         <TableRowColumn>{index + 1}</TableRowColumn>
         <TableRowColumn onTouchTap={this._onShowInfo.bind(this, index)}>{player.name}</TableRowColumn>
         <TableRowColumn>{player.notes}</TableRowColumn>
@@ -98,7 +98,7 @@ export default class PagePlayers extends React.Component{
           <IconButton onTouchTap={this._onDeletePlayer.bind(this, index)}><NavigationClose /></IconButton>
         </TableRowColumn>
       </TableRow>;
-    }.bind(this));
+    });
   }
 
   _onDialogInfoSubmit(){

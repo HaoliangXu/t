@@ -21,6 +21,7 @@ export default class PageEditT extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      page: 'editT',
       //TODO Determine whether ask to save before leaving
       modified: false,
       editMode: false,
@@ -133,21 +134,18 @@ export default class PageEditT extends React.Component{
   }
 
   _onChange(){
-    window.setTimeout(AppActions.hideSpinner, 0);
-    if (PageEditTStore.flags.rerender) {
-      this.setState({
+    setTimeout(AppActions.hideSpinner);
+    if (PageEditTStore.flags.rerender){
+      let newState = {
+        page: 'editT',
         Tjson: PageEditTStore.Tjson,
         editMode: PageEditTStore.editMode,
         modified: PageEditTStore.modified
+      };
+      this.setState(newState);
+      setTimeout(function(){
+        AppActions.updateHistoryContent(newState);
       });
-      window.setTimeout(function(){
-        AppActions.updateHistoryContent({
-          page: 'editT',
-          Tjson: this.state.Tjson,
-          editMode: this.state.editMode,
-          modified: this.state.modified
-        });
-      }.bind(this), 0);
     }
   }
 }

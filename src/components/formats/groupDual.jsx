@@ -13,7 +13,7 @@ import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
 import AppActions from '../../actions/appActions.js';
 import EditTActions from '../../actions/editTActions.js';
 import PlayersService from '../../services/players.js';
-import {newMatch, newScore} from '../../utils/appConfig.js';
+import {newMatch, newScoreRow} from '../../utils/appConfig.js';
 
 //Indicates which row DialogScore is showing
 var editingScoreRow = -1;
@@ -189,14 +189,13 @@ export default class GroupDual extends BaseFormat{
 
   _onRemoveScoreRow(index){
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
+    this.refs.dialogScore.dismiss();
     scores.splice(index, 1);
-    setTimeout(EditTActions.editScoreBoard.bind(
-      undefined,
+    EditTActions.editScoreBoard(
       scores,
       this.props.groupIndex,
       this.props.stageIndex
-    ));
-    this.refs.dialogScore.dismiss();
+    );
   }
 
   _removePlayerRef(tid){
@@ -214,6 +213,11 @@ export default class GroupDual extends BaseFormat{
   _onPageMatch(index){
     console.log('on turn match page');
     AppActions.nextPage('match');
+    AppActions.loadPage({
+      page: 'editT',
+      editMode: true,
+      match: this.props.groupData.matches[index]
+    });
     AppActions.showSpinner();
   }
 
@@ -225,13 +229,12 @@ export default class GroupDual extends BaseFormat{
       this.refs.location.getValue(),
       this.refs.date.getDate()
     ];
-    setTimeout(EditTActions.editGroupInfo.bind(
-      undefined,
+    this.refs.dialogEditInfo.dismiss();
+    EditTActions.editGroupInfo(
       groupInfo,
       this.props.groupIndex,
       this.props.stageIndex
-    ));
-    this.refs.dialogEditInfo.dismiss();
+    );
   }
 
   _onDialogCancel(){
@@ -250,14 +253,13 @@ export default class GroupDual extends BaseFormat{
     //Deep copy
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
     scores.splice(editingScoreRow, 1, scoreRow);
-    setTimeout(EditTActions.editScoreBoard.bind(
-      undefined,
+    editingScoreRow = -1;
+    this.refs.dialogScore.dismiss();
+    EditTActions.editScoreBoard(
       scores,
       this.props.groupIndex,
       this.props.stageIndex
-    ));
-    editingScoreRow = -1;
-    this.refs.dialogScore.dismiss();
+    );
   }
 
   _onDialogScoreCancel(){
@@ -266,26 +268,24 @@ export default class GroupDual extends BaseFormat{
   }
 
   _onAddPlayer(){
-    var scoreRow = newScore();
+    var scoreRow = newScoreRow();
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
     scores.push(scoreRow);
-    setTimeout(EditTActions.editScoreBoard.bind(
-      undefined,
+    EditTActions.editScoreBoard(
       scores,
       this.props.groupIndex,
       this.props.stageIndex
-    ));
+    );
   }
 
   _onAddMatch(){
     var match = newMatch();
     var matches = JSON.parse(JSON.stringify(this.props.groupData.matches));
     matches.push(match);
-    setTimeout(EditTActions.editMatches.bind(
-      undefined,
+    EditTActions.editMatches(
       matches,
       this.props.groupIndex,
       this.props.stageIndex
-    ));
+    );
   }
 }

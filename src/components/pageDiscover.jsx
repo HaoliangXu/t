@@ -9,13 +9,14 @@ import ListItem from 'material-ui/lib/lists/list-item.js';
 
 export default class PageDiscover extends React.Component{
 
-  constructor( props ){
-    super( props );
+  constructor(props){
+    super(props);
     this.state = {
+      page: 'discover',
       lists: []
     };
     this._onChange = this._onChange.bind(this);
-    this._generateListComponents = this._generateListComponents.bind( this );
+    this._generateListComponents = this._generateListComponents.bind(this);
   }
 
   componentDidMount(){
@@ -36,17 +37,17 @@ export default class PageDiscover extends React.Component{
     );
   }
 
-  _onItemClick( itemIndex, listIndex ){
+  _onItemClick(itemIndex, listIndex){
     AppActions.nextPage('viewT');
     AppActions.showSpinner();
-    Comm.reqT( this.state.lists[ listIndex ].listItems[ itemIndex ].id );
+    Comm.reqT(this.state.lists[listIndex].listItems[itemIndex].id);
   }
 
-  _generateListComponents( list, listIndex ){
+  _generateListComponents(list, listIndex){
     var items = [];
     if ( list.listItems.length ) {
-      items = list.listItems.map(function( item, itemIndex ){
-        return <ListItem primaryText={item.itemName} onClick={this._onItemClick.bind( this, itemIndex, listIndex )} key={'item' + itemIndex} />;
+      items = list.listItems.map(function(item, itemIndex){
+        return <ListItem primaryText={item.itemName} onClick={this._onItemClick.bind(this, itemIndex, listIndex)} key={'item' + itemIndex} />;
       }.bind( this ));
     }
     return <List subtitle={list.listName} key={'list' + listIndex}>
@@ -55,14 +56,14 @@ export default class PageDiscover extends React.Component{
   }
 
   _onChange(){
-    window.setTimeout(AppActions.hideSpinner, 0);
-    this.setState({
-      lists: this._getLists()
+    setTimeout(AppActions.hideSpinner);
+    let newState = {
+      page: 'discover',
+      lists: PageDiscoverStore.getLists()
+    }
+    this.setState(newState);
+    setTimeout(function(){
+      AppActions.updateHistoryContent(newState);
     });
-  }
-
-
-  _getLists(){
-    return PageDiscoverStore.getLists();
   }
 }

@@ -23,7 +23,7 @@ export function newT(){
     id: '',
     name: '',
     location: '',
-    status: '',
+    status: 'Upcoming',
     brief: '',
     sport: '',
     series: '',
@@ -87,6 +87,10 @@ export function newScoreRow(){
 export function newMatch(){
   return {
     note: '',
+    color: 0,
+    status: 'Upcoming',
+    when: '',
+    location: '',
     players: [
       {
         icon: '',
@@ -100,6 +104,19 @@ export function newMatch(){
         color: '',
         points: ''
       }
+    ],
+    games: [
+      newGameOfMatch()
     ]
   };
+}
+
+export function newGameOfMatch(){
+  return {
+    leftPoint: '',
+    leftColor: 0,
+    set: '',
+    rightColor: 0,
+    rightPoint: ''
+  }
 }

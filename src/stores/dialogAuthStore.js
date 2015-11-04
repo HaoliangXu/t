@@ -22,8 +22,8 @@ class DialogAuthStore extends BaseStore {
 
   constructor() {
     super();
-    this.subscribe( function( payload ){
-      switch ( payload.action.actionType ) {
+    this.subscribe(function(payload){
+      switch (payload.action.actionType) {
         case AuthConstants.SHOW_LOGIN:
           _showDialog = true;
           this.emitChange();
@@ -48,7 +48,7 @@ class DialogAuthStore extends BaseStore {
           // no op
 
       }
-    }.bind( this ));
+    }.bind(this));
   }
 
   get showDialog(){

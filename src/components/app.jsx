@@ -47,14 +47,6 @@ export default class App extends React.Component {
     );
   }
 
-  //For Mui
-  /*
-  getChildContext() {
-    return {
-      muiTheme: ThemeManager.getMuiTheme(rawTheme)
-    };
-  }
-*/
   //Once app data loaded, set main view to appbox and its contents, hide splash screen, show main view
   _onChange(){
     this.setState({
@@ -89,9 +81,3 @@ export default class App extends React.Component {
     }
   }
 }
-
-//For Mui
-/*App.childContextTypes = {
-  muiTheme: React.PropTypes.object
-};
-*/
