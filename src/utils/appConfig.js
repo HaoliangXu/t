@@ -96,13 +96,13 @@ export function newMatch(){
         icon: '',
         tid: -1,
         color: '',
-        points: ''
+        points: '0'
       },
       {
         icon: '',
         tid: -1,
         color: '',
-        points: ''
+        points: '0'
       }
     ],
     games: [

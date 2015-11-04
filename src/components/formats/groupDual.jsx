@@ -113,7 +113,7 @@ export default class GroupDual extends BaseFormat{
             <div className='form-group'>
               <select ref='scoreRowTid'>
                 <option value={-1} key={'so' + -1}></option>
-                {this.props.groupData.players.map(function(tid, index, players){
+                {this.props.groupData.players.map(function(tid, index){
                   return <option value={tid} key={'so' + index}>
                     {PlayersService.reqPlayerByTid(tid).name}
                   </option>
@@ -213,11 +213,20 @@ export default class GroupDual extends BaseFormat{
   _onPageMatch(index){
     console.log('on turn match page');
     AppActions.nextPage('match');
-    AppActions.loadPage({
-      page: 'editT',
-      editMode: true,
-      match: this.props.groupData.matches[index]
-    });
+    setTimeout(AppActions.loadPage.bind(
+      this,
+      {
+        page: 'match',
+        editMode: this.props.editMode,
+        match: this.props.groupData.matches[index],
+        matchIndex: index,
+        groupIndex: this.props.groupIndex,
+        stageIndex: this.props.stageIndex,
+        //Below for refs use
+        groupPlayers: this.props.groupData.players,
+        groupMatches: this.props.groupData.matches
+      }
+    ));
     AppActions.showSpinner();
   }
 

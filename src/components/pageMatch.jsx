@@ -6,6 +6,7 @@ import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import TextField from 'material-ui/lib/text-field.js';
 import PageMatchStore from '../stores/pageMatchStore.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
+import AppActions from '../actions/appActions.js';
 import EditTActions from '../actions/editTActions.js';
 import {newMatch} from '../utils/appConfig.js';
 import PlayersService from '../services/players.js';
@@ -13,9 +14,17 @@ import PlayersService from '../services/players.js';
 export default class PageMatch extends React.Component{
   constructor(props){
     super(props);
+    this._onChange = this._onChange.bind(this);
     this.state = {
+      page: 'match',
       match: newMatch(),
-      editMode: false
+      editMode: false,
+      matchIndex: 0,
+      groupIndex: 0,
+      stageIndex: 0,
+      //Below for refs use
+      groupPlayers: [],
+      groupMatches: []
     };
     this._onDialogMatchInfo = this._onDialogMatchInfo.bind(this);
     this._onDialogCancel = this._onDialogCancel.bind(this);
@@ -37,8 +46,6 @@ export default class PageMatch extends React.Component{
   render(){
     var player1 = PlayersService.reqPlayerByTid(this.state.match.players[0].tid);
     var player2 = PlayersService.reqPlayerByTid(this.state.match.players[1].tid);
-    player1 = player1 ? player1 : {name: '', points: '0'};
-    player2 = player2 ? player2 : {name: '', points: '0'};
     return (
       <div>
         <Table
@@ -48,15 +55,15 @@ export default class PageMatch extends React.Component{
             displaySelectAll={false}>
             <TableRow
               onTouchTap={this._onDialogMatchInfo}>
-              <TableHeaderColumn>{player1.name}</TableHeaderColumn>
+              <TableHeaderColumn>{player1 ? player1.name : ''}</TableHeaderColumn>
               <TableHeaderColumn>V.S.</TableHeaderColumn>
-              <TableHeaderColumn>{player2.name}</TableHeaderColumn>
+              <TableHeaderColumn>{player1 ? player1.name : ''}</TableHeaderColumn>
             </TableRow>
             <TableRow
               onTouchTap={this._onDialogMatchInfo}>
-              <TableHeaderColumn>{player1.points}</TableHeaderColumn>
+              <TableHeaderColumn>{this.state.match.players[0].points}</TableHeaderColumn>
               <TableHeaderColumn>:</TableHeaderColumn>
-              <TableHeaderColumn>{player2.points}</TableHeaderColumn>
+              <TableHeaderColumn>{this.state.match.players[1].points}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
@@ -72,9 +79,25 @@ export default class PageMatch extends React.Component{
           ref='dialogEditInfo'>
           <form role='form'>
             <div className='form-group'>
-              <TextField type='text' defaultValue={this.state.match.players[0].tid} hintText='Group Name (Required)' ref='name' fullWidth={true} />
-              <TextField type='text' defaultValue={this.state.match.players[1].tid} hintText='Status' ref='status' fullWidth={true} />
-              <TextField type='text' defaultValue={this.state.match.players[0].points} hintText='Location' ref='location' fullWidth={true} />              Start Time
+              <select ref='name1' defaultValue={this.state.match.players[0].tid}>
+                <option value={-1} key={'so' + -1}></option>
+                {this.state.groupPlayers.map(function(tid, index){
+                  return <option value={tid} key={'so' + index}>
+                    {PlayersService.reqPlayerByTid(tid).name}
+                  </option>
+                })}
+              </select>
+              <select ref='name2' defaultValue={this.state.match.players[1].tid}>
+                <option value={-1} key={'so' + -1}></option>
+                {this.state.groupPlayers.map(function(tid, index){
+                  return <option value={tid} key={'so' + index}>
+                    {PlayersService.reqPlayerByTid(tid).name}
+                  </option>
+                })}
+              </select>
+              <TextField type='text' defaultValue={this.state.match.players[0].points} hintText='Left Player Points' ref='points1' fullWidth={true} />
+              <TextField type='text' defaultValue={this.state.match.players[1].points} hintText='Right Player Points' ref='points2' fullWidth={true} />
+              Start Time
               <DatePicker defaultValue={this.state.match.when} ref='date' />
             </div>
           </form>
@@ -100,17 +123,15 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogSubmit(){
-    var groupInfo = [
-      this.refs.name.getValue(),
-      this.refs.status.getValue(),
-      this.refs.location.getValue(),
-      this.refs.date.getDate()
-    ];
     this.refs.dialogEditInfo.dismiss();
-    EditTActions.changeMatch(
-      groupInfo,
-      this.props.groupIndex,
-      this.props.stageIndex
+    let match = JSON.parse(JSON.stringify(this.state.match))
+    match.players[0].tid = this.refs.name1.value;
+    match.players[1].tid = this.refs.name2.value;
+    match.players[0].points = this.refs.points1.getValue();
+    match.players[1].points = this.refs.points2.getValue();
+    match.when = this.refs.date.getDate();
+    EditTActions.editMatch(
+      match
     );
   }
 
@@ -119,11 +140,7 @@ export default class PageMatch extends React.Component{
   }
 
   _onChange(){
-    let newState = {
-      page: 'match',
-      match: PageMatchStore.match,
-      editMode: PageMatchStore.editMode
-    };
+    let newState = PageMatchStore.pageContent;
     this.setState(newState);
     setTimeout(function(){
       AppActions.updateHistoryContent(newState);

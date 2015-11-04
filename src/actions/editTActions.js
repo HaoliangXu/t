@@ -110,12 +110,19 @@ export default {
     });
   },
 
-  editMatches:function(matches, groupIndex, stageIndex){
+  editMatches: function(matches, groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.EDIT_MATCHES,
       matches: matches,
       groupIndex: groupIndex,
       stageIndex: stageIndex
+    });
+  },
+
+  editMatch: function(match){
+    AppDispatcher.handleViewAction({
+      actionType: EditTConstants.EDIT_MATCH,
+      match: match
     });
   },
 

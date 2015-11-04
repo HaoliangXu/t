@@ -3,10 +3,7 @@ import AppConstants from '../constants/appConstants.js';
 import EditTConstants from '../constants/editTConstants.js';
 
 //TODO Directly save payload.action.content and pass it to component
-var _match = {};
-var _flags = {
-  editMode: false
-};
+var _pageContent;
 
 class PageMatchStore extends BaseStore {
 
@@ -19,8 +16,12 @@ class PageMatchStore extends BaseStore {
           if (payload.action.content.page !== 'match') {
             break;
           }
-          _match = payload.action.content.match;
-          _flags.editMode = payload.action.content.editMode;
+          _pageContent = payload.action.content;
+          this.emitChange();
+          break;
+        case EditTConstants.EDIT_MATCH:
+          console.log( 'dispatching action ' + payload.action.actionType + ' to PageMatchStore' );
+          _pageContent.match = payload.action.match;
           this.emitChange();
           break;
         default:
@@ -29,12 +30,8 @@ class PageMatchStore extends BaseStore {
     }.bind(this));
   }
 
-  get match(){
-    return _match;
-  }
-
-  get editMode(){
-    return _flags.editMode;
+  get pageContent(){
+    return _pageContent;
   }
 }
 

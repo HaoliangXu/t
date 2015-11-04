@@ -53,7 +53,7 @@ export default class PageEditT extends React.Component{
     return (
       <div>
         <AppBar
-          title={this.state.Tjson.name}
+          title={this.state.Tjson.name + '(Edit Mode)'}
           zDepth={2}
           style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
           iconElementRight={<IconButton onTouchTap={this._onPagePlayer}><PeopleSvg /></IconButton>}
