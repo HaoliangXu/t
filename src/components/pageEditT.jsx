@@ -77,7 +77,7 @@ export default class PageEditT extends React.Component{
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
         <RaisedButton onTouchTap={this._onSave}
-          primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Save' />
+          primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Upload' />
         <RaisedButton onTouchTap={this._onDiscard}
           primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Discard' />
         <Dialog
@@ -110,7 +110,7 @@ export default class PageEditT extends React.Component{
 
   _onDiscard(){
     console.log('on discard T');
-    if (!PageEditTStore.modifyFlag) {
+    if (!PageEditTStore.modified) {
       AppActions.lastPage();
       return;
     }

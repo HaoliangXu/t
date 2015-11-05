@@ -128,9 +128,22 @@ export default class PageMatch extends React.Component{
             </div>
           </form>
         </Dialog>
-        <MainButtonGroup page='match' />
+        <MainButtonGroup page='match' back={this._onBack.bind(this)}/>
       </div>
     );
+  }
+
+  _onBack(){
+    let match = JSON.parse(JSON.stringify(this.state.match));
+    let matches = JSON.parse(JSON.stringify(this.state.groupMatches));
+    matches[this.state.matchIndex] = match;
+    AppActions.lastPage();
+    setTimeout(EditTActions.editMatches.bind(
+      undefined,
+      matches,
+      this.state.groupIndex,
+      this.state.stageIndex
+    ));
   }
 
   _generateGames(){
@@ -144,7 +157,7 @@ export default class PageMatch extends React.Component{
   }
 
   _onAddGame(){
-    let match = JSON.parse(JSON.stringify(this.state.match))
+    let match = JSON.parse(JSON.stringify(this.state.match));
     match.games.push(newGameOfMatch());
     EditTActions.editMatch(
       match

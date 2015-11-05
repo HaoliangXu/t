@@ -30,8 +30,6 @@ var Comm = {
       case 'viewT':
         this.reqT(req.params);
         break;
-      case 'match':
-        break;
       case 'calendar':
         break;
       case 'likes':
@@ -58,6 +56,7 @@ var Comm = {
       success: function(resp){
         AppActions.loadPage({
           page: 'viewT',
+          editMode: false,
           T: resp
         });
       },
@@ -101,11 +100,6 @@ var Comm = {
     }
   },
 
-  //request match details from server
-  reqMatch: function(){
-    console.log('request match');
-  },
-
   reqLogin: function(username, password){//TODO give some fake data
     var res = {
       username: username,
@@ -135,7 +129,9 @@ var Comm = {
       AppActions.hideSpinner();
       AppActions.loadPage({
         page: 'editT',
-        Tjson: T
+        Tjson: T,
+        editMode: false,
+        modified: false
       });
       AppActions.showNotice('T saved');
     }, 500);

@@ -180,8 +180,8 @@ export default class GroupDual extends BaseFormat{
       }
       return <tr key={'tm' + index} onTouchTap={this._onPageMatch.bind(this, index)}>
         <td className='colName'>{player1 ? player1.name : ''}</td>
-        <td className='colPoints'>{player1 ? player1.points : 0}</td>
-        <td className='colPoints'>{player2 ? player2.points : 0}</td>
+        <td className='colPoints'>{match.players[0].points}</td>
+        <td className='colPoints'>{match.players[1].points}</td>
         <td className='colName'>{player2 ? player2.name : ''}</td>
       </tr>
     });
