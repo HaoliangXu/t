@@ -4,6 +4,7 @@ import {Table, TableHeader, TableRowColumn, TableHeaderColumn, TableBody, TableR
 import Dialog from 'material-ui/lib/dialog.js';
 import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import TextField from 'material-ui/lib/text-field.js';
+import RaisedButton from 'material-ui/lib/raised-button.js';
 import PageMatchStore from '../stores/pageMatchStore.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import AppActions from '../actions/appActions.js';
@@ -28,6 +29,7 @@ export default class PageMatch extends React.Component{
       groupPlayers: [],
       groupMatches: []
     };
+    this._onRemoveMatch = this._onRemoveMatch.bind(this);
     this._onDialogMatchInfo = this._onDialogMatchInfo.bind(this);
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
@@ -35,9 +37,11 @@ export default class PageMatch extends React.Component{
       {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
       {text: 'Nay', onTouchTap: this._onDialogCancel}
     ];
+    this._onDialogRemoveGame = this._onDialogRemoveGame.bind(this);
     this._onDialogGameCancel = this._onDialogGameCancel.bind(this);
     this._onDialogGameSubmit = this._onDialogGameSubmit.bind(this);
     this.dialogGameActions = [
+      {text: 'Remove', onTouchTap: this._onDialogRemoveGame},
       {text: 'Do it', onTouchTap: this._onDialogGameSubmit, ref: 'submitGame'},
       {text: 'Nay', onTouchTap: this._onDialogGameCancel}
     ];
@@ -85,6 +89,8 @@ export default class PageMatch extends React.Component{
             </TableRow>;
           </TableBody>
         </Table>
+        <RaisedButton onTouchTap={this._onRemoveMatch}
+          primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' />
         <Dialog
           title='Edit Match Info'
           actions={this.dialogInfoActions}
@@ -170,7 +176,7 @@ export default class PageMatch extends React.Component{
 
   _onDialogSubmit(){
     this.refs.dialogEditInfo.dismiss();
-    let match = JSON.parse(JSON.stringify(this.state.match))
+    let match = JSON.parse(JSON.stringify(this.state.match));
     match.players[0].tid = this.refs.name1.value;
     match.players[1].tid = this.refs.name2.value;
     match.players[0].points = this.refs.points1.getValue();
@@ -195,9 +201,19 @@ export default class PageMatch extends React.Component{
     });
   }
 
+  _onDialogRemoveGame(){
+    this.refs.dialogGame.dismiss();
+    let match = JSON.parse(JSON.stringify(this.state.match));
+    match.games.splice(editingGameIndex, 1);
+    editingGameIndex = -1;
+    EditTActions.editMatch(
+      match
+    );
+  }
+
   _onDialogGameSubmit(){
     this.refs.dialogGame.dismiss();
-    let match = JSON.parse(JSON.stringify(this.state.match))
+    let match = JSON.parse(JSON.stringify(this.state.match));
     match.games[editingGameIndex].leftProperty = this.refs.leftProperty.getValue();
     match.games[editingGameIndex].set = this.refs.set.getValue();
     match.games[editingGameIndex].rightProperty = this.refs.rightProperty.getValue();
@@ -210,6 +226,18 @@ export default class PageMatch extends React.Component{
   _onDialogGameCancel(){
     this.refs.dialogGame.dismiss();
     editingGameIndex = -1;
+  }
+
+  _onRemoveMatch(){
+    let matches = JSON.parse(JSON.stringify(this.state.groupMatches));
+    matches.splice(this.state.matchIndex, 1);
+    AppActions.lastPage();
+    setTimeout(EditTActions.editMatches.bind(
+      undefined,
+      matches,
+      this.state.groupIndex,
+      this.state.stageIndex
+    ));
   }
 
   _onChange(){
