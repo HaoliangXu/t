@@ -13,6 +13,7 @@ import RaisedButton from 'material-ui/lib/raised-button.js';
 
 //Import Group Creators
 import TBD from './formats/tbd.jsx';
+import {newTBD} from '../utils/appConfig.js';
 import Elimination from './formats/elimination.jsx';
 import GroupDual from './formats/groupDual.jsx';
 import EditTActions from '../actions/editTActions.js';
@@ -136,6 +137,7 @@ export default class Stage extends React.Component{
   }
 
   _onAddNewGroup(groupIndex, stageIndex){
-    EditTActions.addGroup(groupIndex, stageIndex );
+    var group = newTBD();
+    EditTActions.addGroup(group, groupIndex, stageIndex );
   }
 }

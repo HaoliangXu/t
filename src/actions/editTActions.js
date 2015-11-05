@@ -3,9 +3,10 @@ import EditTConstants from '../constants/editTConstants.js';
 
 export default {
 
-  addStage: function(stageIndex){
+  addStage: function(stage, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.ADD_STAGE,
+      stage: stage,
       stageIndex: stageIndex
     });
   },
@@ -30,19 +31,19 @@ export default {
    * @param Number Index of the group in its stage
    * @param Number Index of the stage of the T
    *********************/
-  setGroupFormat: function( format, number, groupIndex, stageIndex ) {
+  setGroupFormat: function(format, groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.SET_GROUP_FORMAT,
       format: format,
-      number: number,
       groupIndex: groupIndex,
       stageIndex: stageIndex
     });
   },
 
-  addGroup: function(groupIndex, stageIndex){
+  addGroup: function(group, groupIndex, stageIndex){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.ADD_GROUP,
+      group: group,
       groupIndex: groupIndex,
       stageIndex: stageIndex
     });

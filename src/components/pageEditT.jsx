@@ -16,6 +16,7 @@ import PageEditTStore from '../stores/pageEditTStore.js';
 import Comm from '../services/communicate.js';
 import AppActions from '../actions/appActions.js';
 import EditTActions from '../actions/editTActions.js';
+import {newStage} from '../utils/appConfig.js';
 
 export default class PageEditT extends React.Component{
   constructor(props){
@@ -93,7 +94,6 @@ export default class PageEditT extends React.Component{
   }
 
   _onPagePlayer(){
-    console.log('on turn player page');
     AppActions.nextPage('players');
     AppActions.showSpinner();
   }
@@ -103,13 +103,11 @@ export default class PageEditT extends React.Component{
   }
 
   _onSave(){
-    console.log('on save T');
     AppActions.showSpinner();
     Comm.saveT(this.state.Tjson);
   }
 
   _onDiscard(){
-    console.log('on discard T');
     if (!PageEditTStore.modified) {
       AppActions.lastPage();
       return;
@@ -130,22 +128,21 @@ export default class PageEditT extends React.Component{
   }
 
   _onAddNewStage(stageIndex){
-    EditTActions.addStage(stageIndex);
+    var stage = newStage();
+    EditTActions.addStage(stage, stageIndex);
   }
 
   _onChange(){
     setTimeout(AppActions.hideSpinner);
-    if (PageEditTStore.flags.rerender){
-      let newState = {
-        page: 'editT',
-        Tjson: PageEditTStore.Tjson,
-        editMode: PageEditTStore.editMode,
-        modified: PageEditTStore.modified
-      };
-      this.setState(newState);
-      setTimeout(function(){
-        AppActions.updateHistoryContent(newState);
-      });
-    }
+    let newState = {
+      page: 'editT',
+      Tjson: PageEditTStore.Tjson,
+      editMode: PageEditTStore.editMode,
+      modified: PageEditTStore.modified
+    };
+    this.setState(newState);
+    setTimeout(function(){
+      AppActions.updateHistoryContent(newState);
+    });
   }
 }

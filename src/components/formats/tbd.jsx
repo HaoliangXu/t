@@ -3,6 +3,7 @@ import React from 'react';
 import {Card, CardTitle, CardText, CardHeader} from 'material-ui/lib/card/index.js';
 import FlatButton from 'material-ui/lib/flat-button.js';
 import EditTActions from '../../actions/editTActions.js';
+import {newTBD, newStage, newGroupDual} from '../../utils/appConfig.js';
 
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 
@@ -25,22 +26,41 @@ export default class TBD extends BaseFormat{
             </div>}
             subtitle='Choose one below' />
           <div className='buttons'>
-            <FlatButton label='Elimination' onTouchTap={this._onSelectFormat.bind( this, 'elimination')} />
+            <FlatButton label='Elimination' onTouchTap={this._onSelectFormat.bind(this, 'elimination')} />
             <br />
-            <FlatButton label='Double Elimination' onTouchTap={this._onSelectFormat.bind( this, 'doubleElimination')} />
+            <FlatButton label='Double Elimination' onTouchTap={this._onSelectFormat.bind(this, 'doubleElimination')} />
             <br />
-            <FlatButton label='Group Dual' onTouchTap={this._onSelectFormat.bind( this, 'groupDual')} />
+            <FlatButton label='Group Dual' onTouchTap={this._onSelectFormat.bind(this, 'groupDual')} />
             <br />
-            <FlatButton label='Round Robin' onTouchTap={this._onSelectFormat.bind( this, 'roundRobin')} />
+            <FlatButton label='Round Robin' onTouchTap={this._onSelectFormat.bind(this, 'roundRobin')} />
           </div>
         </Card>
       </div>
     );
   }
 
-  _onSelectFormat(format, p){
-    //TODO second param, numer
-    EditTActions.setGroupFormat(format, 4, this.props.groupIndex, this.props.stageIndex);
+  _onSelectFormat(formatType, p){
+    var format;
+    switch (formatType) {
+      case 'elimination':
+        switch (number) {
+          case 4:
+            break;
+          case 8:
+            break;
+          case 16:
+            break;
+          case 32:
+            break;
+          case 64:
+            break;
+        }
+        break;
+      case 'groupDual':
+        format = newGroupDual(this.props.groupIndex);
+        break;
+    }
+    EditTActions.setGroupFormat(format, this.props.groupIndex, this.props.stageIndex);
   }
 
 }
