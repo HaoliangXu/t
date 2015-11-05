@@ -11,13 +11,13 @@ var Tjson;
 
 class PageEditTStore extends BaseStore {
 
-  constructor() {
+  constructor(){
     super();
-    this.subscribe(function(payload) {
+    this.subscribe(function(payload){
       switch (payload.action.actionType){
         case AppConstants.LOAD_PAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          if (payload.action.content.page !== 'editT') {
+          if (payload.action.content.page !== 'editT'){
             break;
           }
           Tjson = payload.action.content.Tjson;
@@ -83,10 +83,10 @@ class PageEditTStore extends BaseStore {
           break;
         case EditTConstants.MOVE_GROUP_DOWN:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          let groups2 = Tjson.stages[payload.action.stageIndex].groups;
           if (payload.action.groupIndex >= groups2.length - 1) {
             break;
           }
+          let groups2 = Tjson.stages[payload.action.stageIndex].groups;
           let swap2 = groups2[payload.action.groupIndex + 1];
           groups2[payload.action.groupIndex + 1] = groups2[payload.action.groupIndex];
           groups2[payload.action.groupIndex] = swap2;
@@ -143,7 +143,7 @@ class PageEditTStore extends BaseStore {
           // no op
 
       }
-    }.bind( this ));
+    }.bind(this));
   }
 
   get modified(){

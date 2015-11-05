@@ -172,10 +172,10 @@ export default class GroupDual extends BaseFormat{
     return this.props.groupData.matches.map((match, index)=>{
       var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
       var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
-      if (match.players[0].tid !== -1 || !player1){
+      if (match.players[0].tid !== -1 && !player1){
         match.players[0].tid = -1;//TODO not complete
       }
-      if (match.players[1].tid !== -1 || !player2){
+      if (match.players[1].tid !== -1 && !player2){
         match.players[1].tid = -1;//TODO not complete
       }
       return <tr key={'tm' + index} onTouchTap={this._onPageMatch.bind(this, index)}>

@@ -62,5 +62,4 @@ export default class TBD extends BaseFormat{
     }
     EditTActions.setGroupFormat(format, this.props.groupIndex, this.props.stageIndex);
   }
-
 }
