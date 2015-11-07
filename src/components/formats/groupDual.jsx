@@ -1,3 +1,5 @@
+//TODO The method to clean group players may not be efficent enough.
+//But now the method is clean it when rendering scoreboard and matcheboard of each group
 import BaseFormat from './baseFormat.jsx';
 import React from 'react';
 
@@ -200,6 +202,7 @@ export default class GroupDual extends BaseFormat{
 
   _removePlayerRef(tid){
     var players = this.props.groupData.players;
+    //Could be more efficient
     var index = players.findIndex((item, index)=>{
       if (item.tid === tid){
         return true;

@@ -3,9 +3,9 @@ import AppConstants from '../constants/appConstants.js';
 import EditTConstants from '../constants/editTConstants.js';
 
 var _flags = {
-  // TODO Indecates whether the T is edited, to determine to save T or not.
+  // TODO Indecates whether the T is edited, to determine to save T or not when leaving.
   modified: false,
-  editMode: false,
+  editMode: false
 };
 var Tjson;
 

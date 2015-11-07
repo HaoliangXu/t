@@ -9,38 +9,12 @@
 import AppDispatcher from '../dispatchers/appDispatcher.js';
 import {EventEmitter} from 'events';
 import AppConstants from '../constants/appConstants.js';
-import AppActions from '../actions/appActions.js';
 import assign from 'object-assign';
+import Router from '../services/router.js';
 
 var CHANGE_EVENT = 'change';
 var page = 'vacancy';
 var pageData = {};
-//Record history of page the user open, for opening to last page by click 'back' button.
-var _historyChain = [];
-var HistoryStore = function(){
-  this.nextPage = function(pageName){
-    _historyChain.unshift({
-      page: pageName,
-      content: {}
-    });
-  };
-  this.lastPage = function(){
-    if (_historyChain.length > 1) {
-      _historyChain.shift();
-    }
-    return _historyChain[0];
-  };
-  this.switchPage = function(pageName){
-    _historyChain = [{
-      page: pageName,
-      content: {}
-    }];
-  };
-  this.loadPage = function(content, index = 0){
-    _historyChain[index].content = content;
-  };
-};
-var historyStore = new HistoryStore();
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
@@ -66,30 +40,25 @@ AppDispatcher.register(function(payload) {
     case AppConstants.NEXT_PAGE:
       console.log('dispatching action ' + payload.action.actionType + ' to appStore');
       page = payload.action.page;
-      historyStore.nextPage(page);
+      Router.nextPage(page);
       AppStore.emitChange();
       break;
     case AppConstants.LAST_PAGE:
       console.log('dispatching action ' + payload.action.actionType + ' to appStore');
-      pageData = historyStore.lastPage();
+      pageData = Router.lastPage();
       page = pageData.page;
       AppStore.emitChange();
-      //TODO setTimeout is not a good logic for this action
-      //More importantly, a store should not trigger any actions.
-      setTimeout(AppActions.loadPage.bind(undefined, pageData.content));
       break;
     case AppConstants.SWITCH_PAGE:
       console.log('dispatching action ' + payload.action.actionType + ' to appStore');
       page = payload.action.page;
-      historyStore.switchPage(page);
+      Router.switchPage(page);
       AppStore.emitChange();
       break;
     case AppConstants.UPDATE_HISTORY_CONTENT:
       console.log('dispatching action ' + payload.action.actionType + ' to appStore');
       //TEST: the content may change automatically without updates while LOAD_PAGE, because it is a reference. Not sure.
-      if (_historyChain[0].page === payload.action.content.page){
-        historyStore.loadPage(payload.action.content);
-      }
+      Router.loadPage(payload.action.content);
       break;
     case AppConstants.SHOW_SPINNER:
       break;

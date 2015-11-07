@@ -31,7 +31,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount(){
-    var req = Router.parseCurrentRoute();
+    var req = Router.parseCurrentUrl();
     AppStore.addChangeListener(this._onChange);
     Comm.reqPage(req);
     AppActions.nextPage(req.page);
