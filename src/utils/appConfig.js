@@ -49,26 +49,24 @@ export function newT(){
   };
 }
 
-export function newGroupDual(groupIndex){
+export function newRoundRobin(groupIndex, numOfScoreRow, numOfMatches){
+  var scores= [];
+  for (var i = 0; i < numOfScoreRow; i++){
+    scores[i] = newScoreRow();
+  }
+  var matches= [];
+  for (var i = 0; i < numOfMatches; i++){
+    matches[i] = newMatch();
+  }
   return {
     name: 'Group ' + (groupIndex + 1),
-    format: 'groupDual',
+    format: 'roundRobin',
     status: 'Upcoming',
     when: '',
     location: '',
     players: [],
-    scores: [
-      newScoreRow(),
-      newScoreRow(),
-      newScoreRow(),
-      newScoreRow()
-    ],
-    matches: [
-      newMatch(),
-      newMatch(),
-      newMatch(),
-      newMatch()
-    ],
+    scores: scores,
+    matches: matches,
     notes: []
   };
 }

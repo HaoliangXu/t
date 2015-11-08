@@ -15,7 +15,7 @@ import RaisedButton from 'material-ui/lib/raised-button.js';
 import TBD from './formats/tbd.jsx';
 import {newTBD} from '../utils/appConfig.js';
 import Elimination from './formats/elimination.jsx';
-import GroupDual from './formats/groupDual.jsx';
+import RoundRobin from './formats/roundRobin.jsx';
 import EditTActions from '../actions/editTActions.js';
 
 export default class Stage extends React.Component{
@@ -123,8 +123,8 @@ export default class Stage extends React.Component{
         case 'elimination':
           groupItem = <Elimination {...props} key={groupIndex} />;
           break;
-        case 'groupDual':
-          groupItem = <GroupDual {...props} key={groupIndex} />;
+        case 'roundRobin':
+          groupItem = <RoundRobin {...props} key={groupIndex} />;
           break;
       }
       return groupItem;

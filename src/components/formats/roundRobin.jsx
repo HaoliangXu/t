@@ -20,7 +20,7 @@ import {newMatch, newScoreRow} from '../../utils/appConfig.js';
 //Indicates which row DialogScore is showing
 var editingScoreRow = -1;
 
-export default class GroupDual extends BaseFormat{
+export default class RoundRobin extends BaseFormat{
   constructor(props){
     super(props);
     this._onEditInfo = this._onEditInfo.bind(this);
@@ -54,7 +54,7 @@ export default class GroupDual extends BaseFormat{
 
   render() {
     return (
-      <div className='groupDual group'>
+      <div className='roundRobin group'>
         <Card>
           <CardTitle
             title={<div>
