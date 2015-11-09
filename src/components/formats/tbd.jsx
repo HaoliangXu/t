@@ -4,7 +4,12 @@ import {Card, CardTitle, CardText, CardHeader} from 'material-ui/lib/card/index.
 import Dialog from 'material-ui/lib/dialog.js';
 import FlatButton from 'material-ui/lib/flat-button.js';
 import EditTActions from '../../actions/editTActions.js';
-import {newTBD, newStage, newRoundRobin} from '../../utils/appConfig.js';
+import {
+  newTBD,
+  newStage,
+  newRoundRobin,
+  newElimination
+} from '../../utils/appConfig.js';
 
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 
@@ -61,27 +66,10 @@ export default class TBD extends BaseFormat{
     if (!formatType){
       formatType = _currentFormatType;
     }
-    console.log(formatType, size);
     var format;
     switch (formatType){
       case 'elimination':
-        switch (size){
-          case 2:
-            format = newElimination2(this.props.groupIndex);
-            break;
-          case 4:
-            format = newElimination4(this.props.groupIndex);
-            break;
-          case 8:
-            format = newElimination8(this.props.groupIndex);
-            break;
-          case 16:
-            format = newElimination16(this.props.groupIndex);
-            break;
-          case 32:
-            format = newElimination32(this.props.groupIndex);
-            break;
-        }
+        format = newElimination(this.props.groupIndex, size);
         break;
       case 'roundRobin':
         format = newRoundRobin(this.props.groupIndex, 2, 1);

@@ -1,11 +1,10 @@
 //TODO The method to clean group players may not be efficent enough.
-//But now the method is clean it when rendering scoreboard and matcheboard of each group
+//But now the method is: clean it when rendering scoreboard and matcheboard of each group
 import BaseFormat from './baseFormat.jsx';
 import React from 'react';
 
 import {Card, CardTitle} from 'material-ui/lib/card/index.js';
 import Dialog from 'material-ui/lib/dialog.js';
-import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import TextField from 'material-ui/lib/text-field.js';
 import SelectField from 'material-ui/lib/select-field.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
@@ -26,8 +25,6 @@ export default class RoundRobin extends BaseFormat{
     this._onEditInfo = this._onEditInfo.bind(this);
     this._generateMatches = this._generateMatches.bind(this);
     this._onShowDialogPlayers = this._onShowDialogPlayers.bind(this);
-    this._onDialogCancel = this._onDialogCancel.bind(this);
-    this._onDialogSubmit = this._onDialogSubmit.bind(this);
     this._onDialogScoreCancel = this._onDialogScoreCancel.bind(this);
     this._onDialogScoreSubmit = this._onDialogScoreSubmit.bind(this);
     this._onAddPlayer = this._onAddPlayer.bind(this);
@@ -38,14 +35,8 @@ export default class RoundRobin extends BaseFormat{
         onTouchTap={this._onEditInfo} primaryText='Edit Info' />
       <MenuItem
         onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
-      <MenuItem
-        onTouchTap={this._onRenameGroup} primaryText='Generate' />
     </IconMenu> : null;
-    //Actions for  dialog
-    this.dialogInfoActions = [
-      {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
-      {text: 'Nay', onTouchTap: this._onDialogCancel}
-    ];
+    //Actions for  dialogs
     this.dialogScoreActions = [
       {text: 'Do it', onTouchTap: this._onDialogScoreSubmit, ref: 'scoreSubmit'},
       {text: 'Nay', onTouchTap: this._onDialogScoreCancel}
@@ -92,20 +83,7 @@ export default class RoundRobin extends BaseFormat{
           groupIndex={this.props.groupIndex}
           stageIndex={this.props.stageIndex}
         />
-        <Dialog
-          title='Edit Group Info'
-          actions={this.dialogInfoActions}
-          actionFocus='submit'
-          ref='dialogEditInfo'>
-          <form role='form'>
-            <div className='form-group'>
-              <TextField type='text' defaultValue={this.props.groupData.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
-              <TextField type='text' defaultValue={this.props.groupData.status} hintText='Status' ref='status' fullWidth={true} />
-              <TextField type='text' defaultValue={this.props.groupData.location} hintText='Location' ref='location' fullWidth={true} />              Start Time
-              <DatePicker defaultValue={this.props.groupData.when} ref='date' />
-            </div>
-          </form>
-        </Dialog>
+        {this._dialogEditInfo}
         <Dialog
           title='Edit Player Score'
           actions={this.dialogScoreActions}
@@ -128,10 +106,6 @@ export default class RoundRobin extends BaseFormat{
         </Dialog>
       </div>
     );
-  }
-
-  _onEditInfo(){
-    this.refs.dialogEditInfo.show();
   }
 
   _onShowDialogPlayers(){
@@ -231,26 +205,6 @@ export default class RoundRobin extends BaseFormat{
       }
     ));
     AppActions.showSpinner();
-  }
-
-  //Methods of dialogEditInfo
-  _onDialogSubmit(){
-    var groupInfo = [
-      this.refs.name.getValue(),
-      this.refs.status.getValue(),
-      this.refs.location.getValue(),
-      this.refs.date.getDate()
-    ];
-    this.refs.dialogEditInfo.dismiss();
-    EditTActions.editGroupInfo(
-      groupInfo,
-      this.props.groupIndex,
-      this.props.stageIndex
-    );
-  }
-
-  _onDialogCancel(){
-    this.refs.dialogEditInfo.dismiss();
   }
 
   _onDialogScoreSubmit(){
