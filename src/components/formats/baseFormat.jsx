@@ -7,6 +7,8 @@ import Dialog from 'material-ui/lib/dialog.js';
 import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import TextField from 'material-ui/lib/text-field.js';
 
+import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
+
 /*
  * Title: BaseFormat
  * Description: The base format to produce more real formats
@@ -35,6 +37,8 @@ export default class BaseFormat extends React.Component{
     ];
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
+    this._onShowDialogPlayers = this._onShowDialogPlayers.bind(this);
+    this._onEditInfo = this._onEditInfo.bind(this);
     this.dialogInfoActions = [
       {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
       {text: 'Nay', onTouchTap: this._onDialogCancel}
@@ -53,6 +57,17 @@ export default class BaseFormat extends React.Component{
         </div>
       </form>
     </Dialog>;
+    this._dialogGroupPlayers = <DialogGroupPlayers
+      ref='dialogGroupPlayers'
+      groupPlayers={this.props.groupData.players}
+      groupName={this.props.groupData.name}
+      groupIndex={this.props.groupIndex}
+      stageIndex={this.props.stageIndex}
+    />;
+  }
+
+  _onShowDialogPlayers(){
+    this.refs.dialogGroupPlayers.show();
   }
 
   _onMoveUp(groupIndex, stageIndex){

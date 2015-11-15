@@ -2,12 +2,14 @@ import React from 'react';
 import BaseFormat from './baseFormat.jsx';
 import {Card, CardTitle, CardText, CardHeader} from 'material-ui/lib/card/index.js';
 import Dialog from 'material-ui/lib/dialog.js';
-import FlatButton from 'material-ui/lib/flat-button.js';
+import RaisedButton from 'material-ui/lib/raised-button.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 
 import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
 import eliminationStyles from '../../utils/eliminationStyles.js';
+import AppActions from '../../actions/appActions.js';
+import PlayersService from '../../services/players.js';
 
 
 export default class Elimination extends BaseFormat{
@@ -20,9 +22,10 @@ export default class Elimination extends BaseFormat{
       <MenuItem
         onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
     </IconMenu> : null;
+    this._eliminationStyles = eliminationStyles[this.props.groupData.matches.length + 1];
   }
 
-  render() {
+  render(){
     return (
       <div className='group'>
         <Card>
@@ -32,36 +35,74 @@ export default class Elimination extends BaseFormat{
               <span>{this.props.groupData.name}</span>
             </div>}
             subtitle={this.props.groupData.status} />
-          <div>
+          <div className='groupContent' style={{overflow: 'scroll'}}>
             {this._generateMatches()}
           </div>
         </Card>
-        <DialogGroupPlayers
-          ref='dialogGroupPlayers'
-          groupPlayers={this.props.groupData.players}
-          groupName={this.props.groupData.name}
-          groupIndex={this.props.groupIndex}
-          stageIndex={this.props.stageIndex}
-        />
-        {this.dialogEditInfo}
+        {this._dialogEditInfo}
+        {this._dialogGroupPlayers}
       </div>
     );
   }
 
-  _onShowDialogPlayers(){
-    this.refs.dialogGroupPlayers.show();
+  _generateMatches(){
+    var matches = this.props.groupData.matches.map((match, index)=>{
+      var position = this._eliminationStyles.matches[index];
+      var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
+      var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
+      if (match.players[0].tid !== -1 && !player1){
+        match.players[0].tid = -1;//TODO not complete
+      }
+      if (match.players[1].tid !== -1 && !player2){
+        match.players[1].tid = -1;//TODO not complete
+      }
+      return <RaisedButton
+        style={{
+          width: '8rem',
+          height: '3rem',
+          margin: '1rem',
+          textTransform: 'none',
+          position: 'absolute',
+          left: position[1] + 'rem',
+          top: position[0] + 'rem'
+        }}
+        onTouchTap={this._onMatch.bind(this, index)}
+        key={'em' + index}>
+        <div className='buttonMatch'>
+          <span className='buttonMatchPlayer'>{player1 ? player1.name : ''}</span>
+          <span className='buttonMatchPoints'>{match.players[0].points}</span>
+        </div>
+        <div className='buttonMatch'>
+          <span className='buttonMatchPlayer'>{player2 ? player2.name : ''}</span>
+          <span className='buttonMatchPoints'>{match.players[1].points}</span>
+        </div>
+      </RaisedButton>;
+    });
+    return <div style={{
+      position: 'relative',
+      width: this._eliminationStyles.container[0],
+      height: this._eliminationStyles.container[1]}}>
+      {matches}
+    </div>;
   }
 
-  _generateMatches(){
-    var size = this.props.groupData.matches.length;
-    return eliminationStyles[size].matches.map((position, index)=>{
-
-      return <FlatButton
-        style={{position: 'relative', left: position[0], top: position[1]}}
-        key={'em' + index}>
-        <div>asdf</div>
-        <div>asdf</div>
-      </FlatButton>;
-    })
+  _onMatch(index){
+    console.log('on turn match page');
+    AppActions.nextPage('match');
+    setTimeout(AppActions.loadPage.bind(
+      undefined,
+      {
+        page: 'match',
+        editMode: this.props.editMode,
+        match: this.props.groupData.matches[index],
+        matchIndex: index,
+        groupIndex: this.props.groupIndex,
+        stageIndex: this.props.stageIndex,
+        //Below for refs use
+        groupPlayers: this.props.groupData.players,
+        groupMatches: this.props.groupData.matches
+      }
+    ));
+    AppActions.showSpinner();
   }
 }

@@ -10,7 +10,6 @@ import SelectField from 'material-ui/lib/select-field.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 
-import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
 import AppActions from '../../actions/appActions.js';
 import EditTActions from '../../actions/editTActions.js';
 import PlayersService from '../../services/players.js';
@@ -22,9 +21,7 @@ var editingScoreRow = -1;
 export default class RoundRobin extends BaseFormat{
   constructor(props){
     super(props);
-    this._onEditInfo = this._onEditInfo.bind(this);
     this._generateMatches = this._generateMatches.bind(this);
-    this._onShowDialogPlayers = this._onShowDialogPlayers.bind(this);
     this._onDialogScoreCancel = this._onDialogScoreCancel.bind(this);
     this._onDialogScoreSubmit = this._onDialogScoreSubmit.bind(this);
     this._onAddPlayer = this._onAddPlayer.bind(this);
@@ -53,7 +50,7 @@ export default class RoundRobin extends BaseFormat{
               <span>{this.props.groupData.name}</span>
             </div>}
             subtitle={this.props.groupData.status} />
-          <table className='groupTable'>
+          <table className='groupContent'>
             <tbody>
               <tr>
                 <th colSpan='4'>Score</th>
@@ -64,7 +61,7 @@ export default class RoundRobin extends BaseFormat{
               </tr>
             </tbody>
           </table>
-          <table className='groupTable'>
+          <table className='groupContent'>
             <tbody>
               <tr>
                 <th colSpan='4'>Matches</th>
@@ -76,14 +73,8 @@ export default class RoundRobin extends BaseFormat{
             </tbody>
           </table>
         </Card>
-        <DialogGroupPlayers
-          ref='dialogGroupPlayers'
-          groupPlayers={this.props.groupData.players}
-          groupName={this.props.groupData.name}
-          groupIndex={this.props.groupIndex}
-          stageIndex={this.props.stageIndex}
-        />
         {this._dialogEditInfo}
+        {this._dialogGroupPlayers}
         <Dialog
           title='Edit Player Score'
           actions={this.dialogScoreActions}
@@ -106,10 +97,6 @@ export default class RoundRobin extends BaseFormat{
         </Dialog>
       </div>
     );
-  }
-
-  _onShowDialogPlayers(){
-    this.refs.dialogGroupPlayers.show();
   }
 
   _onShowDialogScore(row){
