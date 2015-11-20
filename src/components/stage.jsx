@@ -97,7 +97,6 @@ export default class Stage extends React.Component{
     this.refs.stageInfoDialog.show();
   }
 
-
   _onToggleStage(stageIndex){
     EditTActions.toggleStage(stageIndex);
   }
@@ -115,16 +114,19 @@ export default class Stage extends React.Component{
         stageIndex: this.props.stageIndex,
         editMode: this.props.editMode
       };
-      switch (group.format) {
+      switch (group.format){
         //Group format to be decided, for user to select.
         case 'tbd':
-          groupItem = <TBD {...props} key={'g' + groupIndex} />;//TODO Solve key warning
+          groupItem = <TBD {...props} key={'g' + groupIndex} />;
           break;
         case 'elimination':
           groupItem = <Elimination {...props} key={'g' + groupIndex} />;
           break;
         case 'roundRobin':
           groupItem = <RoundRobin {...props} key={'g' + groupIndex} />;
+          break;
+        case 'doubleElimination':
+          groupItem = <Elimination {...props} key={'g' + groupIndex} />;
           break;
       }
       return groupItem;

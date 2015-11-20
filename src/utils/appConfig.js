@@ -119,13 +119,16 @@ export function newGameOfMatch(){
   };
 }
 
-export function newElimination(groupIndex, sizeOfGroup){
+export function newElimination(groupIndex, format, sizeOfGroup, numOfMatches, numofLabels){
   var matches = [];
   var labels = [];
-  for (var i = 0; i < sizeOfGroup - 1; i++){
+  numOfMatches = numOfMatches ? numOfMatches : sizeOfGroup - 1;
+  numofLabels = numofLabels ? numofLabels : Math.log2(sizeOfGroup);
+  var numofLabels = Math.log2(sizeOfGroup) * 3;
+  for (var i = 0; i < numOfMatches; i++){
     matches[i] = newMatch();
   }
-  for (var i = 0; i < Math.log2(sizeOfGroup); i++){
+  for (var i = 0; i < numofLabels; i++){
     labels[i] = {
       title: '',
       color: ''
@@ -133,7 +136,7 @@ export function newElimination(groupIndex, sizeOfGroup){
   }
   return {
     name: 'Group ' + (groupIndex + 1),
-    format: 'elimination',
+    format: format,
     status: 'Upcoming',
     when: '',
     location: '',
@@ -142,4 +145,10 @@ export function newElimination(groupIndex, sizeOfGroup){
     labels: labels,
     matches: matches
   };
+}
+
+export function newDoubleElimination(groupIndex, format, sizeOfGroup){
+  var numOfMatches = (sizeOfGroup - 1) * 2;
+  var numofLabels = Math.log2(sizeOfGroup) * 3;
+  return newElimination(groupIndex, format, sizeOfGroup, numOfMatches, numofLabels);
 }
