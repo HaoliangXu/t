@@ -8,6 +8,7 @@ import MenuItem from 'material-ui/lib/menus/menu-item.js';
 
 import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
 import eliminationStyles from '../../utils/eliminationStyles.js';
+import doubleEliminationStyles from '../../utils/doubleEliminationStyles.js';
 import AppActions from '../../actions/appActions.js';
 import PlayersService from '../../services/players.js';
 
@@ -22,7 +23,15 @@ export default class Elimination extends BaseFormat{
       <MenuItem
         onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
     </IconMenu> : null;
-    this._eliminationStyles = eliminationStyles[this.props.groupData.matches.length + 1];
+    if (this.props.groupData.format === 'elimination'){
+      this._styles = eliminationStyles[this.props.groupData.matches.length + 1];
+      return;
+    }
+    if (this.props.groupData.format === 'doubleElimination'){
+      this._styles = doubleEliminationStyles[this.props.groupData.matches.length / 2 + 1];
+      return;
+    }
+    //TODO emit error: Invalid Format
   }
 
   render(){
@@ -47,7 +56,7 @@ export default class Elimination extends BaseFormat{
 
   _generateMatches(){
     var matches = this.props.groupData.matches.map((match, index)=>{
-      var position = this._eliminationStyles.matches[index];
+      var position = this._styles.matches[index];
       var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
       var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
       if (match.players[0].tid !== -1 && !player1){
@@ -80,8 +89,8 @@ export default class Elimination extends BaseFormat{
     });
     return <div style={{
       position: 'relative',
-      width: this._eliminationStyles.container[0],
-      height: this._eliminationStyles.container[1]}}>
+      width: this._styles.container[0],
+      height: this._styles.container[1]}}>
       {matches}
     </div>;
   }

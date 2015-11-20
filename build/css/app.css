@@ -81,7 +81,7 @@ div#splashContent{
 .groupContent{
   border-collapse: collapse;
   margin: 0 1em 2rem 1rem;
-  width: 23rem;
+  min-width: 23rem;
   text-align: center;
 }
 
