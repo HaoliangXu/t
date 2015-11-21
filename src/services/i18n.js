@@ -2,7 +2,7 @@
 //TODO make it real
 
 
-export default function L(string, exports){
+export default function L(string, output){
   output = string;
   return output;
 }
