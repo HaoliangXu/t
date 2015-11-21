@@ -11,7 +11,7 @@ import Splash from './components/splash.jsx';
 import MainMenu from './components/mainMenu.jsx';
 import App from './components/app.jsx';
 
-function main() {
+function main(){
   ReactDOM.render(<Splash />, document.getElementById('splash'));
   ReactDOM.render(<MainMenu />, document.getElementById('mainMenu'));
   ReactDOM.render(<App />, document.getElementById('app'));

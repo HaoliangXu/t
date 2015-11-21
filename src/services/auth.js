@@ -12,11 +12,13 @@ var authState = {
 // Valid currentReq = {level: level, callback: callback}
 var currentReq;
 
-class AuthService {
+class AuthService{
 
   //If login intensely without other actions to do, then send a empty req, not undefined.
-  requestAuth(req) {
-    if (req) { currentReq = req; }
+  requestAuth(req){
+    if (req) {
+      currentReq = req;
+    }
     if (authState.valid === false) {
       console.log('WARNING: [Not Logged in]');
       AuthActions.showLogin();
@@ -32,13 +34,13 @@ class AuthService {
     console.log('WARNING: [Low AuthLevel] Try logout and login with a higher authlevel account.');
   }
 
-  authFail() {
+  authFail(){
     //TODO Handle Warning
     currentReq = undefined;
     console.log('WARNING: [Login Cancelled]');
   }
 
-  loginSuccess(res) {
+  loginSuccess(res){
     authState = res;
     authState.valid = true;
     this.requestAuth();

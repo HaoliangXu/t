@@ -9,7 +9,7 @@ var _flags = {
 };
 var Tjson;
 
-class PageEditTStore extends BaseStore {
+class PageEditTStore extends BaseStore{
 
   constructor(){
     super();

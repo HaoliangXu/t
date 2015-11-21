@@ -4,7 +4,7 @@ import NoticeStore from '../stores/noticeStore.js';
 
 export default class Notice extends React.Component{
 
-  constructor( props ){
+  constructor(props){
     super(props);
     this.state = {
       notice: ''
@@ -13,11 +13,11 @@ export default class Notice extends React.Component{
   }
 
   componentDidMount(){
-    NoticeStore.addChangeListener( this._onChange );
+    NoticeStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    NoticeStore.removeChangeListener( this._onChange );
+    NoticeStore.removeChangeListener(this._onChange);
   }
 
   render(){

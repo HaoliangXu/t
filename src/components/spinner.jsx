@@ -3,7 +3,7 @@ import SpinnerStore from '../stores/SpinnerStore.js';
 
 export default class Spinner extends React.Component{
 
-  constructor( props ){
+  constructor(props){
     super(props);
     this.state = {
       show: SpinnerStore.showSpinner
@@ -12,11 +12,11 @@ export default class Spinner extends React.Component{
   }
 
   componentDidMount(){
-    SpinnerStore.addChangeListener( this._onChange );
+    SpinnerStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    SpinnerStore.removeChangeListener( this._onChange );
+    SpinnerStore.removeChangeListener(this._onChange);
   }
 
   render(){

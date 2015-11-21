@@ -20,7 +20,7 @@ var _msg = {
 
 class DialogAuthStore extends BaseStore {
 
-  constructor() {
+  constructor(){
     super();
     this.subscribe(function(payload){
       switch (payload.action.actionType) {
@@ -41,7 +41,6 @@ class DialogAuthStore extends BaseStore {
           _msg.type = '';
           break;
         case AuthConstants.DISMISS_LOGIN:
-          console.log('2');
           Auth.authFail();
           break;
         default:

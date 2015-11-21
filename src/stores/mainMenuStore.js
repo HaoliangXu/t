@@ -6,12 +6,12 @@ var mainMenuState = {
   user: {}
 };
 
-class MainMenuStore extends BaseStore {
+class MainMenuStore extends BaseStore{
 
-  constructor() {
+  constructor(){
     super();
-    this.subscribe( function( payload ){
-      switch ( payload.action.actionType ) {
+    this.subscribe(function(payload){
+      switch (payload.action.actionType) {
         case AppConstants.SHOW_MAINMENU:
           console.log( 'dispatching action ' + payload.action.actionType + ' to MainMenuStore' );
           mainMenuState.triggerShow = true;
@@ -22,7 +22,7 @@ class MainMenuStore extends BaseStore {
           // no op
 
       }
-    }.bind( this ));
+    }.bind(this));
   }
 
   get mainMenuState(){

@@ -25,8 +25,8 @@ export default class Stage extends React.Component{
     this._onDialogInfoCancel = this._onDialogInfoCancel.bind(this);
     this._onShowDialogInfo = this._onShowDialogInfo.bind(this);
     this._TInfoDialogActions = [
-      { text: 'Yep', onTouchTap: this._onDialogInfoSubmit, ref: 'submit' },
-      { text: 'Cancel', onTouchTap: this._onDialogInfoCancel}
+      {text: 'Yep', onTouchTap: this._onDialogInfoSubmit, ref: 'submit'},
+      {text: 'Cancel', onTouchTap: this._onDialogInfoCancel}
     ];
   }
 

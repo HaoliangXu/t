@@ -7,11 +7,11 @@
  */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SplashStore from "../stores/splashStore.js";
+import SplashStore from '../stores/splashStore.js';
 
-export default class Splash extends React.Component {
+export default class Splash extends React.Component{
 
-  constructor() {
+  constructor(){
     super();
     this._appReady = this._appReady.bind(this);
     this.state = SplashStore.getSplashState();
@@ -25,7 +25,7 @@ export default class Splash extends React.Component {
   _appReady(){
     SplashStore.removeChangeListener(this._appReady);
     //If intro mode, do nothing
-    if (this.state.mode !== "non-intro") return;
+    if (this.state.mode !== 'non-intro') return;
     this._endSplash();
   }
 
@@ -39,7 +39,7 @@ export default class Splash extends React.Component {
   }
   //Invoke end splash event, when Enter button is clicked, or when app data is loaded in non-intro mode
   _endSplash(){
-    var divSplash = document.getElementById("splash");
+    var divSplash = document.getElementById('splash');
     SplashStore.unregisterDispatcher();
     ReactDOM.unmountComponentAtNode(divSplash);
     divSplash.parentNode.removeChild(divSplash);
