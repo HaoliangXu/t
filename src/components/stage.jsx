@@ -86,15 +86,21 @@ export default class Stage extends React.Component{
       stageInfo,
       this.props.stageIndex
     ));
-    this.refs.stageInfoDialog.dismiss();
+    this.refs.stageInfoDialog.setState({
+      open: false
+    });
   }
 
   _onDialogInfoCancel(){
-    this.refs.stageInfoDialog.dismiss();
+    this.refs.stageInfoDialog.setState({
+      open: false
+    });
   }
 
   _onShowDialogInfo(){
-    this.refs.stageInfoDialog.show();
+    this.refs.stageInfoDialog.setState({
+      open: true
+    });
   }
 
   _onToggleStage(stageIndex){

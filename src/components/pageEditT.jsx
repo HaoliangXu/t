@@ -112,7 +112,9 @@ export default class PageEditT extends React.Component{
       AppActions.lastPage();
       return;
     }
-    this.refs.dialogLeave.show();
+    this.refs.dialogLeave.setState({
+      open: true
+    });
   }
 
   _onDialogSubmit(){
@@ -120,7 +122,9 @@ export default class PageEditT extends React.Component{
   }
 
   _onDialogCancel(){
-    this.refs.dialogLeave.dismiss();
+    this.refs.dialogLeave.setState({
+      open: false
+    });
   }
 
   _onRemoveStage(stageIndex){

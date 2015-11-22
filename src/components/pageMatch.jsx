@@ -171,11 +171,15 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogMatchInfo(){
-    this.refs.dialogEditInfo.show();
+    this.refs.dialogEditInfo.setState({
+      open: true
+    });
   }
 
   _onDialogSubmit(){
-    this.refs.dialogEditInfo.dismiss();
+    this.refs.dialogEditInfo.setState({
+      open: false
+    });
     let match = JSON.parse(JSON.stringify(this.state.match));
     match.players[0].tid = this.refs.name1.value;
     match.players[1].tid = this.refs.name2.value;
@@ -188,12 +192,16 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogCancel(){
-    this.refs.dialogEditInfo.dismiss();
+    this.refs.dialogEditInfo.setState({
+      open: false
+    });
   }
 
   _onDialogGame(index){
     editingGameIndex = index;
-    this.refs.dialogGame.show();
+    this.refs.dialogGame.setState({
+      open: true
+    });
     setTimeout(()=>{
       this.refs.leftProperty.setValue(this.state.match.games[index].leftProperty);
       this.refs.set.setValue(this.state.match.games[index].set);
@@ -202,7 +210,9 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogRemoveGame(){
-    this.refs.dialogGame.dismiss();
+    this.refs.dialogGame.setState({
+      open: false
+    });
     let match = JSON.parse(JSON.stringify(this.state.match));
     match.games.splice(editingGameIndex, 1);
     editingGameIndex = -1;
@@ -212,7 +222,9 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogGameSubmit(){
-    this.refs.dialogGame.dismiss();
+    this.refs.dialogGame.setState({
+      open: false
+    });
     let match = JSON.parse(JSON.stringify(this.state.match));
     match.games[editingGameIndex].leftProperty = this.refs.leftProperty.getValue();
     match.games[editingGameIndex].set = this.refs.set.getValue();
@@ -224,7 +236,9 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogGameCancel(){
-    this.refs.dialogGame.dismiss();
+    this.refs.dialogGame.setState({
+      open: false
+    });
     editingGameIndex = -1;
   }
 

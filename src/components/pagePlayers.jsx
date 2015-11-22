@@ -47,7 +47,7 @@ export default class PagePlayers extends React.Component{
             }
             openDirection="bottom-right">
             <MenuItem primaryText="Players" />
-            <MenuItem onTouchTap={this._onTInfo} primaryText="Info" />
+            <MenuItem primaryText="Info" />
           </IconMenu>
         } />
       <Table
@@ -102,7 +102,9 @@ export default class PagePlayers extends React.Component{
   }
 
   _onDialogInfoSubmit(){
-    this.refs.playerInfoDialog.dismiss();
+    this.refs.playerInfoDialog.setState({
+      open: false
+    });
     PlayersService.updatePlayer(
       editingPlayerTid,
       {
@@ -115,13 +117,17 @@ export default class PagePlayers extends React.Component{
   }
 
   _onDialogInfoCancel(){
-    this.refs.playerInfoDialog.dismiss();
+    this.refs.playerInfoDialog.setState({
+      open: false
+    });
   }
 
   _onShowInfo(index){
     var player = PlayersService.reqPlayerByIndex(index);
     editingPlayerTid = index;
-    this.refs.playerInfoDialog.show();
+    this.refs.playerInfoDialog.setState({
+      open: true
+    });
     setTimeout(function(){
       this.refs.name.focus();
       this.refs.name.setValue(player.name);

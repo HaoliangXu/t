@@ -152,7 +152,6 @@ export default class RoundRobin extends BaseFormat{
 
   _onRemoveScoreRow(index){
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
-    this.refs.dialogScore.dismiss();
     scores.splice(index, 1);
     EditTActions.editScoreBoard(
       scores,
@@ -207,7 +206,9 @@ export default class RoundRobin extends BaseFormat{
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
     scores.splice(editingScoreRow, 1, scoreRow);
     editingScoreRow = -1;
-    this.refs.dialogScore.dismiss();
+    this.refs.dialogScore.setState({
+      open: false
+    });
     EditTActions.editScoreBoard(
       scores,
       this.props.groupIndex,
@@ -217,7 +218,9 @@ export default class RoundRobin extends BaseFormat{
 
   _onDialogScoreCancel(){
     editingScoreRow = -1;
-    this.refs.dialogScore.dismiss();
+    this.refs.dialogScore.setState({
+      open: false
+    });
   }
 
   _onAddPlayer(){

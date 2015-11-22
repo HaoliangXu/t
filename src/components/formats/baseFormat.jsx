@@ -37,7 +37,7 @@ export default class BaseFormat extends React.Component{
     ];
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
-    this._onShowDialogPlayers = this._onShowDialogPlayers.bind(this);
+    this._onShowDialogPlayers = this._onShowDialogGroupPlayers.bind(this);
     this._onEditInfo = this._onEditInfo.bind(this);
     this.dialogInfoActions = [
       {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
@@ -66,7 +66,7 @@ export default class BaseFormat extends React.Component{
     />;
   }
 
-  _onShowDialogPlayers(){
+  _onShowDialogGroupPlayers(){
     this.refs.dialogGroupPlayers.show();
   }
 
@@ -90,7 +90,9 @@ export default class BaseFormat extends React.Component{
 
   //Methods of dialogEditInfo
   _onEditInfo(){
-    this.refs.dialogEditInfo.show();
+    this.refs.dialogEditInfo.setState({
+      open: true
+    });
   }
 
   _onDialogSubmit(){
@@ -100,7 +102,9 @@ export default class BaseFormat extends React.Component{
       this.refs.location.getValue(),
       this.refs.date.getDate()
     ];
-    this.refs.dialogEditInfo.dismiss();
+    this.refs.dialogEditInfo.setState({
+      open: false
+    });
     EditTActions.editGroupInfo(
       groupInfo,
       this.props.groupIndex,
@@ -109,6 +113,8 @@ export default class BaseFormat extends React.Component{
   }
 
   _onDialogCancel(){
-    this.refs.dialogEditInfo.dismiss();
+    this.refs.dialogEditInfo.setState({
+      open: false
+    });
   }
 }

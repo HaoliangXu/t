@@ -28,11 +28,15 @@ export default class DialogAuth extends React.Component{
   }
 
   show(){
-    this.refs.dialog.show();
+    this.refs.dialog.setState({
+      open: true
+    });
   }
 
   dismiss(){
-    this.refs.dialog.dismiss();
+    this.refs.dialog.setState({
+      open: false
+    });
   }
 
   render(){
@@ -42,7 +46,7 @@ export default class DialogAuth extends React.Component{
         actions={this.standardActions}
         actionFocus='submit'
         ref='dialog'
-        onDismiss={this._onDismiss}>
+        onRequestClose={this._onDismiss}>
         <form role='form'>
           <p ref='tips'>Tips:</p>
           <div className='form-group'>

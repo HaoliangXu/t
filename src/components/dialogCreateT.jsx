@@ -20,11 +20,15 @@ export default class DialogCreateT extends React.Component{
   }
 
   show(){
-    this.refs.dialog.show();
+    this.refs.dialog.setState({
+      open: true
+    });
   }
 
   dismiss(){
-    this.refs.dialog.dismiss();
+    this.refs.dialog.setState({
+      open: false
+    });
   }
 
   _onDialogSubmit(){

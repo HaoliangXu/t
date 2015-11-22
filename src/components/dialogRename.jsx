@@ -10,17 +10,21 @@ export default class DialogRename extends React.Component{
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
     this.show = this.show.bind(this);
     this.standardActions = [
-      { text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit' },
-      { text: 'Nay', onTouchTap: this._onDialogCancel}
+      {text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit'},
+      {text: 'Nay', onTouchTap: this._onDialogCancel}
     ];
   }
 
   show(){
-    this.refs.dialog.show();
+    this.refs.dialog.setState({
+      open: true
+    });
   }
 
   dismiss(){
-    this.refs.dialog.dismiss();
+    this.refs.dialog.setState({
+      open: false
+    });
   }
 
   _onDialogSubmit(){

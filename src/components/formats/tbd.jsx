@@ -69,12 +69,16 @@ export default class TBD extends BaseFormat{
 
   _onSelectEliminationSize(formatType){
     _currentFormatType = formatType;
-    this.refs.dialogSizeOfElimination.show();
+    this.refs.dialogSizeOfElimination.setState({
+      open: true
+    });
   }
 
   _onSelectDoubleEliminationSize(formatType){
     _currentFormatType = formatType;
-    this.refs.dialogSizeOfDoubleElimination.show();
+    this.refs.dialogSizeOfDoubleElimination.setState({
+      open: true
+    });
   }
 
   _onSelectFormat(formatType, size){

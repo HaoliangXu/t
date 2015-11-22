@@ -13,7 +13,7 @@ export default class DialogGroupPlayers extends React.Component{
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
     this._onRowSelection = this._onRowSelection.bind(this);
     this.dialogPlayersActions = [
-      { text: 'Ok', onTouchTap: this._onDialogSubmit, ref: 'submit' },
+      {text: 'Ok', onTouchTap: this._onDialogSubmit, ref: 'submit'},
     ];
   }
 
@@ -71,10 +71,14 @@ export default class DialogGroupPlayers extends React.Component{
       this.props.groupIndex,
       this.props.stageIndex
     );
-    this.refs.dialog.dismiss();
+    this.refs.dialog.setState({
+      open: false
+    });
   }
 
   show(){
-    this.refs.dialog.show();
+    this.refs.dialog.setState({
+      open: true
+    });
   }
 }

@@ -16,11 +16,15 @@ config = {
     module: {
         loaders: [
             {test: /\.css$/, loader: 'style!css' },
-            {test: /\.jsx?$/, loader: 'babel', query: {
-              presets:['react', 'es2015']
-            }}
-        ],
-        noParse: '[node_modules]'
+            {
+              test: /\.jsx?$/,
+              loader: 'babel',
+              exclude: node_modules,
+              query: {
+                presets: ['react', 'es2015']
+              }
+            }
+        ]
     }
 };
 
