@@ -99,7 +99,9 @@ export default class PageEditT extends React.Component{
   }
 
   _onTInfo(){
-    this.refs.dialogTInfo.show();
+    this.refs.dialogTInfo.setState({
+      open: true
+    });
   }
 
   _onSave(){

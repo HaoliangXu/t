@@ -67,7 +67,9 @@ export default class BaseFormat extends React.Component{
   }
 
   _onShowDialogGroupPlayers(){
-    this.refs.dialogGroupPlayers.show();
+    this.refs.dialogGroupPlayers.setState({
+      open: true
+    });
   }
 
   _onMoveUp(groupIndex, stageIndex){

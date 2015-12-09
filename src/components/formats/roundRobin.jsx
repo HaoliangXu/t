@@ -102,7 +102,9 @@ export default class RoundRobin extends BaseFormat{
   _onShowDialogScore(row){
     var scoreRow = this.props.groupData.scores[row];
     editingScoreRow = row;
-    this.refs.dialogScore.show();
+    this.refs.dialogScore.setState({
+      open: true
+    });
     setTimeout(function(){
       this.refs.scoreRowTid.value = scoreRow.tid;
       this.refs.score.setValue(scoreRow.score);

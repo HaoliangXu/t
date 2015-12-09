@@ -31,7 +31,9 @@ export default class Notice extends React.Component{
     this.setState({
       notice: NoticeStore.notice
     });
-    this.refs.notice.show();
+    this.refs.notice.setState({
+      open: true
+    });
   }
 
 }
