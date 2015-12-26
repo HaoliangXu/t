@@ -39,9 +39,10 @@ class DialogAuthStore extends BaseStore {
           _msg.text = 'Login failed, try other username or password.';
           this.emitChange();
           _msg.type = '';
+          Auth.loginFail();
           break;
         case AuthConstants.DISMISS_LOGIN:
-          Auth.authFail();
+          Auth.loginCancel();
           break;
         default:
           // no op

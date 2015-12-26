@@ -104,7 +104,7 @@ class PageEditTStore extends BaseStore{
         case EditTConstants.EDIT_GROUP_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           let group = Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex];
-          [group.name, group.status, group.location, group.when] = payload.action.groupInfo;
+          [group.name, group.status, group.location, group.startAt] = payload.action.groupInfo;
           _flags.modified = true;
           this.emitChange();
           break;
@@ -129,13 +129,13 @@ class PageEditTStore extends BaseStore{
         case EditTConstants.EDIT_STAGE_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           let stage = Tjson.stages[payload.action.stageIndex];
-          [stage.name, stage.status, stage.location, stage.when] = payload.action.stageInfo;
+          [stage.name, stage.status, stage.location, stage.startAt] = payload.action.stageInfo;
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.EDIT_T_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          [Tjson.name, Tjson.game, Tjson.status, Tjson.location, Tjson.brief, Tjson.when] = payload.action.TInfo;
+          [Tjson.name, Tjson.game, Tjson.status, Tjson.location, Tjson.brief, Tjson.startAt] = payload.action.TInfo;
           _flags.modified = true;
           this.emitChange();
           break;

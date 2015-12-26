@@ -117,7 +117,7 @@ export default class PageMatch extends React.Component{
               <TextField type='text' defaultValue={this.state.match.players[0].points} hintText='Left Player Points' ref='points1' fullWidth={true} />
               <TextField type='text' defaultValue={this.state.match.players[1].points} hintText='Right Player Points' ref='points2' fullWidth={true} />
               Start Time
-              <DatePicker defaultValue={this.state.match.when} ref='date' />
+              <DatePicker defaultValue={this.state.match.startAt} ref='date' />
             </div>
           </form>
         </Dialog>
@@ -185,7 +185,7 @@ export default class PageMatch extends React.Component{
     match.players[1].tid = this.refs.name2.value;
     match.players[0].points = this.refs.points1.getValue();
     match.players[1].points = this.refs.points2.getValue();
-    match.when = this.refs.date.getDate();
+    match.startAt = this.refs.date.getDate();
     EditTActions.editMatch(
       match
     );

@@ -105,6 +105,10 @@ export default class PageEditT extends React.Component{
   }
 
   _onSave(){
+    if (!this.state.Tjson.name){//TODO Need more validation
+      AppActions.showNotice('Can\'t save unnamed tournament');
+      return;
+    }
     AppActions.showSpinner();
     Comm.saveT(this.state.Tjson);
   }

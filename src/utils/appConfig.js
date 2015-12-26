@@ -13,7 +13,7 @@ export function newStage(stageIndex){
     notes: [],
     status: 'Upcoming',
     location: '',
-    when: '',
+    startAt: '',
     expand: true
   };
 }
@@ -31,7 +31,7 @@ export function newT(){
     sponsors: [],
     format: '',
     prize: {},
-    when: '',
+    startAt: '',
     duration: '',
     notes: '',
     tier: '',
@@ -62,7 +62,7 @@ export function newRoundRobin(groupIndex, numOfScoreRow, numOfMatches){
     name: 'Group ' + (groupIndex + 1),
     format: 'roundRobin',
     status: 'Upcoming',
-    when: '',
+    startAt: '',
     location: '',
     notes: [],
     players: [],
@@ -87,7 +87,7 @@ export function newMatch(){
     notes: '',
     color: 0,
     status: 'Upcoming',
-    when: '',
+    startAt: '',
     location: '',
     players: [
       {
@@ -138,7 +138,7 @@ export function newElimination(groupIndex, format, sizeOfGroup, numOfMatches, nu
     name: 'Group ' + (groupIndex + 1),
     format: format,
     status: 'Upcoming',
-    when: '',
+    startAt: '',
     location: '',
     notes: [],
     players: [],

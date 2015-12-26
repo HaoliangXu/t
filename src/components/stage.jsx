@@ -66,7 +66,7 @@ export default class Stage extends React.Component{
               <TextField type='text' defaultValue={this.props.stageData.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
               <TextField type='text' defaultValue={this.props.stageData.status} hintText='Status' ref='status' fullWidth={true} />
               <TextField type='text' defaultValue={this.props.stageData.location} hintText='Location' ref='location' fullWidth={true} />
-              <DatePicker defaultValue={this.props.stageData.when} ref='date' />
+              <DatePicker defaultValue={this.props.stageData.startAt} ref='date' />
             </div>
           </form>
         </Dialog>

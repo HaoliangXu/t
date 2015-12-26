@@ -13,6 +13,7 @@ import assign from 'object-assign';
 
 var CHANGE_EVENT = 'change';
 var lists = [];
+var params = {};
 
 var PageDiscoverStore = assign({}, EventEmitter.prototype,{
 
@@ -30,6 +31,10 @@ var PageDiscoverStore = assign({}, EventEmitter.prototype,{
 
   getLists: function(){
     return lists;
+  },
+
+  getParams: function(){
+    return params;
   }
 });
 
@@ -40,6 +45,7 @@ AppDispatcher.register(function(payload){
       if (payload.action.content.page !== 'discover'){
         break;
       }
+      params = payload.action.content.params;
       lists = payload.action.content.lists;
       PageDiscoverStore.emitChange();
       break;

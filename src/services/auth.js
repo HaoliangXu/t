@@ -34,10 +34,15 @@ class AuthService{
     console.log('WARNING: [Low AuthLevel] Try logout and login with a higher authlevel account.');
   }
 
-  authFail(){
+  loginCancel(){
     //TODO Handle Warning
     currentReq = undefined;
     console.log('WARNING: [Login Cancelled]');
+  }
+
+  loginFail(){
+    currentReq = undefined;
+    console.log('WARNING: [Login Failed]');
   }
 
   loginSuccess(res){

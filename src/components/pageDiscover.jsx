@@ -12,7 +12,6 @@ export default class PageDiscover extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      page: 'discover',
       lists: []
     };
     this._onChange = this._onChange.bind(this);
@@ -20,6 +19,13 @@ export default class PageDiscover extends React.Component{
   }
 
   componentDidMount(){
+    var params = PageDiscoverStore.getParams();
+
+    //Only when it is not the starting of the app
+    if ((typeof params.default) !== 'undefined'){
+      Comm.reqTList(params);
+    }
+
     PageDiscoverStore.addChangeListener(this._onChange);
   }
 
@@ -58,7 +64,6 @@ export default class PageDiscover extends React.Component{
   _onChange(){
     setTimeout(AppActions.hideSpinner);
     let newState = {
-      page: 'discover',
       lists: PageDiscoverStore.getLists()
     }
     this.setState(newState);

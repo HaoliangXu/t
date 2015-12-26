@@ -32,7 +32,7 @@ export default class DialogTInfo extends React.Component{
             <TextField type='text' defaultValue={this.props.Tjson.status} hintText='Status' ref='status' fullWidth={true} />
             <TextField type='text' defaultValue={this.props.Tjson.location} hintText='Location' ref='location' fullWidth={true} />
             <TextField type='text' defaultValue={this.props.Tjson.brief} hintText='Brief' ref='brief' fullWidth={true} />
-            <DatePicker defaultValue={this.props.Tjson.when} ref='date' />
+            <DatePicker defaultValue={this.props.Tjson.startAt} ref='date' />
           </div>
         </form>
       </Dialog>

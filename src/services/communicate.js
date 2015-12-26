@@ -25,6 +25,7 @@ var Comm = {
 
   //Decide which page to show, then request the data of that page.
   //Usually for applying new route
+  //For params details look into route service
   reqPage: function(req){
     switch (req.page) {
       case 'viewT':
@@ -50,58 +51,66 @@ var Comm = {
   //request tournament json
   reqT: function(tID) {
     console.log('request T');
-    token = ajax({
-      url: './demoT.json',//TODO diffs when not in dev mode
-      //type: 'html',
-      success: function(resp){
+    let quary = new Parse.Query('Tournament');
+    quary.get(tID, {
+      success: function(result){
         AppActions.loadPage({
           page: 'viewT',
           editMode: false,
-          T: resp
+          T: result.get('tData')
         });
       },
-      error: function(){
-
+      error: function(error){
+        console.log(error);
       }
     });
   },
 
   reqTList: function(params){
     console.log('requesting discover list');
+    let quary = new Parse.Query('Tournament');
     //if no keywords, then send hot tournaments list as default
     if (params.default) {
-      let content = {
-        'page': 'discover',
-        lists: [
-          {
-            listName: 'Hot',
-            listItems: [
-              {
-                itemName: 'demo T',
-                id: 'asdf1',
-                pic: '',
-                kind: '',
-                location: ''
-              },
-              {
-                itemName: 'demo T 2',
-                id: 'qwer2',
-                pic: '',
-                kind: '',
-                location: ''
-              }
-            ]
+      quary.find({
+        success: function(results){
+          let content = {
+            page: 'discover',
+            params: params,
+            lists: [{
+              listName: 'Hot',
+              listItems: []
+            }]
+          };
+          for (var i in results){
+            content.lists[0].listItems[i] = {
+              itemName: results[i].get('tName'),
+              id: results[i].id,
+              pic: '',
+              sport: results[i].get('tSport'),
+              location: '',
+              startAt: results[i].get('startAt')
+            }
           }
-        ]
-      };
-      window.setTimeout(function(){
-        AppActions.loadPage(content);
+          AppActions.loadPage(content);
+        },
+        error: function(error){
+          console.log(error);
+        }
       });
     }
   },
 
-  reqLogin: function(username, password){//TODO give some fake data
-    var res = {
+  reqLogin: function(username, password){
+    Parse.User.logIn(username, password, {
+      success: function(user){
+        console.log('Login Success!');
+        //AuthActions.loginSuccess(user);
+      },
+      error: function(error){
+        console.log(error);
+      }
+    });
+    let res = {
       username: username,
       id: '238u9ho23r',
       iconUrl: '',
@@ -117,24 +126,34 @@ var Comm = {
 
   },
 
-  saveT: function(Tjson){
-    if (!Tjson.name){
-      setTimeout(function(){
-        console.log('save failed');
-      }, 500);
+  saveT: function(Tjson){//TODO Add user permission validation
+    //If Tjson has a valid id, update the existing T to server
+    if (Tjson.id){
+      return;
     }
-    setTimeout(function(){
-      var T = Tjson;
-      console.log('saved');
-      AppActions.hideSpinner();
-      AppActions.loadPage({
-        page: 'editT',
-        Tjson: T,
-        editMode: false,
-        modified: false
-      });
-      AppActions.showNotice('T saved');
-    }, 500);
+
+    //Tjson doesn't have a valid id, create a new one on server
+    let Tournament = Parse.Object.extend('Tournament');
+    let newT = new Tournament();
+    newT.set('tData', Tjson);
+    newT.set('tName', Tjson.name);
+    newT.set('tData', Tjson);
+    newT.save(null, {
+      success: function(result){
+        console.log(result);
+        AppActions.hideSpinner();
+        AppActions.loadPage({
+          page: 'editT',
+          Tjson: result.get('tData'),
+          editMode: false,
+          modified: false
+        });
+        AppActions.showNotice('T saved');
+      },
+      error: function(error){
+        console.log(error);
+      }
+    });
   }
 };
 

@@ -14,11 +14,9 @@ class Router{
     return{
       'page': 'discover',
       'params': {
-        //'pageSource': 'template',
-        'default': true,
-        'userID': 0,
+        'default': true,//Whether No params
         'keywords': '',
-        'kinds': '',
+        'sport': '',
         'location': '',
         'tier': ''
       },
