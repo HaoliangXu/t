@@ -12,6 +12,7 @@ export default class PageDiscover extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      page: 'discover',
       lists: []
     };
     this._onChange = this._onChange.bind(this);
@@ -64,6 +65,7 @@ export default class PageDiscover extends React.Component{
   _onChange(){
     setTimeout(AppActions.hideSpinner);
     let newState = {
+      page: 'discover',
       lists: PageDiscoverStore.getLists()
     }
     this.setState(newState);
