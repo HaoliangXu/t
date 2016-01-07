@@ -111,12 +111,13 @@ export default {
     });
   },
 
-  editMatches: function(matches, groupIndex, stageIndex){
+  editMatches: function(matches, groupIndex, stageIndex, modified){
     AppDispatcher.handleViewAction({
       actionType: EditTConstants.EDIT_MATCHES,
       matches: matches,
       groupIndex: groupIndex,
-      stageIndex: stageIndex
+      stageIndex: stageIndex,
+      modified: modified
     });
   },
 

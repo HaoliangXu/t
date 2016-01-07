@@ -28,13 +28,13 @@ class PageEditTStore extends BaseStore{
         case EditTConstants.ADD_STAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           //Add stage into Tjson
-          Tjson.stages.splice(payload.action.stageIndex, 0, payload.action.stage);
+          Tjson.results.stages.splice(payload.action.stageIndex, 0, payload.action.stage);
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.REMOVE_STAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages.splice(
+          Tjson.results.stages.splice(
             payload.action.stageIndex, 1
           );
           _flags.modified = true;
@@ -42,20 +42,22 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.TOGGLE_STAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].expand = !Tjson.stages[payload.action.stageIndex].expand;
-          _flags.modified = true;
+          Tjson.results.stages[payload.action.stageIndex].expand = !Tjson.results.stages[payload.action.stageIndex].expand;
+          if (_flags.editMode) {
+            _flags.modified = true;
+          }
           this.emitChange();
           break;
         case EditTConstants.SET_GROUP_FORMAT:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex] = payload.action.format
+          Tjson.results.stages[payload.action.stageIndex].groups[payload.action.groupIndex] = payload.action.format
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.ADD_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           //Add group into Tjson
-          Tjson.stages[payload.action.stageIndex].groups.splice(
+          Tjson.results.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 0, payload.action.group
           );
           _flags.modified = true;
@@ -63,7 +65,7 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.REMOVE_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].groups.splice(
+          Tjson.results.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 1
           );
           _flags.modified = true;
@@ -74,7 +76,7 @@ class PageEditTStore extends BaseStore{
           if (!payload.action.groupIndex) {
             break;
           }
-          let groups1 = Tjson.stages[payload.action.stageIndex].groups;
+          let groups1 = Tjson.results.stages[payload.action.stageIndex].groups;
           let swap1 = groups1[payload.action.groupIndex - 1];
           groups1[payload.action.groupIndex - 1] = groups1[payload.action.groupIndex];
           groups1[payload.action.groupIndex] = swap1;
@@ -86,7 +88,7 @@ class PageEditTStore extends BaseStore{
           if (payload.action.groupIndex >= groups2.length - 1) {
             break;
           }
-          let groups2 = Tjson.stages[payload.action.stageIndex].groups;
+          let groups2 = Tjson.results.stages[payload.action.stageIndex].groups;
           let swap2 = groups2[payload.action.groupIndex + 1];
           groups2[payload.action.groupIndex + 1] = groups2[payload.action.groupIndex];
           groups2[payload.action.groupIndex] = swap2;
@@ -95,7 +97,7 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.COPY_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].groups.splice(
+          Tjson.results.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 0, payload.action.groupData
           );
           _flags.modified = true;
@@ -103,39 +105,39 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.EDIT_GROUP_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          let group = Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex];
+          let group = Tjson.results.stages[payload.action.stageIndex].groups[payload.action.groupIndex];
           [group.name, group.status, group.location, group.startAt] = payload.action.groupInfo;
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.CHANGE_GROUP_PLAYERS:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex].players = payload.action.groupPlayers;
+          Tjson.results.stages[payload.action.stageIndex].groups[payload.action.groupIndex].players = payload.action.groupPlayers;
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.EDIT_SCOREBOARD:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex].scores = payload.action.scores;
+          Tjson.results.stages[payload.action.stageIndex].groups[payload.action.groupIndex].scores = payload.action.scores;
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.EDIT_MATCHES:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          Tjson.stages[payload.action.stageIndex].groups[payload.action.groupIndex].matches = payload.action.matches;
-          _flags.modified = true;
+          Tjson.results.stages[payload.action.stageIndex].groups[payload.action.groupIndex].matches = payload.action.matches;
+          _flags.modified = _flags.modified || payload.action.modified;
           this.emitChange();
           break;
         case EditTConstants.EDIT_STAGE_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          let stage = Tjson.stages[payload.action.stageIndex];
+          let stage = Tjson.results.stages[payload.action.stageIndex];
           [stage.name, stage.status, stage.location, stage.startAt] = payload.action.stageInfo;
           _flags.modified = true;
           this.emitChange();
           break;
         case EditTConstants.EDIT_T_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          [Tjson.name, Tjson.game, Tjson.status, Tjson.location, Tjson.brief, Tjson.startAt] = payload.action.TInfo;
+          [Tjson.name, Tjson.sport, Tjson.finished, Tjson.info.adress, Tjson.info.brief, Tjson.startAt] = payload.action.TInfo;
           _flags.modified = true;
           this.emitChange();
           break;

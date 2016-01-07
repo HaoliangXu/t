@@ -29,6 +29,7 @@ export default class PageMatch extends React.Component{
       groupPlayers: [],
       groupMatches: []
     };
+    this._modified = false;
     this._onRemoveMatch = this._onRemoveMatch.bind(this);
     this._onDialogMatchInfo = this._onDialogMatchInfo.bind(this);
     this._onDialogCancel = this._onDialogCancel.bind(this);
@@ -46,6 +47,11 @@ export default class PageMatch extends React.Component{
       {text: 'Nay', onTouchTap: this._onDialogGameCancel}
     ];
     this._onAddGame = this._onAddGame.bind(this);
+    this._removeMatchButton = this.state.editMode ? <RaisedButton onTouchTap={this._onRemoveMatch}
+      primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' /> : null;
+    this._addAGameButton = this.state.editMode ? <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
+      <TableRowColumn  style={{textAlign: 'center'}} colSpan={3}>Add A Game</TableRowColumn>
+    </TableRow> : null;
   }
 
   componentDidMount(){
@@ -66,31 +72,25 @@ export default class PageMatch extends React.Component{
           selectable={false}>
           <TableHeader
             adjustForCheckbox={false}
+            onTouchTap={this._onDialogMatchInfo}
             displaySelectAll={false}>
-            <TableRow
-              onTouchTap={this._onDialogMatchInfo}>
+            <TableRow>
               <TableHeaderColumn style={{textAlign: 'center'}}>{player1 ? player1.name : ''}</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>V.S.</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>{player1 ? player1.name : ''}</TableHeaderColumn>
             </TableRow>
-            <TableRow
-              onTouchTap={this._onDialogMatchInfo}>
+            <TableRow>
               <TableHeaderColumn style={{textAlign: 'center'}}>{this.state.match.players[0].points}</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>:</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>{this.state.match.players[1].points}</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           <TableBody
-            deselectOnClickaway={false}
             displayRowCheckbox={false}>
             {this._generateGames()}
-            <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
-              <TableRowColumn  style={{textAlign: 'center'}} colSpan={3}>Add A Game</TableRowColumn>
-            </TableRow>;
+            {this._addAGameButton}
           </TableBody>
         </Table>
-        <RaisedButton onTouchTap={this._onRemoveMatch}
-          primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' />
         <Dialog
           title='Edit Match Info'
           actions={this.dialogInfoActions}
@@ -148,7 +148,8 @@ export default class PageMatch extends React.Component{
       undefined,
       matches,
       this.state.groupIndex,
-      this.state.stageIndex
+      this.state.stageIndex,
+      this._modified
     ));
   }
 
@@ -163,6 +164,10 @@ export default class PageMatch extends React.Component{
   }
 
   _onAddGame(){
+    this._modified = true;
+    if (!this.state.editMode) {
+      return
+    }
     let match = JSON.parse(JSON.stringify(this.state.match));
     match.games.push(newGameOfMatch());
     EditTActions.editMatch(
@@ -171,12 +176,16 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogMatchInfo(){
+    if (!this.state.editMode) {
+      return
+    }
     this.refs.dialogEditInfo.setState({
       open: true
     });
   }
 
   _onDialogSubmit(){
+    this._modified = true;
     this.refs.dialogEditInfo.setState({
       open: false
     });
@@ -198,6 +207,9 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogGame(index){
+    if (!this.state.editMode) {
+      return
+    }
     editingGameIndex = index;
     this.refs.dialogGame.setState({
       open: true
@@ -210,6 +222,7 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogRemoveGame(){
+    this._modified = true;
     this.refs.dialogGame.setState({
       open: false
     });
@@ -222,6 +235,7 @@ export default class PageMatch extends React.Component{
   }
 
   _onDialogGameSubmit(){
+    this._modified = true;
     this.refs.dialogGame.setState({
       open: false
     });
@@ -244,13 +258,15 @@ export default class PageMatch extends React.Component{
 
   _onRemoveMatch(){
     let matches = JSON.parse(JSON.stringify(this.state.groupMatches));
+    this._modified = true;
     matches.splice(this.state.matchIndex, 1);
     AppActions.lastPage();
     setTimeout(EditTActions.editMatches.bind(
       undefined,
       matches,
       this.state.groupIndex,
-      this.state.stageIndex
+      this.state.stageIndex,
+      this._modified
     ));
   }
 

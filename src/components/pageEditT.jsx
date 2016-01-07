@@ -27,7 +27,10 @@ export default class PageEditT extends React.Component{
       modified: false,
       editMode: false,
       Tjson: {
-        stages: []
+        results: {
+          stages: []
+        },
+        info: {}
       }
     };
     this._onTInfo = this._onTInfo.bind(this);
@@ -39,6 +42,23 @@ export default class PageEditT extends React.Component{
       {text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit'},
       {text: 'Cancel', onTouchTap: this._onDialogCancel}
     ];
+    if (this.state.editMode){
+      let _saveButtonLable = this.state.Tjson.id ? 'Update' : 'Create';
+      this._editButtons = <div>
+        <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
+          secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
+        <RaisedButton onTouchTap={this._onSave}
+          primary={true}
+          style={{'width': '50%', 'marginTop': '2rem'}}
+          label={_saveButtonLable} />
+        <RaisedButton onTouchTap={this._onDiscard}
+          primary={true}
+          style={{'width': '50%', 'marginTop': '2rem'}}
+          label='Discard' />
+      </div>;
+    } else {
+      this._editButtons = <div></div>;
+    }
   }
 
   componentDidMount(){
@@ -50,24 +70,24 @@ export default class PageEditT extends React.Component{
   }
 
   render(){
-    var stageLength = this.state.Tjson.stages.length;
+    let stageLength = this.state.Tjson.results.stages.length;
     return (
       <div>
         <AppBar
-          title={this.state.Tjson.name + '(Edit Mode)'}
+          title={this.state.Tjson.name + (this.state.editMode ? '(Edit Mode)' : '')}
           zDepth={2}
           style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
           iconElementRight={<IconButton onTouchTap={this._onPagePlayer}><PeopleSvg /></IconButton>}
-          iconElementLeft={
+          iconElementLeft={this.state.editMode ?
             <IconMenu iconButtonElement={
               <IconButton><Menu /></IconButton>
               }
               openDirection="bottom-right">
               <MenuItem primaryText="Players" />
               <MenuItem onTouchTap={this._onTInfo} primaryText="Info" />
-            </IconMenu>
-          } />
-        {this.state.Tjson.stages.map((stage, stageIndex)=>{
+            </IconMenu> : null}
+          />
+        {this.state.Tjson.results.stages.map((stage, stageIndex)=>{
           return <Stage
             stageData={stage}
             stageIndex={stageIndex}
@@ -75,12 +95,7 @@ export default class PageEditT extends React.Component{
             key={'stage.' + stageIndex}
             />;
         })}
-        <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
-          secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
-        <RaisedButton onTouchTap={this._onSave}
-          primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Upload' />
-        <RaisedButton onTouchTap={this._onDiscard}
-          primary={true} style={{'width': '50%', 'marginTop': '3rem'}} label='Discard' />
+        {this._editButtons}
         <Dialog
           title='Really want to leave without save?'
           actions={this._backDialogActions}
@@ -99,9 +114,7 @@ export default class PageEditT extends React.Component{
   }
 
   _onTInfo(){
-    this.refs.dialogTInfo.setState({
-      open: true
-    });
+    this.refs.dialogTInfo.show();
   }
 
   _onSave(){

@@ -28,10 +28,10 @@ export default class DialogTInfo extends React.Component{
         <form role='form'>
           <div className='form-group'>
             <TextField type='text' defaultValue={this.props.Tjson.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
-            <TextField type='text' defaultValue={this.props.Tjson.game} hintText='Game' ref='game' fullWidth={true} />
-            <TextField type='text' defaultValue={this.props.Tjson.status} hintText='Status' ref='status' fullWidth={true} />
-            <TextField type='text' defaultValue={this.props.Tjson.location} hintText='Location' ref='location' fullWidth={true} />
-            <TextField type='text' defaultValue={this.props.Tjson.brief} hintText='Brief' ref='brief' fullWidth={true} />
+            <TextField type='text' defaultValue={this.props.Tjson.sport} hintText='Game' ref='game' fullWidth={true} />
+            <TextField type='text' defaultValue={this.props.Tjson.finished} hintText='Status' ref='status' fullWidth={true} />
+            <TextField type='text' defaultValue={this.props.Tjson.info.address} hintText='Location' ref='location' fullWidth={true} />
+            <TextField type='text' defaultValue={this.props.Tjson.info.brief} hintText='Brief' ref='brief' fullWidth={true} />
             <DatePicker defaultValue={this.props.Tjson.startAt} ref='date' />
           </div>
         </form>

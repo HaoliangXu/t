@@ -28,6 +28,9 @@ export default class Stage extends React.Component{
       {text: 'Yep', onTouchTap: this._onDialogInfoSubmit, ref: 'submit'},
       {text: 'Cancel', onTouchTap: this._onDialogInfoCancel}
     ];
+    this._addNewGroupButton = this.props.editMode ? <RaisedButton
+      onTouchTap={this._onAddNewGroup.bind(this, this.props.stageData.groups.length, this.props.stageIndex)}
+      style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group' /> : null;
   }
 
   render(){
@@ -39,20 +42,18 @@ export default class Stage extends React.Component{
               <ExpandMore />
             </IconButton>
           }
-          iconElementLeft={
-            <IconMenu iconButtonElement={
+          iconElementLeft= {this.props.editMode ? <IconMenu iconButtonElement={
               <IconButton><Menu /></IconButton>
               }
               openDirection="bottom-right">
               <MenuItem onTouchTap={this._onRemoveStage.bind(this, this.props.stageIndex)} primaryText="Delete" />
               <MenuItem primaryText="Rename" />
               <MenuItem onTouchTap={this._onShowDialogInfo} primaryText="Info" />
-            </IconMenu>} />
-          <div style={{display: this.props.stageData.expand ? 'block' : 'none'}}>
+            </IconMenu> : null}
+        />
+        <div style={{display: this.props.stageData.expand ? 'block' : 'none'}}>
           {this._generateGroups(this.props.stageData)}
-          <RaisedButton
-            onTouchTap={this._onAddNewGroup.bind(this, this.props.stageData.groups.length, this.props.stageIndex)}
-            style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group' />
+          {this._addNewGroupButton}
         </div>
         <Dialog
           autoDetectWindowHeight={true}

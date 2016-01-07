@@ -86,7 +86,7 @@ export default class MainButtonGroup extends React.Component {
     console.log('create clicked');
     var callback = this.refs.dialogCreateT.show;
     Auth.requestAuth({
-      level: 1,
+      authLevel: 1,
       callback: callback
     });
   }

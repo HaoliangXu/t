@@ -14,17 +14,17 @@ export default class DialogAuth extends React.Component{
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
     this.standardActions = [
-      { text: 'OK', onTouchTap: this._onDialogSubmit, ref: 'submit' },
-      { text: 'Nay', onTouchTap: this._onDialogCancel}
+      {text: 'OK', onTouchTap: this._onDialogSubmit, ref: 'submit'},
+      {text: 'Nay', onTouchTap: this._onDialogCancel}
     ];
   }
 
   componentDidMount(){
-    DialogAuthStore.addChangeListener( this._onChange );
+    DialogAuthStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    DialogAuthStore.removeChangeListener( this._onChange );
+    DialogAuthStore.removeChangeListener(this._onChange);
   }
 
   show(){
@@ -76,7 +76,7 @@ export default class DialogAuth extends React.Component{
   }
 
   _onDismiss(){
-    if (preventDismissEvent) {
+    if (preventDismissEvent){
       return;
     }
     AuthActions.dismissLogin();
@@ -84,11 +84,12 @@ export default class DialogAuth extends React.Component{
 
   _onChange(){
     //Check if there is msg to show
-    if ( DialogAuthStore.msg.type !== '' ) {
-      console.log( DialogAuthStore.msg.text );
+    if (DialogAuthStore.msg.type !== ''){
+      console.log(DialogAuthStore.msg.text);
+      //TODO Show the msg on the dialog
       return;
     }
-    if ( DialogAuthStore.showDialog ) {
+    if (DialogAuthStore.showDialog){
       this.show();
       return;
     } else {

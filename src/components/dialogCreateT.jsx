@@ -36,8 +36,8 @@ export default class DialogCreateT extends React.Component{
     var playerNumber = Number(this.refs.Players.getValue());
     var anewT = newT();
     anewT.name = this.refs.TName.getValue();
-    anewT.game = this.refs.GameType.getValue();
-    anewT.location = this.refs.Location.getValue();
+    anewT.sport = this.refs.GameType.getValue();
+    anewT.info.address = this.refs.Address.getValue();
     if (!playerNumber || playerNumber < 2){
       playerNumber = 2;
     }
@@ -62,7 +62,7 @@ export default class DialogCreateT extends React.Component{
           <div className='form-group'>
             <TextField type='text' hintText='Tournament Name (Required)' ref='TName' fullWidth={true} />
             <TextField type='text' hintText='Game Type (Required)' ref='GameType' fullWidth={true} />
-            <TextField type='text' hintText='Location' ref='Location' fullWidth={true} />
+            <TextField type='text' hintText='Address' ref='Address' fullWidth={true} />
             <TextField type='text' hintText='Number of Players' ref='Players' fullWidth={true} /><br /><br />
             Start Date
             <DatePicker

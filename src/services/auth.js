@@ -1,7 +1,7 @@
 import AuthActions from '../actions/authActions';
 
 var authState = {
-  valid: false,//Support time limited auth
+  valid: false,
   username: '',
   id: 0,
   iconUrl: '',
@@ -9,7 +9,7 @@ var authState = {
   authLevel: 0
 };
 
-// Valid currentReq = {level: level, callback: callback}
+//currentReq = {level: level, callback: callback}
 var currentReq;
 
 class AuthService{
@@ -19,12 +19,14 @@ class AuthService{
     if (req) {
       currentReq = req;
     }
+
     if (authState.valid === false) {
       console.log('WARNING: [Not Logged in]');
       AuthActions.showLogin();
       return;
     }
-    if (authState.authLevel >= currentReq.level) {
+
+    if (authState.authLevel >= currentReq.authLevel) {
       currentReq.callback();//TODO validation callback. maybe undefined.
       currentReq = undefined;
       return;

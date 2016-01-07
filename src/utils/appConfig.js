@@ -22,30 +22,32 @@ export function newT(){
   return {
     id: '',
     name: '',
-    location: '',
-    status: 'Upcoming',
-    brief: '',
     sport: '',
-    series: '',
-    organizer: '',
-    sponsors: [],
-    format: '',
-    prize: {},
-    startAt: '',
-    duration: '',
-    notes: '',
-    tier: '',
-    polularity: {
-      view: 0,
-      like: 0,
-      share: 0
+    city: '',
+    geoPoint: null,
+    startAt: null,
+    finished: false,
+    //tier: 0,
+    bgPic: null,
+    //like: 0,
+    info: {
+      brief: '',
+      organizer: '',
+      sponsors: [],
+      prize: '',
+      format: '',
+      notes: [],
+      duration: 0,
+      address: ''
     },
-    creator: '',
-    editors: [],
+    creatorId: '',
+    //creator: null,
     players: [],
-    stages: [
-      newStage(0)
-    ]
+    results: {
+      stages: [
+        newStage(0)
+      ]
+    }
   };
 }
 

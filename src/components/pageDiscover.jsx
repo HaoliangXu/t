@@ -23,6 +23,7 @@ export default class PageDiscover extends React.Component{
     var params = PageDiscoverStore.getParams();
 
     //Only when it is not the starting of the app
+    //TODO Could be more elegant to do this job
     if ((typeof params.default) !== 'undefined'){
       Comm.reqTList(params);
     }
@@ -45,7 +46,7 @@ export default class PageDiscover extends React.Component{
   }
 
   _onItemClick(itemIndex, listIndex){
-    AppActions.nextPage('viewT');
+    AppActions.nextPage('editT');
     AppActions.showSpinner();
     Comm.reqT(this.state.lists[listIndex].listItems[itemIndex].id);
   }

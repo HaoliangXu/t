@@ -19,6 +19,7 @@ import AppActions from '../actions/appActions.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 import Spinner from './spinner.jsx';
 
+//The id that popup dialog is editing.
 var editingPlayerTid = -1;
 
 export default class PagePlayers extends React.Component{
