@@ -42,6 +42,18 @@ export default class PageEditT extends React.Component{
       {text: 'Yep', onTouchTap: this._onDialogSubmit, ref: 'submit'},
       {text: 'Cancel', onTouchTap: this._onDialogCancel}
     ];
+  }
+
+  componentDidMount(){
+    PageEditTStore.addChangeListener(this._onChange);
+  }
+
+  componentWillUnmount(){
+    PageEditTStore.removeChangeListener(this._onChange);
+  }
+
+  render(){
+    let stageLength = this.state.Tjson.results.stages.length;
     if (this.state.editMode){
       let _saveButtonLable = this.state.Tjson.id ? 'Update' : 'Create';
       this._editButtons = <div>
@@ -59,18 +71,6 @@ export default class PageEditT extends React.Component{
     } else {
       this._editButtons = <div></div>;
     }
-  }
-
-  componentDidMount(){
-    PageEditTStore.addChangeListener(this._onChange);
-  }
-
-  componentWillUnmount(){
-    PageEditTStore.removeChangeListener(this._onChange);
-  }
-
-  render(){
-    let stageLength = this.state.Tjson.results.stages.length;
     return (
       <div>
         <AppBar
