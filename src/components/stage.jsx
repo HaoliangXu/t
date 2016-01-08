@@ -51,7 +51,7 @@ export default class Stage extends React.Component{
               <MenuItem onTouchTap={this._onShowDialogInfo} primaryText="Info" />
             </IconMenu> : null}
         />
-        <div style={{display: this.props.stageData.expand ? 'block' : 'none'}}>
+      <div style={{display: this.props.stageData.expand ? 'inline-block' : 'none'}}>
           {this._generateGroups(this.props.stageData)}
           {this._addNewGroupButton}
         </div>
