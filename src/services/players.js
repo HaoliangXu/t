@@ -6,11 +6,16 @@ var _players = [];
 var lastTid = 0;
 
 class PlayersService {
-  //Add random players with names like 'Player N'
-  addInitialPlayers(players, NumOfPlayers){
-    _players = players;
-    for (var i = 0; i < NumOfPlayers; i++) {
-      _players[i] = {
+  //Link _players to Tjson.players
+  //Any changes to _players affects to Tjson.players
+  linkPlayers(players){
+    _players = players
+  }
+
+  appendRandomPlayers(players, NumOfPlayers){
+    NumOfPlayers += players.length;
+    for (var i = players.length; i < NumOfPlayers; i++) {
+      players[i] = {
         iconUrl: '',
         name: 'Player ' + (i + 1),
         type: '',

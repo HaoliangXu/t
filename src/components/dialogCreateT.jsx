@@ -41,7 +41,7 @@ export default class DialogCreateT extends React.Component{
     if (!playerNumber || playerNumber < 2){
       playerNumber = 2;
     }
-    PlayersService.addInitialPlayers(anewT.players, playerNumber);
+    PlayersService.appendRandomPlayers(anewT.players, playerNumber);
     AppActions.nextPage('editT');
     setTimeout(AppActions.loadPage.bind(undefined, {page: 'editT', Tjson: anewT, editMode: true, modified: false}));
   }

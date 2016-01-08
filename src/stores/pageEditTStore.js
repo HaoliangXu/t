@@ -1,6 +1,7 @@
 import BaseStore from './BaseStore';
 import AppConstants from '../constants/appConstants.js';
 import EditTConstants from '../constants/editTConstants.js';
+import PlayersService from '../services/players.js';
 
 var _flags = {
   // TODO Indecates whether the T is edited, to determine to save T or not when leaving.
@@ -23,6 +24,7 @@ class PageEditTStore extends BaseStore{
           Tjson = payload.action.content.Tjson;
           _flags.editMode = payload.action.content.editMode;
           _flags.modified = payload.action.content.modified;
+          PlayersService.linkPlayers(Tjson.players);
           this.emitChange();
           break;
         case EditTConstants.ADD_STAGE:
