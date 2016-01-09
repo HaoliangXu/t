@@ -26,7 +26,11 @@ export default class RoundRobin extends BaseFormat{
     this._onDialogScoreSubmit = this._onDialogScoreSubmit.bind(this);
     this._onAddPlayer = this._onAddPlayer.bind(this);
     this._onAddMatch = this._onAddMatch.bind(this);
-    this._iconMenu = this.props.editMode ? <IconMenu style={{'float': 'left'}} openDirection='bottom-right' iconButtonElement={this._iconButtonElement}>
+    this._iconMenu = this.props.editMode ?
+      <IconMenu
+        style={{'float': 'left'}}
+        openDirection='bottom-right'
+        iconButtonElement={this._iconButtonElement}>
       {this._basicIconMenu}
       <MenuItem
         onTouchTap={this._onEditInfo} primaryText='Edit Info' />
@@ -100,6 +104,9 @@ export default class RoundRobin extends BaseFormat{
   }
 
   _onShowDialogScore(row){
+    if (!this.props.editMode){
+      return;
+    }
     var scoreRow = this.props.groupData.scores[row];
     editingScoreRow = row;
     this.refs.dialogScore.setState({
@@ -121,14 +128,19 @@ export default class RoundRobin extends BaseFormat{
         item.tid = -1;
         this._removePlayerRef(item.tid);
       }
-
-      return <tr key={'ts' + index} >
-        <td className='colNumber' onTouchTap={this._onRemoveScoreRow.bind(this, index)}>X</td>
-        <td className='playerName' onTouchTap={this._onShowDialogScore.bind(this, index)}>
+      let removeButton = this.props.editMode ?
+        <td
+          className='colNumber'
+          onTouchTap={this._onRemoveScoreRow.bind(this, index)}>
+          X
+        </td> : null;
+      return <tr key={'ts' + index} onTouchTap={this._onShowDialogScore.bind(this, index)}>
+        {removeButton}
+        <td className='playerName'>
           {player ? player.name : ''}
         </td>
-        <td onTouchTap={this._onShowDialogScore.bind(this, index)}>{item.score}</td>
-        <td onTouchTap={this._onShowDialogScore.bind(this, index)}>{item.points}</td>
+        <td>{item.score}</td>
+        <td>{item.points}</td>
       </tr>;
     });
   }
@@ -152,7 +164,8 @@ export default class RoundRobin extends BaseFormat{
     });
   }
 
-  _onRemoveScoreRow(index){
+  _onRemoveScoreRow(index, event){
+    event.stopPropagation();
     var scores = JSON.parse(JSON.stringify(this.props.groupData.scores));
     scores.splice(index, 1);
     EditTActions.editScoreBoard(
