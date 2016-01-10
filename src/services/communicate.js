@@ -95,8 +95,8 @@ var Comm = {
           Tjson: _unparseT(result)
         });
       },
-      function(model, error){
-        console.log(error);
+      function(error){
+        console.log('Error: ' + error.code + ' ' + error.message);
       }
     );
   },
@@ -129,22 +129,37 @@ var Comm = {
           }
           AppActions.loadPage(content);
         },
-        error: function(model, error){
-          console.log(error);
+        error: function(error){
+          console.log('Error: ' + error.code + ' ' + error.message);
         }
       });
     }
   },
 
-  reqLogin: function(username, password){
-    Parse.User.logIn(username, password).then(
+  reqSignup: function(email, password){
+    var user = new Parse.User();
+    user.signUp({
+      username: email,
+      password: password,
+      email, email
+    }).then(function(){
+      AuthActions.showLogin();
+      AppActions.showNotice('A verification email has been sent to your address');
+    }, function(error){
+      console.log('Error: ' + error.code + ' ' + error.message);
+    });
+  },
+
+  reqLogin: function(email, password){
+    Parse.User.logIn(email, password).then(
       function(user){
         console.log('Login Success!');
+        let authLevel = user.get('emailVerified') ? 2 : 1;
         let res = {
-          username: username,
+          email: email,
           id: user.id,
-          icon: user.get('icon'),
-          authLevel: 1
+          iconUrl: user.get('icon') ? user.get('icon').url() : null,
+          authLevel: authLevel
         };
         AuthActions.loginSuccess(res);
       },
@@ -163,6 +178,14 @@ var Comm = {
 
     //If Tjson has a valid id, update the existing T to server
     if (Tjson.id){
+      return;
+    }
+
+    let currentUser = Parse.User.current();
+    if (!currentUser){
+      //Error, anonymous is not authorized to create T
+      AppActions.showNotice('Please log in to create a tournament');
+
       return;
     }
 

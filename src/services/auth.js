@@ -1,11 +1,12 @@
 import AuthActions from '../actions/authActions';
 
-var authState = {
-  valid: false,
-  username: '',
-  id: 0,
+var _authState = {
+
+  loggedIn: false,
+  email: '',
+  id: '',
   iconUrl: '',
-  //0: read only, 1: logged in, able to create T, 2: admin
+  //0: read only, 1: logged in, 2: able to create T, 3: admin
   authLevel: 0
 };
 
@@ -20,13 +21,13 @@ class AuthService{
       currentReq = req;
     }
 
-    if (authState.valid === false) {
+    if (_authState.loggedIn === false){
       console.log('WARNING: [Not Logged in]');
       AuthActions.showLogin();
       return;
     }
 
-    if (authState.authLevel >= currentReq.authLevel) {
+    if (_authState.authLevel >= currentReq.authLevel){
       currentReq.callback();//TODO validation callback. maybe undefined.
       currentReq = undefined;
       return;
@@ -48,46 +49,10 @@ class AuthService{
   }
 
   loginSuccess(res){
-    authState = res;
-    authState.valid = true;
+    _authState = res;
+    _authState.loggedIn = true;
     this.requestAuth();
   }
-/*
-  Login(username, password) {
-    return this.handleAuth(when(request({
-      url: LOGIN_URL,
-      method: 'POST',
-      crossOrigin: true,
-      type: 'json',
-      data: {
-      }
-    })));
-  }
-
-  logout() {
-    LoginActions.logoutUser();
-  }
-
-  signup(username, password, extra) {
-    return this.handleAuth(when(request({
-      url: SIGNUP_URL,
-      method: 'POST',
-      crossOrigin: true,
-      type: 'json',
-      data: {
-      }
-    })));
-  }
-
-  handleAuth(loginPromise) {
-    return loginPromise
-      .then(function(response) {
-        var jwt = response.id_token;
-        LoginActions.loginUser(jwt);
-        return true;
-      });
-  }
-  */
 }
 
 export default new AuthService();

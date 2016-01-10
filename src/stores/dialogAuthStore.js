@@ -36,7 +36,7 @@ class DialogAuthStore extends BaseStore {
         case AuthConstants.LOGIN_FAIL:
           //TODO handle error text
           _msg.type = 'Error';
-          _msg.text = 'Login failed, try other username or password.';
+          _msg.text = 'Login failed, try other email or password.';
           this.emitChange();
           _msg.type = '';
           Auth.loginFail();

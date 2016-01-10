@@ -32,13 +32,12 @@ export default class Stage extends React.Component{
 
   render(){
     let _addNewGroupButton = this.props.editMode ? <RaisedButton
+      style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group'
       onTouchTap={this._onAddNewGroup.bind(
         undefined,
         this.props.stageData.groups.length,
         this.props.stageIndex
-      )}
-      style={{'width': '96%', 'margin': '2% 2% 0 2%'}} label='Add A New Group'
-    /> : null;
+      )} /> : null;
     return (
       <div className='stage'>
         <AppBar title={this.props.stageData.name}
