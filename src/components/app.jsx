@@ -14,6 +14,7 @@ import AppStore from '../stores/appStore.js';
 import Comm from '../services/communicate.js';
 import Router from '../services/router.js';
 import AppActions from '../actions/appActions.js';
+import Auth from '../services/auth.js';
 //import rawTheme from '../myMuiTheme.js';
 
 //Set mui theme, see material-ui docs

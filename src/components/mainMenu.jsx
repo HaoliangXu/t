@@ -1,31 +1,18 @@
 import React from 'react';
 import MainMenuStore from '../stores/mainMenuStore.js';
 import AppActions from '../actions/appActions.js';
+import Auth from '../services/auth.js';
 import LeftNav from 'material-ui/lib/left-nav.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 import DialogAuth from './dialogAuth.jsx';
 import Comm from '../services/communicate.js';
-//import rawTheme from '../myMuiTheme.js';
-
-//Set mui theme, see material-ui docs
-//var ThemeManager = Mui.Styles.ThemeManager;
-
-var menuItems = [
-  {route: 'discover', text: 'Discover'},
-  {route: 'calendar', text: 'Calendar'},
-  {route: 'likes', text: 'Likes'},
-  {route: 'msg', text: 'Messages'},
-  {route: 'forums', text: 'Forums'},
-  {route: 'settings', text: 'Settings'},
-  {route: 'about', text: 'About'}
-];
 
 export default class MainMenu extends React.Component{
 
   constructor(props){
     super(props);
     this.state = {
-      show: MainMenuStore.showMenu
+      menuItems: MainMenuStore.mainMenuState.menuItems
     };
     this._onChange = this._onChange.bind(this);
   }
@@ -42,7 +29,7 @@ export default class MainMenu extends React.Component{
     return (
       <div>
         <LeftNav ref='leftNav' disableSwipeToOpen={true} docked={false}
-          menuItems={menuItems} onChange={this._onItemChange}/>
+          menuItems={this.state.menuItems} onChange={this._onItemChange}/>
         <DialogAuth />
       </div>
     );
@@ -56,15 +43,21 @@ export default class MainMenu extends React.Component{
     this.refs.leftNav.close();
   }
 
-  //For Mui
-//  getChildContext() {
-//    return {
-//      muiTheme: ThemeManager.getMuiTheme(rawTheme)
-//    };
-//  }
+  _onItemChange(e, index, payload){
+    switch (payload.route){
+      case 'login':
+        Auth.requestAuth({
+          authLevel: 1,
+          callback: null
+        });
+        break;
+      case 'logout':
+        Comm.reqLogout();
+        break;
+      default:
 
-  _onItemChange(e, item, payload){
-    console.log('change');
+    }
+    /*
     AppActions.switchPage(payload.route);
     AppActions.showSpinner();
     Comm.reqPage({
@@ -73,11 +66,11 @@ export default class MainMenu extends React.Component{
         default: true
       }
     });
+    */
   }
 
   _onChange(){
     var state = MainMenuStore.mainMenuState;
-    console.log(state);
     if (state.triggerShow){
       this.open();
       return;
@@ -86,8 +79,3 @@ export default class MainMenu extends React.Component{
   }
 
 }
-
-//For Mui
-//MainMenu.childContextTypes = {
-//  muiTheme: React.PropTypes.object
-//};

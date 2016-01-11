@@ -23,10 +23,15 @@ export default {
   },
 
   loginSuccess: function(res){
-    console.log('loginSuccess');
     AppDispatcher.handleServerAction({
       actionType: AuthConstants.LOGIN_SUCCESS,
       res: res
+    });
+  },
+
+  logoutSuccess: function(){
+    AppDispatcher.handleServerAction({
+      actionType: AuthConstants.LOGOUT_SUCCESS
     });
   }
   /*

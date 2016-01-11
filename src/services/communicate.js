@@ -37,6 +37,16 @@ function _unparseT(res){
   };
 }
 
+function _unparseUser(user){
+  return {
+    username: user.get('username'),
+    email: user.get('email'),
+    id: user.id,
+    iconUrl: user.get('icon') ? user.get('icon').url() : null,
+    authLevel: user.get('emailVerified') ? 2 : 1
+  };
+}
+
 /*
 function _parseT(Tjson){
   return {
@@ -100,7 +110,8 @@ var Comm = {
       }
     );
   },
-
+  ///////////////////////////////////////////////////////////////////
+  // View T methods
   reqTList: function(params){
     console.log('requesting discover list');
     let query = new Parse.Query('Tournament');
@@ -135,7 +146,28 @@ var Comm = {
       });
     }
   },
+///////////////////////////////////////////////////////////////////
+// User management methods
 
+/*
+  //Return current user, if none logged in, return null
+  currentUser: function(){
+    let user = Parse.User.current();
+    if (user){
+      user = _unparseUser(user);
+    } else {
+      user = {
+        username: '',
+        email: '',
+        id: '',
+        iconUrl: '',
+        //0: read only, 1: logged in, 2: able to create T, 3: admin
+        authLevel: 0
+      };
+    }
+    return user;
+  }
+*/
   reqSignup: function(email, password){
     var user = new Parse.User();
     user.signUp({
@@ -154,13 +186,7 @@ var Comm = {
     Parse.User.logIn(email, password).then(
       function(user){
         console.log('Login Success!');
-        let authLevel = user.get('emailVerified') ? 2 : 1;
-        let res = {
-          email: email,
-          id: user.id,
-          iconUrl: user.get('icon') ? user.get('icon').url() : null,
-          authLevel: authLevel
-        };
+        let res = _unparseUser(user);
         AuthActions.loginSuccess(res);
       },
       function(error){
@@ -171,9 +197,15 @@ var Comm = {
   },
 
   reqLogout: function(){
-
+    Parse.User.logOut().then(function(){
+      AuthActions.logoutSuccess();
+    }, function(error){
+      console.log('Error: ' + error.code + ' ' + error.message);
+    });
   },
 
+  ///////////////////////////////////////////////////////////////////
+  // Edit T methods
   saveT: function(Tjson){//TODO Add user permission validation
 
     //If Tjson has a valid id, update the existing T to server
@@ -220,7 +252,7 @@ var Comm = {
       AppActions.showNotice('T saved');
     },
     function(error){
-      console.log(error);
+      console.log('Error: ' + error.code + ' ' + error.message);
     });
   }
 };

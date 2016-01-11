@@ -1,7 +1,7 @@
 import AuthActions from '../actions/authActions';
 
 var _authState = {
-
+  username: '',
   loggedIn: false,
   email: '',
   id: '',
@@ -15,36 +15,45 @@ var currentReq;
 
 class AuthService{
 
-  //If login intensely without other actions to do, then send a empty req, not undefined.
+  //CAUTION If login intensely without other actions to do,
+  //then send a null as callback, not undefined.
+  //
+  //Description: If not loggedin, save the request to currentReq,
+  //    then show login dialog. After logged in, call requestAuth again to execute the callback
+  //    If logged in and authLevel is not enough, then throw a warning.
   requestAuth(req){
     if (req) {
       currentReq = req;
     }
 
     if (_authState.loggedIn === false){
-      console.log('WARNING: [Not Logged in]');
+      if (currentReq.callback !== null){
+        console.log('WARNING: [Not Logged in]');
+      }
       AuthActions.showLogin();
       return;
     }
-
     if (_authState.authLevel >= currentReq.authLevel){
-      currentReq.callback();//TODO validation callback. maybe undefined.
-      currentReq = undefined;
+      if (typeof currentReq.callback === 'function'){
+        //TODO validation callback. maybe undefined.
+        currentReq.callback();
+      };
+      currentReq = null;
       return;
     }
     //TODO Handle Warning
-    currentReq = undefined;
+    currentReq = null;
     console.log('WARNING: [Low AuthLevel] Try logout and login with a higher authlevel account.');
   }
 
   loginCancel(){
     //TODO Handle Warning
-    currentReq = undefined;
+    currentReq = null;
     console.log('WARNING: [Login Cancelled]');
   }
 
   loginFail(){
-    currentReq = undefined;
+    currentReq = null;
     console.log('WARNING: [Login Failed]');
   }
 
@@ -52,6 +61,21 @@ class AuthService{
     _authState = res;
     _authState.loggedIn = true;
     this.requestAuth();
+  }
+
+  logoutSuccess(){
+    _authState = {
+      username: 'test',
+      loggedIn: false,
+      email: '',
+      id: '',
+      iconUrl: '',
+      authLevel: 0
+    }
+  }
+
+  get authState(){
+    return _authState;
   }
 }
 

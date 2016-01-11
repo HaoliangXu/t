@@ -27,6 +27,7 @@ export default class PageEditT extends React.Component{
       modified: false,
       editMode: false,
       Tjson: {
+        name: '',
         results: {
           stages: []
         },
