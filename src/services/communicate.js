@@ -149,25 +149,15 @@ var Comm = {
 ///////////////////////////////////////////////////////////////////
 // User management methods
 
-/*
   //Return current user, if none logged in, return null
-  currentUser: function(){
+  checkAuthStatus: function(){
     let user = Parse.User.current();
     if (user){
-      user = _unparseUser(user);
-    } else {
-      user = {
-        username: '',
-        email: '',
-        id: '',
-        iconUrl: '',
-        //0: read only, 1: logged in, 2: able to create T, 3: admin
-        authLevel: 0
-      };
+      let res = _unparseUser(user);
+      AuthActions.loginSuccess(res);
     }
-    return user;
-  }
-*/
+  },
+
   reqSignup: function(email, password){
     var user = new Parse.User();
     user.signUp({

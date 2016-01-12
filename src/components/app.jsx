@@ -36,6 +36,7 @@ export default class App extends React.Component {
     AppStore.addChangeListener(this._onChange);
     Comm.reqPage(req);
     AppActions.nextPage(req.page);
+    Comm.checkAuthStatus();
   }
 
   render(){

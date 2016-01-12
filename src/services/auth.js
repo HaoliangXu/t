@@ -2,7 +2,6 @@ import AuthActions from '../actions/authActions';
 
 var _authState = {
   username: '',
-  loggedIn: false,
   email: '',
   id: '',
   iconUrl: '',
@@ -10,8 +9,11 @@ var _authState = {
   authLevel: 0
 };
 
-//currentReq = {level: level, callback: callback}
-var currentReq;
+//currentReq = {authLevel: level, callback: callback}
+var currentReq = {
+  authLevel: 1,
+  callback: null
+};
 
 class AuthService{
 
@@ -26,9 +28,9 @@ class AuthService{
       currentReq = req;
     }
 
-    if (_authState.loggedIn === false){
+    if (_authState.authLevel === 0){
       if (currentReq.callback !== null){
-        console.log('WARNING: [Not Logged in]');
+        console.log('WARNING: [Not Logged in] You need to login to do it.');
       }
       AuthActions.showLogin();
       return;
@@ -59,14 +61,12 @@ class AuthService{
 
   loginSuccess(res){
     _authState = res;
-    _authState.loggedIn = true;
     this.requestAuth();
   }
 
   logoutSuccess(){
     _authState = {
       username: 'test',
-      loggedIn: false,
       email: '',
       id: '',
       iconUrl: '',
