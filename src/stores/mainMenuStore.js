@@ -26,7 +26,7 @@ class MainMenuStore extends BaseStore{
   constructor(){
     super();
     this.subscribe(function(payload){
-      switch (payload.action.actionType) {
+      switch (payload.action.actionType){
         case AppConstants.SHOW_MAINMENU:
           console.log('dispatching action ' + payload.action.actionType + ' to MainMenuStore');
           _mainMenuState.triggerShow = true;

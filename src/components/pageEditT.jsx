@@ -54,10 +54,12 @@ export default class PageEditT extends React.Component{
   }
 
   render(){
-    let stageLength = this.state.Tjson.results.stages.length;
+    let _editMenuItem = null;
+    let _editButtons = null;
     if (this.state.editMode){
-      let _saveButtonLable = this.state.Tjson.id ? 'Update' : 'Create';
-      this._editButtons = <div>
+      let stageLength = this.state.Tjson.results.stages.length;
+      let _saveButtonLable = this.state.Tjson.id ? 'Save' : 'Create';
+      _editButtons = <div>
         <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
         <RaisedButton onTouchTap={this._onSave}
@@ -69,8 +71,9 @@ export default class PageEditT extends React.Component{
           style={{'width': '50%', 'marginTop': '2rem'}}
           label='Discard' />
       </div>;
-    } else {
-      this._editButtons = <div></div>;
+      if (Auth.authState.id === this.state.Tjson.id){
+        _editMenuItem = <MenuItem onTouchTap={this._onEditT.bind(this)} primaryText='Edit' />
+      }
     }
     return (
       <div>
@@ -83,9 +86,10 @@ export default class PageEditT extends React.Component{
             <IconMenu iconButtonElement={
               <IconButton><Menu /></IconButton>
               }
-              openDirection="bottom-right">
-              <MenuItem primaryText="Players" />
-              <MenuItem onTouchTap={this._onTInfo} primaryText="Info" />
+              openDirection='bottom-right'>
+              {_editMenuItem}
+              <MenuItem primaryText='Players' />
+              <MenuItem onTouchTap={this._onTInfo} primaryText='Info' />
             </IconMenu> : null}
           />
         {this.state.Tjson.results.stages.map((stage, stageIndex)=>{
@@ -96,7 +100,7 @@ export default class PageEditT extends React.Component{
             key={'stage.' + stageIndex}
             />;
         })}
-        {this._editButtons}
+        {_editButtons}
         <Dialog
           title='Really want to leave without save?'
           actions={this._backDialogActions}
@@ -116,6 +120,17 @@ export default class PageEditT extends React.Component{
 
   _onTInfo(){
     this.refs.dialogTInfo.show();
+  }
+
+  _onEditT(){
+    AppActions.nextPage('editT');
+    AppActions.showSpinner();
+    AppActions.loadPage({
+      page: 'editT',
+      editMode: true,
+      modified: false,
+      Tjson: this.state.Tjson
+    });
   }
 
   _onSave(){

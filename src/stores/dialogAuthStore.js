@@ -18,12 +18,12 @@ var _msg = {
   text: ''
 };
 
-class DialogAuthStore extends BaseStore {
+class DialogAuthStore extends BaseStore{
 
   constructor(){
     super();
     this.subscribe(function(payload){
-      switch (payload.action.actionType) {
+      switch (payload.action.actionType){
         case AuthConstants.SHOW_LOGIN:
           _showDialog = true;
           this.emitChange();

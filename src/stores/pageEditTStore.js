@@ -143,6 +143,11 @@ class PageEditTStore extends BaseStore{
           _flags.modified = true;
           this.emitChange();
           break;
+        //When login or logout, the 'Edit' menuItem needs to change accordingly.
+        case AppConstants.LOGIN_SUCCESS:
+        case AppConstants.LOGOUT_SUCCESS:
+          this.emitChange();
+          break;
         default:
           // no op
 
