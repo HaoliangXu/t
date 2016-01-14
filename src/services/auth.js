@@ -2,6 +2,7 @@ import AuthActions from '../actions/authActions';
 
 var _authState = {
   username: '',
+  screenName: '',
   email: '',
   id: '',
   iconUrl: '',
@@ -66,7 +67,8 @@ class AuthService{
 
   logoutSuccess(){
     _authState = {
-      username: 'test',
+      username: '',
+      screenName: '',
       email: '',
       id: '',
       iconUrl: '',

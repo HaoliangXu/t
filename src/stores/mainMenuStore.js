@@ -35,7 +35,7 @@ class MainMenuStore extends BaseStore{
           break;
         case AuthConstants.LOGIN_SUCCESS:
           AppDispatcher.waitFor([DialogAuthStore._dispatchToken]);
-          _mainMenuState.menuItems[0].text = Auth.authState.username;
+          _mainMenuState.menuItems[0].text = Auth.authState.screenName;
           _mainMenuState.menuItems[1] = {route: 'logout', text: 'Logout'};
           this.emitChange();
           break;

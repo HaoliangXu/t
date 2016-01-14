@@ -41,6 +41,7 @@ function _unparseUser(user){
   return {
     username: user.get('username'),
     email: user.get('email'),
+    screenName: user.get('screenName'),
     id: user.id,
     iconUrl: user.get('icon') ? user.get('icon').url() : null,
     authLevel: user.get('emailVerified') ? 2 : 1
@@ -162,6 +163,7 @@ var Comm = {
     var user = new Parse.User();
     user.signUp({
       username: email,
+      screenName: email,
       password: password,
       email, email
     }).then(function(){
@@ -198,45 +200,60 @@ var Comm = {
   // Edit T methods
   saveT: function(Tjson){//TODO Add user permission validation
 
-    //If Tjson has a valid id, update the existing T to server
-    if (Tjson.id){
-      return;
-    }
-
-    let currentUser = Parse.User.current();
-    if (!currentUser){
-      //Error, anonymous is not authorized to create T
-      AppActions.showNotice('Please log in to create a tournament');
-
-      return;
-    }
-
-    //Tjson doesn't have a valid id, create a new one on server
     let Tournament = Parse.Object.extend('Tournament');
-    let newT = new Tournament();
-
-    //TODO Access control to be finished
-    //newT.setACL(Parse.User.current());
-
-    newT.save({
+    let t;
+    let ObjectToSave = {
       name: Tjson.name,
       sport: Tjson.sport,
       city: Tjson.city,
       geoPoint: Tjson.geoPoint ? Parse.GeoPoint(Tjson.geoPoint) : null,
       startAt: Tjson.startAt,
       finished: Tjson.finished,
-      bgPic: Tjson. bgPic,
+      bgPic: Tjson.bgPic,
       info: Tjson.info,
-      creator: Parse.User.current(),
       players: Tjson.players,
       results: Tjson.results
-    }).then(function(result){
+    };
+
+    let currentUser = Parse.User.current();
+    if (!currentUser){
+      //Error, anonymous is not authorized to create T
+      AppActions.showNotice('Please log in to create or modify a tournament');
+      return;
+    }
+
+    //If Tjson has a valid id, update the existing T to server
+    if (Tjson.id){
+      let quary = new Parse.Query(Tournament);
+      quary.get(Tjson.id).then(function(T){
+        if (T.get('creator').id !== currentUser.id){
+          AppActions.showNotice('You don not have the permission to modify it');
+          return;
+        }
+        t = T;
+      }, function(error){
+        console.log('Error: ' + error.code + ' ' + error.message);
+        AppActions.showNotice('Can not update the tournament');
+        return;
+      });
+    } else {
+      //Tjson doesn't have a valid id, create a new one
+      let  acl = new Parse.ACL();
+      acl.setPublicReadAccess(true);
+      acl.setWriteAccess(Parse.User.current().id, true);
+      acl.setRoleWriteAccess('master', true);
+      t = new Tournament();
+      t.setACL(acl);
+      ObjectToSave.creator = currentUser;
+    }
+
+    t.save(ObjectToSave).then(function(result){
       console.log('Save success');
       AppActions.hideSpinner();
       AppActions.loadPage({
         page: 'editT',
         Tjson: _unparseT(result),
-        editMode: false,
+        editMode: true,
         modified: false
       });
       AppActions.showNotice('T saved');
