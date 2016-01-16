@@ -14,6 +14,7 @@ import DialogTInfo from './dialogTInfo.jsx';
 import PageEditTStore from '../stores/pageEditTStore.js';
 
 import Comm from '../services/communicate.js';
+import Auth from '../services/auth.js';
 import AppActions from '../actions/appActions.js';
 import EditTActions from '../actions/editTActions.js';
 import {newStage} from '../utils/appConfig.js';
@@ -54,13 +55,14 @@ export default class PageEditT extends React.Component{
   }
 
   render(){
-    let _editMenuItem = null;
-    let _editButtons = null;
+    let _editMenuItem = <div></div>;
+    let _editButtons = <div></div>;
+    let _editInfoMenuItem = <div></div>;
     if (this.state.editMode){
-      let stageLength = this.state.Tjson.results.stages.length;
+      let _stageLength = this.state.Tjson.results.stages.length;
       let _saveButtonLable = this.state.Tjson.id ? 'Save' : 'Create';
       _editButtons = <div>
-        <RaisedButton onTouchTap={this._onAddNewStage.bind(this, stageLength)}
+        <RaisedButton onTouchTap={this._onAddNewStage.bind(this, _stageLength)}
           secondary={true} style={{'width': '100%'}} label='Add A New Stage' />
         <RaisedButton onTouchTap={this._onSave}
           primary={true}
@@ -69,28 +71,29 @@ export default class PageEditT extends React.Component{
         <RaisedButton onTouchTap={this._onDiscard}
           primary={true}
           style={{'width': '50%', 'marginTop': '2rem'}}
-          label='Discard' />
+          label='End Editing' />
       </div>;
-      if (Auth.authState.id === this.state.Tjson.id){
+      _editInfoMenuItem =
+        <MenuItem onTouchTap={this._onTInfo} primaryText='Edit Info' />;
+    } else {
+      if (Auth.authState.id === this.state.Tjson.creatorId){
         _editMenuItem = <MenuItem onTouchTap={this._onEditT.bind(this)} primaryText='Edit' />
       }
     }
     return (
       <div>
         <AppBar
-          title={this.state.Tjson.name + (this.state.editMode ? '(Edit Mode)' : '')}
+          title={this.state.Tjson.name + (this.state.editMode ? ' --(Edit Mode)' : '')}
           zDepth={2}
           style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
           iconElementRight={<IconButton onTouchTap={this._onPagePlayer}><PeopleSvg /></IconButton>}
-          iconElementLeft={this.state.editMode ?
-            <IconMenu iconButtonElement={
+          iconElementLeft={<IconMenu iconButtonElement={
               <IconButton><Menu /></IconButton>
               }
               openDirection='bottom-right'>
               {_editMenuItem}
-              <MenuItem primaryText='Players' />
-              <MenuItem onTouchTap={this._onTInfo} primaryText='Info' />
-            </IconMenu> : null}
+              {_editInfoMenuItem}
+            </IconMenu>}
           />
         {this.state.Tjson.results.stages.map((stage, stageIndex)=>{
           return <Stage

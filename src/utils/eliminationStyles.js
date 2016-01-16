@@ -18,7 +18,7 @@ eliminationStyles[2] = {
 
 eliminationStyles[4] = {
   container: [
-    '15rem',
+    '20rem',
     '15rem'
   ],
   labels: [],

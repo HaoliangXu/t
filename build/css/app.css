@@ -5,10 +5,11 @@ body{
   -webkit-user-select: none;
   background-color: #ddd;
 }
+body::-webkit-scrollbar {
+ display: none;
+}
 div#container {
-  overflow-x:hidden;
-  width:100%;
-  position:relative;
+  position: relative;
 }
 div#app{
   top: 0;
@@ -42,8 +43,8 @@ div#splashContent{
 }
 
 .group{
-  margin: 2% 0 0 2%;
-  max-width: 96%;
+  margin: 2% 0 0 2vw;
+  max-width: 94vw;
   float: left;
   min-width: 25rem;
   min-height: 15rem;
@@ -69,6 +70,7 @@ div#splashContent{
 }
 
 .stage{
+  width: 100vw;
   margin: 2% 0;
   padding: 0 0 2% 0;
   background-color: white;
@@ -82,6 +84,7 @@ div#splashContent{
   border-collapse: collapse;
   margin: 0 1em 2rem 1rem;
   min-width: 23rem;
+  max-width: calc(100% - 2rem);
   text-align: center;
 }
 

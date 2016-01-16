@@ -16,13 +16,6 @@ import PlayersService from '../../services/players.js';
 export default class Elimination extends BaseFormat{
   constructor(props){
     super(props);
-    this._iconMenu = this.props.editMode ? <IconMenu style={{'float': 'left'}} openDirection='bottom-right' iconButtonElement={this._iconButtonElement}>
-      {this._basicIconMenu}
-      <MenuItem
-        onTouchTap={this._onEditInfo} primaryText='Edit Info' />
-      <MenuItem
-        onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
-    </IconMenu> : null;
     if (this.props.groupData.format === 'elimination'){
       this._styles = eliminationStyles[this.props.groupData.matches.length + 1];
       return;
@@ -35,16 +28,23 @@ export default class Elimination extends BaseFormat{
   }
 
   render(){
+    let _iconMenu = this.props.editMode ? <IconMenu style={{'float': 'left'}} openDirection='bottom-right' iconButtonElement={this._iconButtonElement}>
+      {this._basicIconMenu}
+      <MenuItem
+        onTouchTap={this._onEditInfo} primaryText='Edit Info' />
+      <MenuItem
+        onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
+    </IconMenu> : null;
     return (
       <div className='group'>
         <Card>
           <CardTitle
             title={<div>
-              {this._iconMenu}
+              {_iconMenu}
               <span>{this.props.groupData.name}</span>
             </div>}
             subtitle={this.props.groupData.status} />
-          <div className='groupContent' style={{overflow: 'scroll'}}>
+          <div className='groupContent' style={{overflow: 'auto'}}>
             {this._generateMatches()}
           </div>
         </Card>

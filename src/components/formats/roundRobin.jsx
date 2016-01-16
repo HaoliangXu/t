@@ -26,7 +26,15 @@ export default class RoundRobin extends BaseFormat{
     this._onDialogScoreSubmit = this._onDialogScoreSubmit.bind(this);
     this._onAddPlayer = this._onAddPlayer.bind(this);
     this._onAddMatch = this._onAddMatch.bind(this);
-    this._iconMenu = this.props.editMode ?
+    //Actions for  dialogs
+    this.dialogScoreActions = [
+      {text: 'Do it', onTouchTap: this._onDialogScoreSubmit, ref: 'scoreSubmit'},
+      {text: 'Nay', onTouchTap: this._onDialogScoreCancel}
+    ];
+  }
+
+  render(){
+    let _iconMenu = this.props.editMode ?
       <IconMenu
         style={{'float': 'left'}}
         openDirection='bottom-right'
@@ -37,20 +45,12 @@ export default class RoundRobin extends BaseFormat{
       <MenuItem
         onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
     </IconMenu> : null;
-    //Actions for  dialogs
-    this.dialogScoreActions = [
-      {text: 'Do it', onTouchTap: this._onDialogScoreSubmit, ref: 'scoreSubmit'},
-      {text: 'Nay', onTouchTap: this._onDialogScoreCancel}
-    ];
-  }
-
-  render() {
     return (
       <div className='roundRobin group'>
         <Card>
           <CardTitle
             title={<div>
-              {this._iconMenu}
+              {_iconMenu}
               <span>{this.props.groupData.name}</span>
             </div>}
             subtitle={this.props.groupData.status} />

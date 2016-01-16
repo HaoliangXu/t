@@ -223,6 +223,22 @@ var Comm = {
     }
 
     //If Tjson has a valid id, update the existing T to server
+    function saveToServer(){
+      t.save(ObjectToSave).then(function(result){
+        console.log('Save success');
+        AppActions.hideSpinner();
+        AppActions.loadPage({
+          page: 'editT',
+          Tjson: _unparseT(result),
+          editMode: true,
+          modified: false
+        });
+        AppActions.showNotice('T saved');
+      },
+      function(error){
+        console.log('Error: ' + error.code + ' ' + error.message);
+      });
+    }
     if (Tjson.id){
       let quary = new Parse.Query(Tournament);
       quary.get(Tjson.id).then(function(T){
@@ -231,6 +247,7 @@ var Comm = {
           return;
         }
         t = T;
+        saveToServer();
       }, function(error){
         console.log('Error: ' + error.code + ' ' + error.message);
         AppActions.showNotice('Can not update the tournament');
@@ -245,22 +262,8 @@ var Comm = {
       t = new Tournament();
       t.setACL(acl);
       ObjectToSave.creator = currentUser;
+      saveToServer();
     }
-
-    t.save(ObjectToSave).then(function(result){
-      console.log('Save success');
-      AppActions.hideSpinner();
-      AppActions.loadPage({
-        page: 'editT',
-        Tjson: _unparseT(result),
-        editMode: true,
-        modified: false
-      });
-      AppActions.showNotice('T saved');
-    },
-    function(error){
-      console.log('Error: ' + error.code + ' ' + error.message);
-    });
   }
 };
 
