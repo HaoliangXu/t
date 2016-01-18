@@ -165,7 +165,7 @@ var Comm = {
       username: email,
       screenName: email,
       password: password,
-      email, email
+      email: email
     }).then(function(){
       AuthActions.showLogin();
       AppActions.showNotice('A verification email has been sent to your address');
