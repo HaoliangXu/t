@@ -22,8 +22,9 @@ export default class Notice extends React.Component{
 
   render(){
     return <Snackbar
+      style={{zIndex: '20'}}
       message={this.state.notice}
-      autoHideDuration={1500}
+      autoHideDuration={3000}
       ref='notice' />;
   }
 

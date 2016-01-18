@@ -118,7 +118,6 @@ export default class PageEditT extends React.Component{
 
   _onPagePlayer(){
     AppActions.nextPage('players');
-    AppActions.showSpinner();
   }
 
   _onTInfo(){

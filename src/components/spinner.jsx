@@ -1,5 +1,6 @@
 import React from 'react';
 import SpinnerStore from '../stores/SpinnerStore.js';
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 export default class Spinner extends React.Component{
 
@@ -9,6 +10,9 @@ export default class Spinner extends React.Component{
       show: SpinnerStore.showSpinner
     };
     this._onChange = this._onChange.bind(this);
+    this._spinnerPage = <div className='spinner'><div className='spinnerPosition'>
+      <CircularProgress mode='indeterminate' size={1.5} />
+    </div></div>;
   }
 
   componentDidMount(){
@@ -20,11 +24,8 @@ export default class Spinner extends React.Component{
   }
 
   render(){
-    return (
-      <div id='spinner'>
-
-      </div>
-    );
+    //return this._spinnerPage;
+    return this.state.show ? this._spinnerPage : null;
   }
 
   _onChange(){

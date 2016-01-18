@@ -89,7 +89,7 @@ var Comm = {
   reqSplash: function(){
     return {
       'mode': 'non-intro',
-      'content': 'Loading...'
+      'content': 'Zealot Camp'
     };
   },
 
@@ -180,8 +180,10 @@ var Comm = {
         console.log('Login Success!');
         let res = _unparseUser(user);
         AuthActions.loginSuccess(res);
+        AppActions.hideSpinner();
       },
       function(error){
+        AppActions.hideSpinner();
         console.log('ERROR: ', error);
         AppActions.showNotice(error.message);
       }

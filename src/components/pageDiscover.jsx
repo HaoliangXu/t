@@ -2,7 +2,6 @@ import React from 'react';
 import AppActions from '../actions/appActions.js';
 import PageDiscoverStore from '../stores/pageDiscoverStore.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
-import Spinner from './spinner.jsx';
 import Comm from '../services/communicate.js';
 import List from 'material-ui/lib/lists/list.js';
 import ListItem from 'material-ui/lib/lists/list-item.js';
@@ -40,7 +39,6 @@ export default class PageDiscover extends React.Component{
       <div>
         {this.state.lists.map(this._generateListComponents)}
         <MainButtonGroup page='discover'/>
-        <Spinner />
       </div>
     );
   }

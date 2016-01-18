@@ -17,7 +17,6 @@ import {Table, TableHeader, TableRowColumn, TableHeaderColumn, TableBody, TableR
 import PlayersService from '../services/players.js';
 import AppActions from '../actions/appActions.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
-import Spinner from './spinner.jsx';
 
 //The id that popup dialog is editing.
 var editingPlayerTid = -1;
@@ -82,7 +81,6 @@ export default class PagePlayers extends React.Component{
         </form>
       </Dialog>
       <MainButtonGroup page='players' />
-      <Spinner />
     </div>;
   }
 

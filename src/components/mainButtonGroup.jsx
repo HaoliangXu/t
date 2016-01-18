@@ -62,27 +62,27 @@ export default class MainButtonGroup extends React.Component {
     }
   }
 
-  _onBackClick(e){
+  _onBackClick(){
     console.log('back clicked');
     AppActions.lastPage();
   }
 
-  _onLikeClick(e){
+  _onLikeClick(){
     console.log('like clicked');
 
   }
 
-  _onShareClick(e){
+  _onShareClick(){
     console.log('share clicked');
 
   }
 
-  _onMenuClick(e){
+  _onMenuClick(){
     console.log('menu clicked');
     AppActions.showMainMenu();
   }
 
-  _onCreateTClick(e){
+  _onCreateTClick(){
     console.log('create clicked');
     var callback = this.refs.dialogCreateT.show;
     Auth.requestAuth({

@@ -108,10 +108,6 @@ export default class DialogAuth extends React.Component{
     */
   }
 
-  _showSpinner(){
-
-  }
-
   _onDialogLogin(){
     console.log('on dialog login');
     let email = this.refs.txtEmail.getValue();
@@ -126,9 +122,8 @@ export default class DialogAuth extends React.Component{
       AppActions.showNotice('Illegal password');
       return;
     }
-
+    AppActions.showSpinner();
     Comm.reqLogin(email, password);
-    this._showSpinner();//TODO show and hid spinner
   }
 
   _onDialogShowSignup(){
