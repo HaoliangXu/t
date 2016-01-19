@@ -33,7 +33,6 @@ export default class PagePlayers extends React.Component{
     ];
   }
 
-
   render(){
     return <div>
       <AppBar
@@ -46,7 +45,6 @@ export default class PagePlayers extends React.Component{
             <IconButton><Menu /></IconButton>
             }
             openDirection="bottom-right">
-            <MenuItem primaryText="Players" />
             <MenuItem primaryText="Info" />
           </IconMenu>
         } />

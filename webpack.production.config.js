@@ -3,7 +3,7 @@ var node_modules = path.resolve(__dirname, 'node_modules');
 var pathToReact = path.resolve(node_modules, 'react/react.js');
 
 config = {
-  entry: ['./src/main.js'],
+  entry: ['babel/polyfill', './src/main.js'],
   resolve: {
     /*alias: {
       'react': pathToReact
