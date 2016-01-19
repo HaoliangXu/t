@@ -47,11 +47,6 @@ export default class PageMatch extends React.Component{
       {text: 'Nay', onTouchTap: this._onDialogGameCancel}
     ];
     this._onAddGame = this._onAddGame.bind(this);
-    this._removeMatchButton = this.state.editMode ? <RaisedButton onTouchTap={this._onRemoveMatch}
-      primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' /> : null;
-    this._addAGameButton = this.state.editMode ? <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
-      <TableRowColumn  style={{textAlign: 'center'}} colSpan={3}>Add A Game</TableRowColumn>
-    </TableRow> : null;
   }
 
   componentDidMount(){
@@ -63,8 +58,13 @@ export default class PageMatch extends React.Component{
   }
 
   render(){
-    var player1 = PlayersService.reqPlayerByTid(this.state.match.players[0].tid);
-    var player2 = PlayersService.reqPlayerByTid(this.state.match.players[1].tid);
+    let player1 = PlayersService.reqPlayerByTid(this.state.match.players[0].tid);
+    let player2 = PlayersService.reqPlayerByTid(this.state.match.players[1].tid);
+    let _removeMatchButton = this.state.editMode ? <RaisedButton onTouchTap={this._onRemoveMatch}
+      primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' /> : null;
+    let _addAGameButton = this.state.editMode ? <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
+      <TableRowColumn  style={{textAlign: 'center'}} colSpan={3}>Add A Game</TableRowColumn>
+    </TableRow> : null;
     return (
       <div>
         <Table
@@ -72,14 +72,13 @@ export default class PageMatch extends React.Component{
           selectable={false}>
           <TableHeader
             adjustForCheckbox={false}
-            onTouchTap={this._onDialogMatchInfo}
             displaySelectAll={false}>
-            <TableRow>
+            <TableRow onTouchTap={this._onDialogMatchInfo}>
               <TableHeaderColumn style={{textAlign: 'center'}}>{player1 ? player1.name : ''}</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>V.S.</TableHeaderColumn>
-              <TableHeaderColumn style={{textAlign: 'center'}}>{player1 ? player1.name : ''}</TableHeaderColumn>
+              <TableHeaderColumn style={{textAlign: 'center'}}>{player2 ? player2.name : ''}</TableHeaderColumn>
             </TableRow>
-            <TableRow>
+            <TableRow onTouchTap={this._onDialogMatchInfo}>
               <TableHeaderColumn style={{textAlign: 'center'}}>{this.state.match.players[0].points}</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>:</TableHeaderColumn>
               <TableHeaderColumn style={{textAlign: 'center'}}>{this.state.match.players[1].points}</TableHeaderColumn>
@@ -88,9 +87,10 @@ export default class PageMatch extends React.Component{
           <TableBody
             displayRowCheckbox={false}>
             {this._generateGames()}
-            {this._addAGameButton}
+            {_addAGameButton}
           </TableBody>
         </Table>
+        {_removeMatchButton}
         <Dialog
           title='Edit Match Info'
           actions={this.dialogInfoActions}

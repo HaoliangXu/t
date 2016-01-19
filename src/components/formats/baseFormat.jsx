@@ -37,7 +37,7 @@ export default class BaseFormat extends React.Component{
     ];
     this._onDialogCancel = this._onDialogCancel.bind(this);
     this._onDialogSubmit = this._onDialogSubmit.bind(this);
-    this._onShowDialogPlayers = this._onShowDialogGroupPlayers.bind(this);
+    this._onShowDialogGroupPlayers = this._onShowDialogGroupPlayers.bind(this);
     this._onEditInfo = this._onEditInfo.bind(this);
     this.dialogInfoActions = [
       {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
@@ -67,9 +67,7 @@ export default class BaseFormat extends React.Component{
   }
 
   _onShowDialogGroupPlayers(){
-    this.refs.dialogGroupPlayers.setState({
-      open: true
-    });
+    this.refs.dialogGroupPlayers.show();
   }
 
   _onMoveUp(groupIndex, stageIndex){

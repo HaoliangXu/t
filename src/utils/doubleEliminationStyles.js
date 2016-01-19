@@ -2,7 +2,7 @@ var doubleEliminationStyles = {};
 
 doubleEliminationStyles[4] = {
   container: [
-    '30rem',
+    '31rem',
     '17rem'
   ],
   labels: [],
@@ -12,14 +12,14 @@ doubleEliminationStyles[4] = {
     [12, 0],
     [2.5, 10],
     [12, 10],
-    [5, 20]
+    [7.25, 20]
   ],
   connections: []
 };
 
 doubleEliminationStyles[8] = {
   container: [
-    '50rem',
+    '51rem',
     '32rem'
   ],
   labels: [],
@@ -44,7 +44,7 @@ doubleEliminationStyles[8] = {
 
 doubleEliminationStyles[16] = {
   container: [
-    '70rem',
+    '71rem',
     '62rem'
   ],
   labels: [],

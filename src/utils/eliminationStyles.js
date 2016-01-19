@@ -2,7 +2,7 @@ var eliminationStyles = {};
 
 eliminationStyles[2] = {
   container: [
-    '15rem',
+    '16rem',
     '15rem'
   ],
   labels: [
@@ -18,7 +18,7 @@ eliminationStyles[2] = {
 
 eliminationStyles[4] = {
   container: [
-    '20rem',
+    '21rem',
     '15rem'
   ],
   labels: [],
@@ -32,7 +32,7 @@ eliminationStyles[4] = {
 
 eliminationStyles[8] = {
   container: [
-    '30rem',
+    '31rem',
     '20rem'
   ],
   labels: [],
@@ -50,7 +50,7 @@ eliminationStyles[8] = {
 
 eliminationStyles[16] = {
   container: [
-    '40rem',
+    '41rem',
     '40rem'
   ],
   labels: [],
@@ -76,7 +76,7 @@ eliminationStyles[16] = {
 
 eliminationStyles[32] = {
   container: [
-    '50rem',
+    '51rem',
     '80rem'
   ],
   labels: [],

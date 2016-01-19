@@ -43,7 +43,7 @@ export default class RoundRobin extends BaseFormat{
       <MenuItem
         onTouchTap={this._onEditInfo} primaryText='Edit Info' />
       <MenuItem
-        onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
+        onTouchTap={this._onShowDialogGroupPlayers} primaryText='Players' />
     </IconMenu> : null;
     return (
       <div className='roundRobin group'>

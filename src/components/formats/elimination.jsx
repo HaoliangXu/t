@@ -33,7 +33,7 @@ export default class Elimination extends BaseFormat{
       <MenuItem
         onTouchTap={this._onEditInfo} primaryText='Edit Info' />
       <MenuItem
-        onTouchTap={this._onShowDialogPlayers} primaryText='Players' />
+        onTouchTap={this._onShowDialogGroupPlayers} primaryText='Players' />
     </IconMenu> : null;
     return (
       <div className='group'>
@@ -67,7 +67,8 @@ export default class Elimination extends BaseFormat{
       }
       return <RaisedButton
         style={{
-          width: '8rem',
+          fontSize: '0.7rem',
+          width: '9rem',
           height: '3rem',
           margin: '1rem',
           textTransform: 'none',

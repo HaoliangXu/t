@@ -24,12 +24,13 @@ div#footer{
   height: 5rem;
 }
 div.mainButtonGroup{
+  z-index: 7;
   position: fixed;
   bottom: 0;
   right: 0;
 }
 div.spinner{
-  position: absolute;
+  position: fixed;
   width:100vw;
   height: 100vh;
   top: 0;
@@ -45,13 +46,13 @@ div.spinnerPosition{
   bottom: 50vh;
 }
 div#splash{
-  position: absolute;
-  width:100%;
-  height: 100%;
+  position: fixed;
+  width:100vw;
+  height: 100vh;
   top: 0;
   left: 0;
   background-color: #00bcd4;
-  z-index: 10;
+  z-index: 30;
 }
 div#splashContent{
   width: 25rem;
@@ -68,7 +69,7 @@ div#splash h2{
 
 .group{
   margin: 0.5rem 0 0 0.5rem;
-  max-width: 94vw;
+  max-width: calc(100vw - 1rem);
   float: left;
   min-width: 25rem;
   min-height: 15rem;
@@ -142,18 +143,21 @@ td{
 }
 
 .buttonMatch{
+  position: relative;
   height:1.5rem;
 }
-
 .buttonMatchPlayer{
+  position: absolute;
+  left: 0;
   line-height: 1.5rem;
   vertical-align: middle;
-  float: left;
   margin: 0 0.3rem 0 0.3rem
 }
 .buttonMatchPoints{
-  float: right;
+  position: absolute;
+  right: 0;
   line-height: 1.5rem;
   vertical-align: middle;
-  margin: 0 0.3rem 0 0.3rem
+  margin: 0 0.3rem 0 0.3rem;
+  z-index: 2;
 }
