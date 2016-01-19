@@ -1,9 +1,7 @@
 /*
  * Title: The model of the app manager, it holds app status
  * Description:
- * @start
- * @errHandler
- * @
+ * TODO Make splash page dynamicly load content from server
  */
 
 import AppDispatcher from '../dispatchers/appDispatcher.js';
