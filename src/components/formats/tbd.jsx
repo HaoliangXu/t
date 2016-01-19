@@ -26,6 +26,17 @@ export default class TBD extends BaseFormat{
   }
 
   render() {
+    let formatButtons = this.props.editMode ? <div className='formatSelector'>
+        <FlatButton label='Elimination' onTouchTap={this._onSelectEliminationSize.bind(this, 'elimination')} />
+        <br />
+        <FlatButton
+          label='Double Elimination'
+          onTouchTap={this._onSelectDoubleEliminationSize.bind(this, 'doubleElimination')} />
+        <br />
+        <FlatButton label='Group Dual' onTouchTap={this._onSelectFormat.bind(this, 'groupDual', 4)} />
+        <br />
+        <FlatButton label='Round Robin' onTouchTap={this._onSelectFormat.bind(this, 'roundRobin', 2)} />
+      </div> : <CardText className='formatSelector'>Format has not been decided.</CardText>
     return (
       <div className='group tbd'>
         <Card>
@@ -34,18 +45,8 @@ export default class TBD extends BaseFormat{
               {this._iconMenu}
               <span>Select Format</span>
             </div>}
-            subtitle='Choose one below' />
-          <div className='buttons'>
-            <FlatButton label='Elimination' onTouchTap={this._onSelectEliminationSize.bind(this, 'elimination')} />
-            <br />
-            <FlatButton
-              label='Double Elimination'
-              onTouchTap={this._onSelectDoubleEliminationSize.bind(this, 'doubleElimination')} />
-            <br />
-            <FlatButton label='Group Dual' onTouchTap={this._onSelectFormat.bind(this, 'groupDual', 4)} />
-            <br />
-            <FlatButton label='Round Robin' onTouchTap={this._onSelectFormat.bind(this, 'roundRobin', 2)} />
-          </div>
+            subtitle= {this.props.editMode ? 'Choose one below' : ''} />
+          {formatButtons}
         </Card>
         <Dialog
           title='Select Size'

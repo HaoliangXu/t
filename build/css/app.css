@@ -67,7 +67,7 @@ div#splash h2{
 }
 
 .group{
-  margin: 2% 0 0 2vw;
+  margin: 0.5rem 0 0 0.5rem;
   max-width: 94vw;
   float: left;
   min-width: 25rem;
@@ -86,7 +86,7 @@ div#splash h2{
 }
 
 .group.tbd{
-  width: 25rem;
+  min-height: 10rem;
 }
 
 .roundRobin{
@@ -95,13 +95,15 @@ div#splash h2{
 
 .stage{
   width: 100%;
-  margin: 2% 0;
-  padding: 0 0 2% 0;
+  margin: 0.5rem 0;
+  padding: 0 0 0.5rem 0;
   background-color: white;
 }
 
-.buttons{
-  margin: 1rem;
+.formatSelector{
+  margin: 3rem;
+  text-align: center;
+  min-height: 5rem
 }
 
 .groupContent{
