@@ -9,6 +9,7 @@ var _flags = {
   editMode: false
 };
 var Tjson;
+var _anchor = '';
 
 class PageEditTStore extends BaseStore{
 
@@ -127,8 +128,10 @@ class PageEditTStore extends BaseStore{
         case EditTConstants.EDIT_MATCHES:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
           Tjson.results.stages[payload.action.stageIndex].groups[payload.action.groupIndex].matches = payload.action.matches;
+          _anchor = 'G' + payload.action.groupIndex + 'S' + payload.action.stageIndex;
           _flags.modified = _flags.modified || payload.action.modified;
           this.emitChange();
+          _anchor = '';
           break;
         case EditTConstants.EDIT_STAGE_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
@@ -165,6 +168,10 @@ class PageEditTStore extends BaseStore{
 
   get Tjson(){
     return Tjson;
+  }
+
+  get anchor(){
+    return _anchor
   }
 }
 

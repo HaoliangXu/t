@@ -36,7 +36,9 @@ export default class Elimination extends BaseFormat{
         onTouchTap={this._onShowDialogGroupPlayers} primaryText='Players' />
     </IconMenu> : null;
     return (
-      <div className='group'>
+      <div
+        className='group'
+        id={'G' + this.props.groupIndex + 'S' + this.props.stageIndex}>
         <Card>
           <CardTitle
             title={<div>
@@ -65,6 +67,7 @@ export default class Elimination extends BaseFormat{
       if (match.players[1].tid !== -1 && !player2){
         match.players[1].tid = -1;//TODO not complete
       }
+      //Group with ids like MxxGxxSxx for anchor use
       return <RaisedButton
         style={{
           fontSize: '0.7rem',

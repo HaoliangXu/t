@@ -37,8 +37,10 @@ export default class TBD extends BaseFormat{
         <br />
         <FlatButton label='Round Robin' onTouchTap={this._onSelectFormat.bind(this, 'roundRobin', 2)} />
       </div> : <CardText className='formatSelector'>Format has not been decided.</CardText>
+    //Group with ids like MxxGxxSxx for anchor use
     return (
-      <div className='group tbd'>
+      <div className='group tbd'
+        id={'G' + this.props.groupIndex + 'S' + this.props.stageIndex}>
         <Card>
           <CardTitle
             title={<div>

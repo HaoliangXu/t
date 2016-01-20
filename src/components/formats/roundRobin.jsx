@@ -45,8 +45,10 @@ export default class RoundRobin extends BaseFormat{
       <MenuItem
         onTouchTap={this._onShowDialogGroupPlayers} primaryText='Players' />
     </IconMenu> : null;
+    //Group with ids like MxxGxxSxx for anchor use
     return (
-      <div className='roundRobin group'>
+      <div className='roundRobin group'
+        id={'G' + this.props.groupIndex + 'S' + this.props.stageIndex}>
         <Card>
           <CardTitle
             title={<div>

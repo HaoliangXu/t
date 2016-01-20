@@ -235,9 +235,10 @@ var Comm = {
           editMode: true,
           modified: false
         });
-        AppActions.showNotice('T saved');
+        AppActions.showNotice('Tournament saved');
       },
       function(error){
+        AppActions.showNotice('Saving failed');
         console.log('Error: ' + error.code + ' ' + error.message);
       });
     }

@@ -35,6 +35,7 @@ export default class PageEditT extends React.Component{
         info: {}
       }
     };
+    this._anchor = '';
     this._onTInfo = this._onTInfo.bind(this);
     this._onChange = this._onChange.bind(this);
     this._onSave = this._onSave.bind(this);
@@ -47,6 +48,11 @@ export default class PageEditT extends React.Component{
   }
 
   componentDidMount(){
+    function scrollTo(){
+      var url = location.href;
+      location.href = '#' + this._anchor;
+    }
+    setTimeout(scrollTo.bind(this));
     PageEditTStore.addChangeListener(this._onChange);
   }
 
@@ -175,6 +181,7 @@ export default class PageEditT extends React.Component{
 
   _onChange(){
     setTimeout(AppActions.hideSpinner);
+    this._anchor = PageEditTStore.anchor;
     let newState = {
       page: 'editT',
       Tjson: PageEditTStore.Tjson,
