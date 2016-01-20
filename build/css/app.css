@@ -1,4 +1,5 @@
 body{
+  font-family: Roboto, Arial, sans-serif;
   position: relative;
   margin: 0;
   -moz-user-select: none;
@@ -160,4 +161,13 @@ td{
   vertical-align: middle;
   margin: 0 0.3rem 0 0.3rem;
   z-index: 2;
+}
+.pagePlayersTable>*>tr>*{
+  text-align: center
+}
+.pagePlayersTable>*>tr>*:first-child{
+  width: 1rem;
+}
+.pagePlayersTable>*>tr>*:last-child{
+  width: 9rem;
 }

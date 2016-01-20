@@ -4,8 +4,8 @@
 import React from 'react';
 import AppBar from 'material-ui/lib/app-bar.js';
 import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
-import TrendingUp from 'material-ui/lib/svg-icons/action/trending-up.js';
-import TrendingDown from 'material-ui/lib/svg-icons/action/trending-down.js';
+import Prepend from 'material-ui/lib/svg-icons/editor/vertical-align-top.js';
+import Append from 'material-ui/lib/svg-icons/editor/vertical-align-bottom.js';
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close.js';
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
@@ -34,31 +34,26 @@ export default class PagePlayers extends React.Component{
   }
 
   render(){
+    let _editorsCollumn = this.props.editMode ? <TableHeaderColumn>Editors</TableHeaderColumn> : null;
     return <div>
       <AppBar
         title='Players'
         zDepth={2}
-        style={{'backgroundColor': '#ff4081', 'height': '10rem'}}
-        iconElementRight={<IconButton><NavigationClose /></IconButton>}
-        iconElementLeft={
-          <IconMenu iconButtonElement={
-            <IconButton><Menu /></IconButton>
-            }
-            openDirection="bottom-right">
-            <MenuItem primaryText="Info" />
-          </IconMenu>
-        } />
+        style={{'backgroundColor': '#ff4081', 'height': '10rem'}}/>
       <Table
-        fixedHeader={true}
-        multiSelectable={true}>
-        <TableHeader enableSelectAll={true}>
+        className='pagePlayersTable'
+        fixedHeader={true}>
+        <TableHeader
+          adjustForCheckbox={false}
+          displaySelectAll={false}>
           <TableRow>
             <TableHeaderColumn>No.</TableHeaderColumn>
             <TableHeaderColumn>Name</TableHeaderColumn>
-            <TableHeaderColumn>Notes</TableHeaderColumn>
+            {_editorsCollumn}
           </TableRow>
         </TableHeader>
         <TableBody
+          displayRowCheckbox={false}
           deselectOnClickaway={true}
           showRowHover={true}>
           {this._generateTable()}
@@ -83,17 +78,17 @@ export default class PagePlayers extends React.Component{
   }
 
   _generateTable(){
-    var list = PlayersService.reqPlayerList();
+    let list = PlayersService.reqPlayerList();
+    let _editors = this.props.editMode ? <TableRowColumn>
+        <IconButton onTouchTap={this._onAddBefore.bind(this, index)}><Prepend /></IconButton>
+        <IconButton onTouchTap={this._onAddAfter.bind(this, index)}><Append /></IconButton>
+        <IconButton onTouchTap={this._onDeletePlayer.bind(this, index)}><NavigationClose /></IconButton>
+      </TableRowColumn> : null;
     return list.map((player, index)=>{
       return <TableRow key={'pt' + index}>
         <TableRowColumn>{index + 1}</TableRowColumn>
         <TableRowColumn onTouchTap={this._onShowInfo.bind(this, index)}>{player.name}</TableRowColumn>
-        <TableRowColumn>{player.notes}</TableRowColumn>
-        <TableRowColumn>
-          <IconButton onTouchTap={this._onAddBefore.bind(this, index)}><TrendingUp /></IconButton>
-          <IconButton onTouchTap={this._onAddAfter.bind(this, index)}><TrendingDown /></IconButton>
-          <IconButton onTouchTap={this._onDeletePlayer.bind(this, index)}><NavigationClose /></IconButton>
-        </TableRowColumn>
+        {_editors}
       </TableRow>;
     });
   }
@@ -120,6 +115,9 @@ export default class PagePlayers extends React.Component{
   }
 
   _onShowInfo(index){
+    if (!this.props.editMode){
+      return;
+    }
     var player = PlayersService.reqPlayerByIndex(index);
     editingPlayerTid = index;
     this.refs.playerInfoDialog.setState({
