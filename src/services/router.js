@@ -1,6 +1,6 @@
 /*
  * Title: Router class
- * Description: A fake route manager lib
+ * Description: A route manager lib
  * It reponses route params, set route params, controls history, maintaince app states
  * TODO make it real
  */

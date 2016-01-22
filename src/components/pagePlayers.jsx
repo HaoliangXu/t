@@ -19,7 +19,7 @@ import AppActions from '../actions/appActions.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
 
 //The id that popup dialog is editing.
-var editingPlayerTid = -1;
+var editingPlayerSn = -1;
 
 export default class PagePlayers extends React.Component{
 
@@ -98,14 +98,14 @@ export default class PagePlayers extends React.Component{
       open: false
     });
     PlayersService.updatePlayer(
-      editingPlayerTid,
+      editingPlayerSn,
       {
         name: this.refs.name.getValue(),
         notes: this.refs.notes.getValue()
       }
     );
     this.forceUpdate();
-    editingPlayerTid = -1;
+    editingPlayerSn = -1;
   }
 
   _onDialogInfoCancel(){
@@ -119,7 +119,7 @@ export default class PagePlayers extends React.Component{
       return;
     }
     var player = PlayersService.reqPlayerByIndex(index);
-    editingPlayerTid = index;
+    editingPlayerSn = index;
     this.refs.playerInfoDialog.setState({
       open: true
     });

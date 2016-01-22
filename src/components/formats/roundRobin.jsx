@@ -88,11 +88,11 @@ export default class RoundRobin extends BaseFormat{
           ref='dialogScore'>
           <form role='form'>
             <div className='form-group'>
-              <select ref='scoreRowTid'>
+              <select ref='scoreRowSn'>
                 <option value={-1} key={'so' + -1}></option>
-                {this.props.groupData.players.map(function(tid, index){
-                  return <option value={tid} key={'so' + index}>
-                    {PlayersService.reqPlayerByTid(tid).name}
+                {this.props.groupData.players.map(function(sn, index){
+                  return <option value={sn} key={'so' + index}>
+                    {PlayersService.reqPlayerBySn(sn).name}
                   </option>
                 })}
               </select>
@@ -115,7 +115,7 @@ export default class RoundRobin extends BaseFormat{
       open: true
     });
     setTimeout(function(){
-      this.refs.scoreRowTid.value = scoreRow.tid;
+      this.refs.scoreRowSn.value = scoreRow.sn;
       this.refs.score.setValue(scoreRow.score);
       this.refs.points.setValue(scoreRow.points);
     }.bind(this));
@@ -123,12 +123,12 @@ export default class RoundRobin extends BaseFormat{
 
   _generateScores(){
     return this.props.groupData.scores.map((item, index)=>{
-      var player = PlayersService.reqPlayerByTid(item.tid);
+      var player = PlayersService.reqPlayerBySn(item.sn);
       //TODO not complete. When player is removed from T, then clear them from any group.
       //And there probably should be a overall remover of editT page for this situation.
-      if (item.tid !== -1 && !player){
-        item.tid = -1;
-        this._removePlayerRef(item.tid);
+      if (item.sn !== -1 && !player){
+        item.sn = -1;
+        this._removePlayerRef(item.sn);
       }
       let removeButton = this.props.editMode ?
         <td
@@ -149,13 +149,13 @@ export default class RoundRobin extends BaseFormat{
 
   _generateMatches(){
     return this.props.groupData.matches.map((match, index)=>{
-      var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
-      var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
-      if (match.players[0].tid !== -1 && !player1){
-        match.players[0].tid = -1;//TODO not complete
+      var player1 = PlayersService.reqPlayerBySn(match.players[0].sn);
+      var player2 = PlayersService.reqPlayerBySn(match.players[1].sn);
+      if (match.players[0].sn !== -1 && !player1){
+        match.players[0].sn = -1;//TODO not complete
       }
-      if (match.players[1].tid !== -1 && !player2){
-        match.players[1].tid = -1;//TODO not complete
+      if (match.players[1].sn !== -1 && !player2){
+        match.players[1].sn = -1;//TODO not complete
       }
       return <tr key={'tm' + index} onTouchTap={this._onPageMatch.bind(this, index)}>
         <td className='colName'>{player1 ? player1.name : ''}</td>
@@ -177,11 +177,11 @@ export default class RoundRobin extends BaseFormat{
     );
   }
 
-  _removePlayerRef(tid){
+  _removePlayerRef(sn){
     var players = this.props.groupData.players;
     //Could be more efficient
     var index = players.findIndex((item, index)=>{
-      if (item.tid === tid){
+      if (item.sn === sn){
         return true;
       } else {
         return false;
@@ -213,7 +213,7 @@ export default class RoundRobin extends BaseFormat{
   _onDialogScoreSubmit(){
     var scoreRow = {
       icon: '',
-      tid: this.refs.scoreRowTid.value,
+      sn: this.refs.scoreRowSn.value,
       score: this.refs.score.getValue(),
       points: this.refs.points.getValue(),
       color: 0,

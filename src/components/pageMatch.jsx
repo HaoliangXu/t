@@ -58,8 +58,8 @@ export default class PageMatch extends React.Component{
   }
 
   render(){
-    let player1 = PlayersService.reqPlayerByTid(this.state.match.players[0].tid);
-    let player2 = PlayersService.reqPlayerByTid(this.state.match.players[1].tid);
+    let player1 = PlayersService.reqPlayerBySn(this.state.match.players[0].sn);
+    let player2 = PlayersService.reqPlayerBySn(this.state.match.players[1].sn);
     let _removeMatchButton = this.state.editMode ? <RaisedButton onTouchTap={this._onRemoveMatch}
       primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' /> : null;
     let _addAGameButton = this.state.editMode ? <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
@@ -98,19 +98,19 @@ export default class PageMatch extends React.Component{
           ref='dialogEditInfo'>
           <form role='form'>
             <div className='form-group'>
-              <select ref='name1' defaultValue={this.state.match.players[0].tid}>
+              <select ref='name1' defaultValue={this.state.match.players[0].sn}>
                 <option value={-1} key={'so' + -1}></option>
-                {this.state.groupPlayers.map(function(tid, index){
-                  return <option value={tid} key={'so' + index}>
-                    {PlayersService.reqPlayerByTid(tid).name}
+                {this.state.groupPlayers.map(function(sn, index){
+                  return <option value={sn} key={'so' + index}>
+                    {PlayersService.reqPlayerBySn(sn).name}
                   </option>
                 })}
               </select>
-              <select ref='name2' defaultValue={this.state.match.players[1].tid}>
+              <select ref='name2' defaultValue={this.state.match.players[1].sn}>
                 <option value={-1} key={'so' + -1}></option>
-                {this.state.groupPlayers.map(function(tid, index){
-                  return <option value={tid} key={'so' + index}>
-                    {PlayersService.reqPlayerByTid(tid).name}
+                {this.state.groupPlayers.map(function(sn, index){
+                  return <option value={sn} key={'so' + index}>
+                    {PlayersService.reqPlayerBySn(sn).name}
                   </option>
                 })}
               </select>
@@ -190,8 +190,8 @@ export default class PageMatch extends React.Component{
       open: false
     });
     let match = JSON.parse(JSON.stringify(this.state.match));
-    match.players[0].tid = this.refs.name1.value;
-    match.players[1].tid = this.refs.name2.value;
+    match.players[0].sn = this.refs.name1.value;
+    match.players[1].sn = this.refs.name2.value;
     match.players[0].points = this.refs.points1.getValue();
     match.players[1].points = this.refs.points2.getValue();
     match.startAt = this.refs.date.getDate();

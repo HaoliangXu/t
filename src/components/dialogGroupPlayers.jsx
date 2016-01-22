@@ -47,7 +47,7 @@ export default class DialogGroupPlayers extends React.Component{
   _generatePlayerList(){
     return PlayersService.reqPlayerList().map(function(item, index, list){
       return <TableRow key={'dp' + index} selected={
-          this.props.groupPlayers.indexOf(item.tid) !== -1
+          this.props.groupPlayers.indexOf(item.sn) !== -1
         }>
         <TableRowColumn style={{width: '2rem'}}>{index + 1}</TableRowColumn>
         <TableRowColumn>{item.name}</TableRowColumn>
@@ -58,10 +58,10 @@ export default class DialogGroupPlayers extends React.Component{
   _onRowSelection(selectedRows){
     var groupPlayers = this.props.groupPlayers;
     var playerList = PlayersService.reqPlayerList();
-    //Clear the array, then fill with updated player tid list
+    //Clear the array, then fill with updated player sn list
     groupPlayers.splice(0, groupPlayers.length);
     for (var i = 0; i < selectedRows.length; i++) {
-      groupPlayers.push(playerList[selectedRows[i]].tid);
+      groupPlayers.push(playerList[selectedRows[i]].sn);
     }
   }
 

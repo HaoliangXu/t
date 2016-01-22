@@ -76,7 +76,7 @@ export function newRoundRobin(groupIndex, numOfScoreRow, numOfMatches){
 export function newScoreRow(){
   return {
     icon: '',
-    tid: -1,
+    sn: -1,
     score: '',
     points: '',
     color: 0,
@@ -94,13 +94,13 @@ export function newMatch(){
     players: [
       {
         icon: '',
-        tid: -1,
+        sn: -1,
         color: '',
         points: '0'
       },
       {
         icon: '',
-        tid: -1,
+        sn: -1,
         color: '',
         points: '0'
       }

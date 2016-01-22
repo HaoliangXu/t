@@ -3,7 +3,7 @@ import AppActions from '../actions/authActions';
 import Comm from './communicate.js';
 
 var _players = [];
-var lastTid = 0;
+var lastSn = 0;
 
 class PlayersService {
   //Link _players to Tjson.players
@@ -20,7 +20,7 @@ class PlayersService {
         name: 'Player ' + (i + 1),
         type: '',
         pid: null,
-        tid: lastTid++,
+        sn: lastSn++,
         notes: ''
       };
     }
@@ -33,22 +33,22 @@ class PlayersService {
   addRandomPlayer(index){
     var player = {
       iconUrl: '',
-      name: 'Player ' + (lastTid + 1),
+      name: 'Player ' + (lastSn + 1),
       type: '',
       pid: null,
-      tid: lastTid++,
+      sn: lastSn++,
       notes: ''
     };
     _players.splice(index, 0, player);
       console.log(index, _players);
   }
 
-  deletePlayer(tid){
+  deletePlayer(sn){
     if (_players.length === 2) {
       return;
     }
     var index = _players.findIndex((item)=>{
-      if (item.tid === tid){
+      if (item.sn === sn){
         return true;
       }
     });
@@ -66,15 +66,15 @@ class PlayersService {
     return _players[index];
   }
 
-  reqPlayerByTid(tid){
+  reqPlayerBySn(sn){
     return _players.find((item)=>{
-      return item.tid == tid;//TODO Don't know why '===' doesn't work properly.
+      return item.sn == sn;//TODO Don't know why '===' doesn't work properly.
     });
   }
 
-  updatePlayer(tid, player){
-    _players[tid].name = player.name;
-    _players[tid].notes = player.notes;
+  updatePlayer(sn, player){
+    _players[sn].name = player.name;
+    _players[sn].notes = player.notes;
   }
 
   //Save players data to this service.

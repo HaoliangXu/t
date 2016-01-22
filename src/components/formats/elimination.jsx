@@ -59,13 +59,13 @@ export default class Elimination extends BaseFormat{
   _generateMatches(){
     var matches = this.props.groupData.matches.map((match, index)=>{
       var position = this._styles.matches[index];
-      var player1 = PlayersService.reqPlayerByTid(match.players[0].tid);
-      var player2 = PlayersService.reqPlayerByTid(match.players[1].tid);
-      if (match.players[0].tid !== -1 && !player1){
-        match.players[0].tid = -1;//TODO not complete
+      var player1 = PlayersService.reqPlayerBySn(match.players[0].sn);
+      var player2 = PlayersService.reqPlayerBySn(match.players[1].sn);
+      if (match.players[0].sn !== -1 && !player1){
+        match.players[0].sn = -1;//TODO not complete
       }
-      if (match.players[1].tid !== -1 && !player2){
-        match.players[1].tid = -1;//TODO not complete
+      if (match.players[1].sn !== -1 && !player2){
+        match.players[1].sn = -1;//TODO not complete
       }
       //Group with ids like MxxGxxSxx for anchor use
       return <RaisedButton

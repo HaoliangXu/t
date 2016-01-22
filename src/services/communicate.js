@@ -94,10 +94,10 @@ var Comm = {
   },
 
   //request tournament json
-  reqT: function(tID){
+  reqT: function(sn){
     console.log('request T');
     let quary = new Parse.Query('Tournament');
-    quary.get(tID).then(
+    quary.get(sn).then(
       function(result){
         AppActions.loadPage({
           page: 'editT',
