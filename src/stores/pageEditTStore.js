@@ -30,7 +30,7 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.ADD_STAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          //Add stage into Tjson
+          // Add stage into Tjson
           Tjson.results.stages.splice(payload.action.stageIndex, 0, payload.action.stage);
           _flags.modified = true;
           this.emitChange();
@@ -59,7 +59,7 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.ADD_GROUP:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          //Add group into Tjson
+          // Add group into Tjson
           Tjson.results.stages[payload.action.stageIndex].groups.splice(
             payload.action.groupIndex, 0, payload.action.group
           );
@@ -142,11 +142,11 @@ class PageEditTStore extends BaseStore{
           break;
         case EditTConstants.EDIT_T_INFO:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageEditTStore' );
-          [Tjson.name, Tjson.sport, Tjson.finished, Tjson.info.adress, Tjson.info.brief, Tjson.startAt] = payload.action.TInfo;
+          [Tjson.name, Tjson.sport, Tjson.info.adress, Tjson.info.brief, Tjson.startAt] = payload.action.TInfo;
           _flags.modified = true;
           this.emitChange();
           break;
-        //When login or logout, the 'Edit' menuItem needs to change accordingly.
+        // When login or logout, the 'Edit' menuItem needs to change accordingly.
         case AppConstants.LOGIN_SUCCESS:
         case AppConstants.LOGOUT_SUCCESS:
           this.emitChange();

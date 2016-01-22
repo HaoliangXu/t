@@ -29,8 +29,7 @@ export default class DialogTInfo extends React.Component{
           <div className='form-group'>
             <TextField type='text' defaultValue={this.props.Tjson.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
             <TextField type='text' defaultValue={this.props.Tjson.sport} hintText='Game' ref='game' fullWidth={true} />
-            <TextField type='text' defaultValue={this.props.Tjson.finished} hintText='Status' ref='status' fullWidth={true} />
-            <TextField type='text' defaultValue={this.props.Tjson.info.address} hintText='Location' ref='location' fullWidth={true} />
+            <TextField type='text' defaultValue={this.props.Tjson.info.address} hintText='Address' ref='location' fullWidth={true} />
             <TextField type='text' defaultValue={this.props.Tjson.info.brief} hintText='Brief' ref='brief' fullWidth={true} />
             <DatePicker defaultValue={this.props.Tjson.startAt} ref='date' />
           </div>
@@ -43,7 +42,6 @@ export default class DialogTInfo extends React.Component{
     var TInfo = [
       this.refs.name.getValue(),
       this.refs.game.getValue(),
-      this.refs.status.getValue(),
       this.refs.location.getValue(),
       this.refs.brief.getValue(),
       this.refs.date.getDate()
