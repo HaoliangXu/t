@@ -26,7 +26,9 @@ export default class PageMatch extends React.Component{
       groupIndex: 0,
       stageIndex: 0,
       //Below for refs use
-      groupData: {}
+      groupData: {
+        players: []
+      }
     };
     this._modified = false;
     this._onRemoveMatch = this._onRemoveMatch.bind(this);
@@ -69,6 +71,7 @@ export default class PageMatch extends React.Component{
     let _addAGameButton = this.state.editMode ? <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
       <TableRowColumn  style={{textAlign: 'center'}} colSpan={3}>Add A Game</TableRowColumn>
     </TableRow> : null;
+    console.log(this.state.groupData);
     return (
       <div>
         <Table
