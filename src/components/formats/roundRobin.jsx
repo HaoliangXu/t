@@ -15,6 +15,7 @@ import EditTActions from '../../actions/editTActions.js';
 import PlayersService from '../../services/players.js';
 import {newMatch, newScoreRow} from '../../utils/appConfig.js';
 
+import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
 //Indicates which row DialogScore is showing
 var editingScoreRow = -1;
 
@@ -45,6 +46,13 @@ export default class RoundRobin extends BaseFormat{
       <MenuItem
         onTouchTap={this._onShowDialogGroupPlayers} primaryText='Players' />
     </IconMenu> : null;
+    this._dialogGroupPlayers = <DialogGroupPlayers
+      ref='dialogGroupPlayers'
+      groupPlayers={this.props.groupData.players}
+      groupName={this.props.groupData.name}
+      groupIndex={this.props.groupIndex}
+      stageIndex={this.props.stageIndex}
+    />;
     //Group with ids like MxxGxxSxx for anchor use
     return (
       <div className='roundRobin group'
@@ -118,6 +126,7 @@ export default class RoundRobin extends BaseFormat{
       this.refs.scoreRowSn.value = scoreRow.sn;
       this.refs.score.setValue(scoreRow.score);
       this.refs.points.setValue(scoreRow.points);
+      this.refs.scoreRowSn.focus();
     }.bind(this));
   }
 

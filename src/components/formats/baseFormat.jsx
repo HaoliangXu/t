@@ -7,8 +7,6 @@ import Dialog from 'material-ui/lib/dialog.js';
 import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
 import TextField from 'material-ui/lib/text-field.js';
 
-import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
-
 /*
  * Title: BaseFormat
  * Description: The base format to produce more real formats
@@ -57,13 +55,6 @@ export default class BaseFormat extends React.Component{
         </div>
       </form>
     </Dialog>;
-    this._dialogGroupPlayers = <DialogGroupPlayers
-      ref='dialogGroupPlayers'
-      groupPlayers={this.props.groupData.players}
-      groupName={this.props.groupData.name}
-      groupIndex={this.props.groupIndex}
-      stageIndex={this.props.stageIndex}
-    />;
   }
 
   _onShowDialogGroupPlayers(){

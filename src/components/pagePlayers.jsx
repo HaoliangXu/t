@@ -17,24 +17,28 @@ import {Table, TableHeader, TableRowColumn, TableHeaderColumn, TableBody, TableR
 import PlayersService from '../services/players.js';
 import AppActions from '../actions/appActions.js';
 import MainButtonGroup from './mainButtonGroup.jsx';
+import PageEditTStore from '../stores/pageEditTStore.js';
 
 //The id that popup dialog is editing.
-var editingPlayerSn = -1;
+let editingPlayerSn = -1;
+let editMode = false;
 
 export default class PagePlayers extends React.Component{
 
   constructor(props){
     super(props);
+    editMode = PageEditTStore.editMode;
     this._onDialogInfoSubmit = this._onDialogInfoSubmit.bind(this);
     this._onDialogInfoCancel = this._onDialogInfoCancel.bind(this);
     this._dialogActions = [
       {text: 'Yep', onTouchTap: this._onDialogInfoSubmit, ref: 'submit'},
       {text: 'Cancel', onTouchTap: this._onDialogInfoCancel}
     ];
+
   }
 
   render(){
-    let _editorsCollumn = this.props.editMode ? <TableHeaderColumn>Editors</TableHeaderColumn> : null;
+    let _editorsCollumn = editMode ? <TableHeaderColumn>Editors</TableHeaderColumn> : null;
     return <div>
       <AppBar
         title='Players'
@@ -64,12 +68,11 @@ export default class PagePlayers extends React.Component{
         autoScrollBodyContent={true}
         title='Player Info'
         actions={this._dialogActions}
-        actionFocus='submit'
         ref='playerInfoDialog'>
         <form role='form'>
           <div className='form-group'>
-            <TextField type='text' hintText='Player Name' ref='name' fullWidth={true} />
-            <TextField type='text' hintText='Notes' ref='notes' fullWidth={true} />
+            <TextField onEnterKeyDown={this._onDialogInfoSubmit} type='text' hintText='Player Name' ref='name' fullWidth={true} />
+            <TextField onEnterKeyDown={this._onDialogInfoSubmit} type='text' hintText='Notes' ref='notes' fullWidth={true} />
           </div>
         </form>
       </Dialog>
@@ -79,12 +82,12 @@ export default class PagePlayers extends React.Component{
 
   _generateTable(){
     let list = PlayersService.reqPlayerList();
-    let _editors = this.props.editMode ? <TableRowColumn>
-        <IconButton onTouchTap={this._onAddBefore.bind(this, index)}><Prepend /></IconButton>
-        <IconButton onTouchTap={this._onAddAfter.bind(this, index)}><Append /></IconButton>
-        <IconButton onTouchTap={this._onDeletePlayer.bind(this, index)}><NavigationClose /></IconButton>
-      </TableRowColumn> : null;
     return list.map((player, index)=>{
+      let _editors = editMode ? <TableRowColumn>
+          <IconButton onTouchTap={this._onAddBefore.bind(this, index)}><Prepend /></IconButton>
+          <IconButton onTouchTap={this._onAddAfter.bind(this, index)}><Append /></IconButton>
+          <IconButton onTouchTap={this._onDeletePlayer.bind(this, index)}><NavigationClose /></IconButton>
+        </TableRowColumn> : null;
       return <TableRow key={'pt' + index}>
         <TableRowColumn>{index + 1}</TableRowColumn>
         <TableRowColumn onTouchTap={this._onShowInfo.bind(this, index)}>{player.name}</TableRowColumn>
@@ -94,6 +97,10 @@ export default class PagePlayers extends React.Component{
   }
 
   _onDialogInfoSubmit(){
+    if (!this.refs.name.getValue){
+      AppActions.showNotice('Player name is required');
+      return;
+    }
     this.refs.playerInfoDialog.setState({
       open: false
     });
@@ -115,7 +122,7 @@ export default class PagePlayers extends React.Component{
   }
 
   _onShowInfo(index){
-    if (!this.props.editMode){
+    if (!editMode){
       return;
     }
     var player = PlayersService.reqPlayerByIndex(index);
@@ -124,9 +131,9 @@ export default class PagePlayers extends React.Component{
       open: true
     });
     setTimeout(function(){
-      this.refs.name.focus();
       this.refs.name.setValue(player.name);
       this.refs.notes.setValue(player.notes);
+      this.refs.name.focus();
     }.bind(this));
   }
 

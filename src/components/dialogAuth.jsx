@@ -46,6 +46,7 @@ export default class DialogAuth extends React.Component{
     setTimeout(function(){
       this.refs.txtEmail.setValue('');
       this.refs.txtPassword.setValue('');
+      this.refs.txtEmail.focus();
     }.bind(this));
   }
 
@@ -70,10 +71,13 @@ export default class DialogAuth extends React.Component{
             <p ref='tips'>Login or Signup</p>
             <div className='form-group'>
               <TextField
+                onEnterKeyDown={this._onDialogLogin}
                 onBlur={this._validateEmail.bind(this)}
                 type='text' hintText='Email' ref='txtEmail' fullWidth={true} />
               <br />
-              <TextField type='password' hintText='Password' ref='txtPassword' fullWidth={true} />
+              <TextField
+                onEnterKeyDown={this._onDialogLogin}
+                type='password' hintText='Password' ref='txtPassword' fullWidth={true} />
             </div>
           </form>
         </Dialog>
@@ -87,6 +91,7 @@ export default class DialogAuth extends React.Component{
             <p ref='tips'>Tips:</p>
             <div className='form-group'>
               <TextField
+                onEnterKeyDown={this._onDialogShowSignup}
                 type='password'
                 hintText='Repeate Password'
                 ref='txtRepeatePassword'
@@ -143,6 +148,7 @@ export default class DialogAuth extends React.Component{
     });
     setTimeout(function(){
       this.refs.txtRepeatePassword.setValue('');
+      this.refs.txtRepeatePassword.focus();
     }.bind(this));
   }
 

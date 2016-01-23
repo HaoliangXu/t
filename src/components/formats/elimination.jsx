@@ -35,6 +35,13 @@ export default class Elimination extends BaseFormat{
       <MenuItem
         onTouchTap={this._onShowDialogGroupPlayers} primaryText='Players' />
     </IconMenu> : null;
+    this._dialogGroupPlayers = <DialogGroupPlayers
+      ref='dialogGroupPlayers'
+      groupPlayers={this.props.groupData.players}
+      groupName={this.props.groupData.name}
+      groupIndex={this.props.groupIndex}
+      stageIndex={this.props.stageIndex}
+    />;
     return (
       <div
         className='group'

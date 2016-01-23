@@ -22,7 +22,6 @@ export default class DialogGroupPlayers extends React.Component{
       <Dialog
         title={this.props.groupName + ' Players'}
         actions={this.dialogPlayersActions}
-        actionFocus='submit'
         ref='dialog'
         autoDetectWindowHeight={true}
         autoScrollBodyContent={true}>
