@@ -119,8 +119,7 @@ export default class Elimination extends BaseFormat{
         groupIndex: this.props.groupIndex,
         stageIndex: this.props.stageIndex,
         //Below for refs use
-        groupPlayers: this.props.groupData.players,
-        groupMatches: this.props.groupData.matches
+        groupData: this.props.groupData
       }
     ));
     AppActions.showSpinner();

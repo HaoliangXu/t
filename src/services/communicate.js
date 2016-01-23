@@ -200,7 +200,9 @@ var Comm = {
 
   ///////////////////////////////////////////////////////////////////
   // Edit T methods
-  saveT: function(Tjson){//TODO Add user permission validation
+
+  // import pageEditT for update the 'modified' status
+  saveT: function(Tjson, pageEditT){//TODO Add user permission validation
 
     let Tournament = Parse.Object.extend('Tournament');
     let t;
@@ -229,10 +231,7 @@ var Comm = {
       t.save(ObjectToSave).then(function(result){
         console.log('Save success');
         AppActions.hideSpinner();
-        AppActions.loadPage({
-          page: 'editT',
-          Tjson: _unparseT(result),
-          editMode: true,
+        pageEditT.setState({
           modified: false
         });
         AppActions.showNotice('Tournament saved');

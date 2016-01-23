@@ -146,8 +146,12 @@ export default class PageEditT extends React.Component{
       AppActions.showNotice('Can\'t save unnamed tournament');
       return;
     }
+    if (!this.state.editMode){
+      AppActions.showNotice('Tournament is not modified');
+      return;
+    }
     AppActions.showSpinner();
-    Comm.saveT(this.state.Tjson);
+    Comm.saveT(this.state.Tjson, this);
   }
 
   _onDiscard(){

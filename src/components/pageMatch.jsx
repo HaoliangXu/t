@@ -26,8 +26,7 @@ export default class PageMatch extends React.Component{
       groupIndex: 0,
       stageIndex: 0,
       //Below for refs use
-      groupPlayers: [],
-      groupMatches: []
+      groupData: {}
     };
     this._modified = false;
     this._onRemoveMatch = this._onRemoveMatch.bind(this);
@@ -60,8 +59,13 @@ export default class PageMatch extends React.Component{
   render(){
     let player1 = PlayersService.reqPlayerBySn(this.state.match.players[0].sn);
     let player2 = PlayersService.reqPlayerBySn(this.state.match.players[1].sn);
-    let _removeMatchButton = this.state.editMode ? <RaisedButton onTouchTap={this._onRemoveMatch}
-      primary={true} style={{'width': '100%', 'marginTop': '3rem'}} label='Remove This Match' /> : null;
+    let _removeMatchButton = null;
+    if (this.state.editMode && this.state.groupData.format !== 'elimination'){
+      _removeMatchButton = <RaisedButton onTouchTap={this._onRemoveMatch}
+        primary={true} style={{'width': '100%', 'marginTop': '3rem'}}
+        label='Remove This Match'
+      />;
+    }
     let _addAGameButton = this.state.editMode ? <TableRow key={'pt-1'} onTouchTap={this._onAddGame}>
       <TableRowColumn  style={{textAlign: 'center'}} colSpan={3}>Add A Game</TableRowColumn>
     </TableRow> : null;
@@ -100,7 +104,7 @@ export default class PageMatch extends React.Component{
             <div className='form-group'>
               <select ref='name1' defaultValue={this.state.match.players[0].sn}>
                 <option value={-1} key={'so' + -1}></option>
-                {this.state.groupPlayers.map(function(sn, index){
+                {this.state.groupData.players.map(function(sn, index){
                   return <option value={sn} key={'so' + index}>
                     {PlayersService.reqPlayerBySn(sn).name}
                   </option>
@@ -108,7 +112,7 @@ export default class PageMatch extends React.Component{
               </select>
               <select ref='name2' defaultValue={this.state.match.players[1].sn}>
                 <option value={-1} key={'so' + -1}></option>
-                {this.state.groupPlayers.map(function(sn, index){
+                {this.state.groupData.players.map(function(sn, index){
                   return <option value={sn} key={'so' + index}>
                     {PlayersService.reqPlayerBySn(sn).name}
                   </option>
@@ -141,7 +145,7 @@ export default class PageMatch extends React.Component{
 
   _onBack(){
     let match = JSON.parse(JSON.stringify(this.state.match));
-    let matches = JSON.parse(JSON.stringify(this.state.groupMatches));
+    let matches = JSON.parse(JSON.stringify(this.state.groupData.matches));
     matches[this.state.matchIndex] = match;
     AppActions.lastPage();
     setTimeout(EditTActions.editMatches.bind(
@@ -257,7 +261,7 @@ export default class PageMatch extends React.Component{
   }
 
   _onRemoveMatch(){
-    let matches = JSON.parse(JSON.stringify(this.state.groupMatches));
+    let matches = JSON.parse(JSON.stringify(this.state.groupData.matches));
     this._modified = true;
     matches.splice(this.state.matchIndex, 1);
     AppActions.lastPage();

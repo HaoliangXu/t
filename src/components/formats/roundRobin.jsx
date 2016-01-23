@@ -203,7 +203,7 @@ export default class RoundRobin extends BaseFormat{
     console.log('on turn match page');
     AppActions.nextPage('match');
     setTimeout(AppActions.loadPage.bind(
-      this,
+      undefined,
       {
         page: 'match',
         editMode: this.props.editMode,
@@ -212,8 +212,7 @@ export default class RoundRobin extends BaseFormat{
         groupIndex: this.props.groupIndex,
         stageIndex: this.props.stageIndex,
         //Below for refs use
-        groupPlayers: this.props.groupData.players,
-        groupMatches: this.props.groupData.matches
+        groupData: this.props.groupData
       }
     ));
     AppActions.showSpinner();
