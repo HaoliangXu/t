@@ -6,7 +6,8 @@ body{
   -ms-user-select: none;
   -webkit-user-select: none;
   background-color: #ddd;
-  min-width: 26rem;
+  width: 100vw;
+  min-width: 20rem;
   min-height: 100vh;
 }
 body::-webkit-scrollbar {
@@ -56,7 +57,7 @@ div#splash{
   z-index: 30;
 }
 div#splashContent{
-  width: 25rem;
+  width: 100vw;
   margin: calc(50vh - 10rem) auto;
 }
 div#splash h1{
@@ -72,7 +73,7 @@ div#splash h2{
   margin: 0.5rem 0 0 0.5rem;
   max-width: calc(100vw - 1rem);
   float: left;
-  min-width: 25rem;
+  min-width: 19rem;
   min-height: 15rem;
 }
 
@@ -92,7 +93,7 @@ div#splash h2{
 }
 
 .roundRobin{
-  width: 25rem;
+  width: 20rem;
 }
 
 .stage{
@@ -111,7 +112,7 @@ div#splash h2{
 .groupContent{
   border-collapse: collapse;
   margin: 0 1em 2rem 1rem;
-  min-width: 23rem;
+  min-width: 19rem;
   max-width: calc(100% - 2rem);
   text-align: center;
 }
@@ -119,19 +120,20 @@ div#splash h2{
 table.groupContent tr{
   border-top: 2px solid #eee;
   border-bottom: 2px solid #eee;
-  padding: 0.3rem
+  padding: 0.3rem;
+  font-size: 0.7rem;
 }
 td.playerName{
   width: 13rem;
 }
 td.playerNumber{
-  width: 5rem;
+  width: 4rem;
 }
 td.colNumber{
-  width: 2rem;
+  width: 1rem;
 }
 td.colName{
-  width: 8rem;
+  width: 7rem;
 }
 td.colPoints{
   width: 2rem;
