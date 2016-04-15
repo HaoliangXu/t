@@ -54,12 +54,12 @@ function _parseT(Tjson){
     name: Tjson.name,
     sport: Tjson.sport,
     city: Tjson.city,
-    geoPoint: Tjson.geoPoint ? Parse.GeoPoint(Tjson.geoPoint) : null,
+    geoPoint: Tjson.geoPoint ? AV.GeoPoint(Tjson.geoPoint) : null,
     startAt: Tjson.startAt,
     finished: Tjson.finished,
     bgPic: Tjson. bgPic,
     info: Tjson.info,
-    creator: Parse.User.current(),
+    creator: AV.User.current(),
     players: Tjson.players,
     results: Tjson.results
   }
@@ -96,7 +96,7 @@ var Comm = {
   //request tournament json
   reqT: function(sn){
     console.log('request T');
-    let quary = new Parse.Query('Tournament');
+    let quary = new AV.Query('Tournament');
     quary.get(sn).then(
       function(result){
         AppActions.loadPage({
@@ -115,7 +115,7 @@ var Comm = {
   // View T methods
   reqTList: function(params){
     console.log('requesting discover list');
-    let query = new Parse.Query('Tournament');
+    let query = new AV.Query('Tournament');
     query.select('name', 'sport', 'startAt');
     //if no keywords, then send hot tournaments list as default
     if (params.default) {
@@ -152,7 +152,7 @@ var Comm = {
 
   //Return current user, if none logged in, return null
   checkAuthStatus: function(){
-    let user = Parse.User.current();
+    let user = AV.User.current();
     if (user){
       let res = _unparseUser(user);
       AuthActions.loginSuccess(res);
@@ -160,7 +160,7 @@ var Comm = {
   },
 
   reqSignup: function(email, password){
-    var user = new Parse.User();
+    var user = new AV.User();
     user.signUp({
       username: email,
       screenName: email,
@@ -175,7 +175,7 @@ var Comm = {
   },
 
   reqLogin: function(email, password){
-    Parse.User.logIn(email, password).then(
+    AV.User.logIn(email, password).then(
       function(user){
         console.log('Login Success!');
         let res = _unparseUser(user);
@@ -191,11 +191,8 @@ var Comm = {
   },
 
   reqLogout: function(){
-    Parse.User.logOut().then(function(){
-      AuthActions.logoutSuccess();
-    }, function(error){
-      console.log('Error: ' + error.code + ' ' + error.message);
-    });
+    AV.User.logOut();
+    AuthActions.logoutSuccess();
   },
 
   ///////////////////////////////////////////////////////////////////
@@ -204,13 +201,13 @@ var Comm = {
   // import pageEditT for update the 'modified' status
   saveT: function(Tjson, pageEditT){//TODO Add user permission validation
 
-    let Tournament = Parse.Object.extend('Tournament');
+    let Tournament = AV.Object.extend('Tournament');
     let t;
     let ObjectToSave = {
       name: Tjson.name,
       sport: Tjson.sport,
       city: Tjson.city,
-      geoPoint: Tjson.geoPoint ? Parse.GeoPoint(Tjson.geoPoint) : null,
+      geoPoint: Tjson.geoPoint ? AV.GeoPoint(Tjson.geoPoint) : null,
       startAt: Tjson.startAt,
       finished: Tjson.finished,
       bgPic: Tjson.bgPic,
@@ -219,7 +216,7 @@ var Comm = {
       results: Tjson.results
     };
 
-    let currentUser = Parse.User.current();
+    let currentUser = AV.User.current();
     if (!currentUser){
       //Error, anonymous is not authorized to create T
       AppActions.showNotice('Please log in to create or modify a tournament');
@@ -242,7 +239,7 @@ var Comm = {
       });
     }
     if (Tjson.id){
-      let quary = new Parse.Query(Tournament);
+      let quary = new AV.Query(Tournament);
       quary.get(Tjson.id).then(function(T){
         if (T.get('creator').id !== currentUser.id){
           AppActions.showNotice('You don not have the permission to modify it');
@@ -257,9 +254,9 @@ var Comm = {
       });
     } else {
       //Tjson doesn't have a valid id, create a new one
-      let  acl = new Parse.ACL();
+      let  acl = new AV.ACL();
       acl.setPublicReadAccess(true);
-      acl.setWriteAccess(Parse.User.current().id, true);
+      acl.setWriteAccess(AV.User.current().id, true);
       acl.setRoleWriteAccess('master', true);
       t = new Tournament();
       t.setACL(acl);
