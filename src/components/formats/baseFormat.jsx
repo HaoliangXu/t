@@ -3,6 +3,11 @@ import EditTActions from '../../actions/editTActions.js';
 import MenuItem from 'material-ui/lib/menus/menu-item.js';
 import IconButton from 'material-ui/lib/icon-button.js';
 import Menu from 'material-ui/lib/svg-icons/navigation/menu.js';
+import Dialog from 'material-ui/lib/dialog.js';
+import DatePicker from 'material-ui/lib/date-picker/date-picker.js';
+import TextField from 'material-ui/lib/text-field.js';
+
+import DialogGroupPlayers from '../dialogGroupPlayers.jsx';
 
 /*
  * Title: BaseFormat
@@ -30,6 +35,39 @@ export default class BaseFormat extends React.Component{
         onTouchTap={this._onRemoveGroup.bind( this, this.props.groupIndex, this.props.stageIndex )}
         primaryText='Remove' key='menuItem4' />
     ];
+    this._onDialogCancel = this._onDialogCancel.bind(this);
+    this._onDialogSubmit = this._onDialogSubmit.bind(this);
+    this._onShowDialogPlayers = this._onShowDialogPlayers.bind(this);
+    this._onEditInfo = this._onEditInfo.bind(this);
+    this.dialogInfoActions = [
+      {text: 'Do it', onTouchTap: this._onDialogSubmit, ref: 'submit'},
+      {text: 'Nay', onTouchTap: this._onDialogCancel}
+    ];
+    this._dialogEditInfo = <Dialog
+      title='Edit Group Info'
+      actions={this.dialogInfoActions}
+      actionFocus='submit'
+      ref='dialogEditInfo'>
+      <form role='form'>
+        <div className='form-group'>
+          <TextField type='text' defaultValue={this.props.groupData.name} hintText='Group Name (Required)' ref='name' fullWidth={true} />
+          <TextField type='text' defaultValue={this.props.groupData.status} hintText='Status' ref='status' fullWidth={true} />
+          <TextField type='text' defaultValue={this.props.groupData.location} hintText='Location' ref='location' fullWidth={true} />              Start Time
+          <DatePicker defaultValue={this.props.groupData.when} ref='date' />
+        </div>
+      </form>
+    </Dialog>;
+    this._dialogGroupPlayers = <DialogGroupPlayers
+      ref='dialogGroupPlayers'
+      groupPlayers={this.props.groupData.players}
+      groupName={this.props.groupData.name}
+      groupIndex={this.props.groupIndex}
+      stageIndex={this.props.stageIndex}
+    />;
+  }
+
+  _onShowDialogPlayers(){
+    this.refs.dialogGroupPlayers.show();
   }
 
   _onMoveUp(groupIndex, stageIndex){
@@ -48,5 +86,29 @@ export default class BaseFormat extends React.Component{
 
   _onRemoveGroup(groupIndex, stageIndex){
     EditTActions.removeGroup(groupIndex, stageIndex);
+  }
+
+  //Methods of dialogEditInfo
+  _onEditInfo(){
+    this.refs.dialogEditInfo.show();
+  }
+
+  _onDialogSubmit(){
+    var groupInfo = [
+      this.refs.name.getValue(),
+      this.refs.status.getValue(),
+      this.refs.location.getValue(),
+      this.refs.date.getDate()
+    ];
+    this.refs.dialogEditInfo.dismiss();
+    EditTActions.editGroupInfo(
+      groupInfo,
+      this.props.groupIndex,
+      this.props.stageIndex
+    );
+  }
+
+  _onDialogCancel(){
+    this.refs.dialogEditInfo.dismiss();
   }
 }

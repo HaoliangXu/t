@@ -11,19 +11,19 @@ import Comm from '../services/communicate.js';
 //var ThemeManager = Mui.Styles.ThemeManager;
 
 var menuItems = [
-  { route: 'discover', text: 'Discover' },
-  { route: 'calendar', text: 'Calendar' },
-  { route: 'likes', text: 'Likes' },
-  { route: 'msg', text: 'Messages' },
-  { route: 'forums', text: 'Forums' },
-  { route: 'settings', text: 'Settings' },
-  { route: 'about', text: 'About' }
+  {route: 'discover', text: 'Discover'},
+  {route: 'calendar', text: 'Calendar'},
+  {route: 'likes', text: 'Likes'},
+  {route: 'msg', text: 'Messages'},
+  {route: 'forums', text: 'Forums'},
+  {route: 'settings', text: 'Settings'},
+  {route: 'about', text: 'About'}
 ];
 
 export default class MainMenu extends React.Component{
 
-  constructor( props ){
-    super( props );
+  constructor(props){
+    super(props);
     this.state = {
       show: MainMenuStore.showMenu
     };
@@ -31,11 +31,11 @@ export default class MainMenu extends React.Component{
   }
 
   componentDidMount(){
-    MainMenuStore.addChangeListener( this._onChange );
+    MainMenuStore.addChangeListener(this._onChange);
   }
 
   componentWillUnmount(){
-    MainMenuStore.removeChangeListener( this._onChange );
+    MainMenuStore.removeChangeListener(this._onChange);
   }
 
   render(){
@@ -63,7 +63,7 @@ export default class MainMenu extends React.Component{
 //    };
 //  }
 
-  _onItemChange( e, item, payload ){
+  _onItemChange(e, item, payload){
     console.log('change');
     AppActions.switchPage(payload.route);
     AppActions.showSpinner();
@@ -78,7 +78,7 @@ export default class MainMenu extends React.Component{
   _onChange(){
     var state = MainMenuStore.mainMenuState;
     console.log(state);
-    if (state.triggerShow) {
+    if (state.triggerShow){
       this.open();
       return;
     }

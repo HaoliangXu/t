@@ -33,7 +33,7 @@ export function newT(){
     prize: {},
     when: '',
     duration: '',
-    others: '',
+    notes: '',
     tier: '',
     polularity: {
       view: 0,
@@ -64,10 +64,10 @@ export function newRoundRobin(groupIndex, numOfScoreRow, numOfMatches){
     status: 'Upcoming',
     when: '',
     location: '',
+    notes: [],
     players: [],
     scores: scores,
-    matches: matches,
-    notes: []
+    matches: matches
   };
 }
 
@@ -84,7 +84,7 @@ export function newScoreRow(){
 
 export function newMatch(){
   return {
-    note: '',
+    notes: '',
     color: 0,
     status: 'Upcoming',
     when: '',
@@ -116,5 +116,39 @@ export function newGameOfMatch(){
     set: '',
     rightColor: 0,
     rightProperty: ''
+  };
+}
+
+export function newElimination(groupIndex, format, sizeOfGroup, numOfMatches, numofLabels){
+  var matches = [];
+  var labels = [];
+  numOfMatches = numOfMatches ? numOfMatches : sizeOfGroup - 1;
+  numofLabels = numofLabels ? numofLabels : Math.log2(sizeOfGroup);
+  var numofLabels = Math.log2(sizeOfGroup) * 3;
+  for (var i = 0; i < numOfMatches; i++){
+    matches[i] = newMatch();
   }
+  for (var i = 0; i < numofLabels; i++){
+    labels[i] = {
+      title: '',
+      color: ''
+    };
+  }
+  return {
+    name: 'Group ' + (groupIndex + 1),
+    format: format,
+    status: 'Upcoming',
+    when: '',
+    location: '',
+    notes: [],
+    players: [],
+    labels: labels,
+    matches: matches
+  };
+}
+
+export function newDoubleElimination(groupIndex, format, sizeOfGroup){
+  var numOfMatches = (sizeOfGroup - 1) * 2;
+  var numofLabels = Math.log2(sizeOfGroup) * 3;
+  return newElimination(groupIndex, format, sizeOfGroup, numOfMatches, numofLabels);
 }

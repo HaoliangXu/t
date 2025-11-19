@@ -37,7 +37,7 @@ export default class App extends React.Component {
     AppActions.nextPage(req.page);
   }
 
-  render() {
+  render(){
     this._selectPage(this.state.page);
     return (
       <div className='appBox'>

@@ -33,7 +33,7 @@ class Router{
   }
 
   lastPage(){
-    if (_historyChain.length > 1) {
+    if (_historyChain.length > 1){
       _historyChain.shift();
     }
     setTimeout(AppActions.loadPage.bind(undefined, _historyChain[0].content));

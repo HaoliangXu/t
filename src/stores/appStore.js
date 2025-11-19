@@ -18,7 +18,7 @@ var pageData = {};
 
 var AppStore = assign({}, EventEmitter.prototype, {
 
-  getPage: function() {
+  getPage: function(){
     return page;
   },
 

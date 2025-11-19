@@ -4,25 +4,25 @@ import AuthConstants from '../constants/authConstants.js';
 export default {
 
   // Show login dialog
-  showLogin: function() {
+  showLogin: function(){
     AppDispatcher.handleViewAction({
       actionType: AuthConstants.SHOW_LOGIN
     });
   },
 
-  dismissLogin: function() {
+  dismissLogin: function(){
     AppDispatcher.handleViewAction({
       actionType: AuthConstants.DISMISS_LOGIN
     });
   },
 
-  loginFail: function() {
+  loginFail: function(){
     AppDispatcher.handleServerAction({
       actionType: AuthConstants.LOGIN_FAIL
     });
   },
 
-  loginSuccess: function(res) {
+  loginSuccess: function(res){
     console.log('loginSuccess');
     AppDispatcher.handleServerAction({
       actionType: AuthConstants.LOGIN_SUCCESS,

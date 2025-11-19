@@ -5,12 +5,12 @@ import EditTConstants from '../constants/editTConstants.js';
 //TODO Directly save payload.action.content and pass it to component
 var _pageContent;
 
-class PageMatchStore extends BaseStore {
+class PageMatchStore extends BaseStore{
 
   constructor() {
     super();
     this.subscribe(function(payload){
-      switch (payload.action.actionType) {
+      switch (payload.action.actionType){
         case AppConstants.LOAD_PAGE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to PageMatchStore' );
           if (payload.action.content.page !== 'match') {

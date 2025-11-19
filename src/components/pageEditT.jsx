@@ -128,7 +128,7 @@ export default class PageEditT extends React.Component{
   }
 
   _onAddNewStage(stageIndex){
-    var stage = newStage();
+    var stage = newStage(stageIndex);
     EditTActions.addStage(stage, stageIndex);
   }
 

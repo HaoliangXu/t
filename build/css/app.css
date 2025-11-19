@@ -43,7 +43,10 @@ div#splashContent{
 
 .group{
   margin: 2% 0 0 2%;
+  max-width: 96%;
   float: left;
+  min-width: 25rem;
+  min-height: 15rem;
 }
 
 .groupTitle{
@@ -75,14 +78,14 @@ div#splashContent{
   margin: 1rem;
 }
 
-table.groupTable {
+.groupContent{
   border-collapse: collapse;
   margin: 0 1em 2rem 1rem;
-  width: 23rem;
+  min-width: 23rem;
   text-align: center;
 }
 
-table.groupTable tr{
+table.groupContent tr{
   border-top: 2px solid #eee;
   border-bottom: 2px solid #eee;
   padding: 0.3rem
@@ -107,4 +110,21 @@ th{
 }
 td{
   height:1.7rem;
+}
+
+.buttonMatch{
+  height:1.5rem;
+}
+
+.buttonMatchPlayer{
+  line-height: 1.5rem;
+  vertical-align: middle;
+  float: left;
+  margin: 0 0.3rem 0 0.3rem
+}
+.buttonMatchPoints{
+  float: right;
+  line-height: 1.5rem;
+  vertical-align: middle;
+  margin: 0 0.3rem 0 0.3rem
 }

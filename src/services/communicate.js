@@ -66,7 +66,7 @@ var Comm = {
     });
   },
 
-  reqTList: function(params) {
+  reqTList: function(params){
     console.log('requesting discover list');
     //if no keywords, then send hot tournaments list as default
     if (params.default) {

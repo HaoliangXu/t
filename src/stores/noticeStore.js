@@ -3,12 +3,12 @@ import AppConstants from '../constants/appConstants.js';
 
 var _notice = '';
 
-class NoticeStore extends BaseStore {
+class NoticeStore extends BaseStore{
 
-  constructor() {
+  constructor(){
     super();
-    this.subscribe( function( payload ){
-      switch ( payload.action.actionType ) {
+    this.subscribe(function(payload){
+      switch (payload.action.actionType){
         case AppConstants.SHOW_NOTICE:
           console.log( 'dispatching action ' + payload.action.actionType + ' to noticeStore' );
           _notice = payload.action.notice;
@@ -18,7 +18,7 @@ class NoticeStore extends BaseStore {
           // no op
 
       }
-    }.bind( this ));
+    }.bind(this));
   }
 
   get notice(){

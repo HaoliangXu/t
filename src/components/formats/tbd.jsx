@@ -4,7 +4,13 @@ import {Card, CardTitle, CardText, CardHeader} from 'material-ui/lib/card/index.
 import Dialog from 'material-ui/lib/dialog.js';
 import FlatButton from 'material-ui/lib/flat-button.js';
 import EditTActions from '../../actions/editTActions.js';
-import {newTBD, newStage, newRoundRobin} from '../../utils/appConfig.js';
+import {
+  newTBD,
+  newStage,
+  newRoundRobin,
+  newElimination,
+  newDoubleElimination
+} from '../../utils/appConfig.js';
 
 import IconMenu from 'material-ui/lib/menus/icon-menu.js';
 
@@ -30,9 +36,11 @@ export default class TBD extends BaseFormat{
             </div>}
             subtitle='Choose one below' />
           <div className='buttons'>
-            <FlatButton label='Elimination' onTouchTap={this._onSelectSize.bind(this, 'elimination')} />
+            <FlatButton label='Elimination' onTouchTap={this._onSelectEliminationSize.bind(this, 'elimination')} />
             <br />
-            <FlatButton label='Double Elimination' onTouchTap={this._onSelectSize.bind(this, 'doubleElimination')} />
+            <FlatButton
+              label='Double Elimination'
+              onTouchTap={this._onSelectDoubleEliminationSize.bind(this, 'doubleElimination')} />
             <br />
             <FlatButton label='Group Dual' onTouchTap={this._onSelectFormat.bind(this, 'groupDual', 4)} />
             <br />
@@ -48,46 +56,44 @@ export default class TBD extends BaseFormat{
           <FlatButton label='16' onTouchTap={this._onSelectFormat.bind(this, undefined, 16)} />
           <FlatButton label='32' onTouchTap={this._onSelectFormat.bind(this, undefined, 32)} />
         </Dialog>
+        <Dialog
+          title='Select Size'
+          ref='dialogSizeOfDoubleElimination'>
+          <FlatButton label='4' onTouchTap={this._onSelectFormat.bind(this, undefined, 4)} />
+          <FlatButton label='8' onTouchTap={this._onSelectFormat.bind(this, undefined, 8)} />
+          <FlatButton label='16' onTouchTap={this._onSelectFormat.bind(this, undefined, 16)} />
+        </Dialog>
       </div>
     );
   }
 
-  _onSelectSize(formatType){
+  _onSelectEliminationSize(formatType){
     _currentFormatType = formatType;
     this.refs.dialogSizeOfElimination.show();
+  }
+
+  _onSelectDoubleEliminationSize(formatType){
+    _currentFormatType = formatType;
+    this.refs.dialogSizeOfDoubleElimination.show();
   }
 
   _onSelectFormat(formatType, size){
     if (!formatType){
       formatType = _currentFormatType;
     }
-    console.log(formatType, size);
     var format;
     switch (formatType){
       case 'elimination':
-        switch (size){
-          case 2:
-            format = newElimination2(this.props.groupIndex);
-            break;
-          case 4:
-            format = newElimination4(this.props.groupIndex);
-            break;
-          case 8:
-            format = newElimination8(this.props.groupIndex);
-            break;
-          case 16:
-            format = newElimination16(this.props.groupIndex);
-            break;
-          case 32:
-            format = newElimination32(this.props.groupIndex);
-            break;
-        }
+        format = newElimination(this.props.groupIndex, formatType, size);
         break;
       case 'roundRobin':
         format = newRoundRobin(this.props.groupIndex, 2, 1);
         break;
       case 'groupDual':
         format = newRoundRobin(this.props.groupIndex, 4, 4);
+        break;
+      case 'doubleElimination':
+        format = newDoubleElimination(this.props.groupIndex, formatType, size);
         break;
     }
     EditTActions.setGroupFormat(format, this.props.groupIndex, this.props.stageIndex);
